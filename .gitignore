@@ -1,0 +1,22 @@
+# PHPStorm/WebStorm #
+#####################
+.idea
+
+
+# Meteor and Customs #
+#####################
+app/.meteor/local
+app/.meteor/meteorite
+app/.demeteorized
+
+app/server/lib/config/config.js
+app/client/lib/config/config.js
+app/lib/config/config.js
+
+# Server configs #
+##################
+
+ambiant.ppk
+app/mup.json
+app/settings.json
+app/mup.json

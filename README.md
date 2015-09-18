@@ -1,4 +1,4 @@
-# myradio
+# Ambiant.io
 Collaborative radio for streamers / partys
 
 ## TODO:

@@ -1,0 +1,160 @@
+.playlist {
+    h4 {
+        button {
+            float: right;
+            padding: 0 0 0 20px;
+
+            &:hover { @extend .red-text; }
+
+            i {
+                font-size: 2.2rem;
+                transform: translateY(-4px);
+            }
+        }
+    }
+
+    .collection {
+        margin: 0;
+
+        .collection-item {
+            color: $primary-color;
+            height: auto;
+            padding: 10px 0 0 0;
+
+            &[data-state="playing"] {
+                background-color: $secondary-color;
+                color: #fff;
+
+                //&:hover {
+                //    background-color: lighten($secondary-color, 10%);
+                //}
+            }
+
+            &[data-state="ended"] {
+                background-color: rgba(0,0,0,0.05);
+                color: rgba(0,0,0,0.5);
+                opacity: 0.5;
+                transition: all 0.3s;
+                overflow-y: hidden;
+            }
+
+            &:hover,
+            &:active,
+            &:focus {
+                //background-color: #eee;
+
+                .actions {
+                    height: 30px;
+                    opacity: 1;
+                    overflow: hidden;
+                }
+            }
+
+            &:last-child {
+                .actions {
+                    transform: translateY(0);
+                }
+            }
+
+            span {
+                display: inline-block;
+                padding-left: 72px;
+                padding-right: 20px;
+                width: 100%;
+            }
+
+            .title {
+                padding-right: 10px;
+
+                >span {
+                    float: right;
+                    font-size: 11px;
+                    padding: 0 0 0 10px;
+                    width: auto;
+                }
+            }
+
+            .actions {
+                height: 0;
+                margin-top: 10px;
+                opacity: 0;
+                overflow-y: hidden;
+                text-align: center;
+                transition: opacity 0.3s, height 0.3s, background-color 0.3s;
+                width: 100%;
+
+                a {
+                    background-color: $primary-color;
+                    border-left: 1px solid #666;
+                    color: #fff;
+                    display: block;
+                    float: left;
+                    line-height: 30px;
+                    transition: background-color 0.3s;
+                    width: 33.33333333%;
+
+                    &:first-child {
+                        border-left: none;
+                    }
+
+                    &:hover {
+                        background-color: #3A404A;
+                    }
+
+                    &:last-child {
+                        @extend .red;
+                        @extend .darken-4;
+
+                        &:hover {
+                            @extend .darken-2;
+                        }
+                    }
+                }
+            }
+        }
+
+        .collection-empty {
+            color: rgba(0,0,0,0.5);
+            padding-left: 20px;
+
+            p {
+                margin-bottom: 0;
+                padding-bottom: 20px;
+                padding-right: 20px;
+
+                span {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
+.search {
+    position: relative;
+
+    .collection {
+        left: 10px;
+        //opacity: 0.95;
+        position: absolute;
+        top: 37px;
+        width: calc(100% - 20px);
+        z-index: 2;
+
+        a {
+            color: $primary-color;
+
+            &:hover, &:active, &:focus, &.active {
+                background-color: $secondary-color !important;
+                color: #fff;
+            }
+        }
+    }
+
+    .loading {
+        margin: 0;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+}

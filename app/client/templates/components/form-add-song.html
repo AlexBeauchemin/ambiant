@@ -1,0 +1,32 @@
+<template name="FormAddSong">
+    <form class="row control-add" data-action="add-song">
+        <div class="input-field col s12 m8 search">
+            <input type="text" name="add-song" placeholder="Search song name or enter youtube Url" autocomplete="off" />
+
+            {{#if getSession "isSearching"}}
+            <div class="center-align loading">
+                <div class="preloader-wrapper tiny active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+
+            {{> searchResult}}
+        </div>
+        <div class="col s12 m4 align-right">
+            {{#if isState "loading"}}
+            <button type="button" class="btn waves-effect waves-light" disabled>Add To Queue</button>
+            {{else}}
+            <button type="submit" class="btn waves-effect waves-light">Add To Queue</button>
+            {{/if}}
+        </div>
+    </form>
+</template>

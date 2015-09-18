@@ -1,0 +1,19 @@
+<template name="Home">
+    <div class="page-home">
+        <h1 class="center-align">A simple collaborative music playlist</h1>
+        <ul class="space-top-big">
+            <li>Start a radio by choosing a name and hit the "create" button</li>
+            <li>Add songs that you like</li>
+            <li>Invite your friends to add songs that they like (or keep it for yourself) by sharing your unique url</li>
+            <li>That's it, your radio is now ready!</li>
+        </ul>
+        <p class="space-top">The radio will continue playing related songs when your playlist ends. If you are a <a href="http://www.twitch.com">Twitch</a> streamer, login in with Twitch and let your viewers, followers or subscribers decide what will play next.</p>
+        <p class="space-top-big center-align">
+            {{#if myRadio}}
+                <a href="/radio/{{myRadio.url}}" class="btn btn-large waves-effect waves-light modal-trigger">Go to my radio</a>
+            {{else}}
+                <a href="#modal-create-radio" class="btn btn-large waves-effect waves-light modal-trigger">Create your radio</a>
+            {{/if}}
+        </p>
+    </div>
+</template>

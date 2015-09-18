@@ -1,0 +1,11 @@
+<template name="BtnNext">
+    {{#if radio.playlist.length}}
+        {{#if isState "loading"}}
+            <button type="button" class="btn waves-effect waves-light" disabled><i class="material-icons right">skip_next</i>Next Song</button>
+        {{else}}
+            <button type="button" class="btn waves-effect waves-light" data-action="next"><i class="material-icons right">skip_next</i>Next Song</button>
+        {{/if}}
+    {{else}}
+        <button type="button" class="btn waves-effect waves-light" disabled><i class="material-icons right">skip_next</i>Next Song</button>
+    {{/if}}
+</template>

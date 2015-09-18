@@ -1,0 +1,9 @@
+{
+  "useIndex" : false,
+  "indexFilePath" : "client/css/main.scss",
+  "enableAutoprefixer": true,
+  "autoprefixerOptions": {
+    "cascade": false,
+    "map": true
+  }
+}

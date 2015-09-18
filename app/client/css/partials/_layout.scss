@@ -1,0 +1,36 @@
+html {
+    background-color: rgb(245, 245, 245);
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    padding-top: 30px;
+}
+
+nav {
+    background-color: $primary-color;
+}
+
+footer.page-footer {
+    color: #fff;
+    font-size: 85%;
+    padding: 10px 0;
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .container {
+        width: 90%;
+    }
+}

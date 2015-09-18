@@ -1,0 +1,11 @@
+<template name="BtnClear">
+    {{#if radio.playlist.length}}
+        {{#if isState "loading"}}
+            <button type="button" class="btn waves-effect waves-light" disabled><i class="material-icons right">delete</i>Clear</button>
+        {{else}}
+            <button type="button" class="btn waves-effect waves-light" data-action="clear"><i class="material-icons right">delete</i>Clear</button>
+        {{/if}}
+    {{else}}
+        <button type="button" class="btn waves-effect waves-light" disabled><i class="material-icons right">delete</i>Clear</button>
+    {{/if}}
+</template>

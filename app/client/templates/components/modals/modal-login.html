@@ -1,0 +1,23 @@
+<template name="modalLogin">
+    <form id="modal-login" class="modal {{getSession "login-error"}}">
+        <div class="modal-content">
+            <div class="input-field">
+                <button type="button" class="btn btn-twitch waves-effect waves-light full-width" data-action="login-twitch">Login with Twitch</button>
+            </div>
+            <div class="input-field">
+                <input id="email" name="email" type="email" maxlength="100" />
+                <label for="email">Email</label>
+            </div>
+            <div class="input-field">
+                <input id="password" name="password" type="password" maxlength="100" />
+                <label for="password">Password</label>
+            </div>
+            <div class="input-field">
+                <button type="submit" class="btn waves-effect waves-light full-width">Login</button>
+            </div>
+            <p class="center-align">
+                <a href="#">Forgot password</a>
+            </p>
+        </div>
+    </form>
+</template>

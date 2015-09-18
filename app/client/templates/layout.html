@@ -1,0 +1,19 @@
+<template name="Layout">
+    <header>
+        {{> Header }}
+    </header>
+
+    <main>
+        <div class="container">
+            {{> yield }}
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        {{> Footer }}
+    </footer>
+
+    {{> modalCreateRadio}}
+    {{> modalLogin }}
+    {{> modalSignup }}
+</template>

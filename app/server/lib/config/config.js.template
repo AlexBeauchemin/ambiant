@@ -1,0 +1,16 @@
+if (!App) App = {};
+
+var config = {
+  dev: {
+    youtubeApiKey: '',
+    twitchClientId: '',
+    twitchClientSecret: ''
+  },
+  prod: {
+    youtubeApiKey: '',
+    twitchClientId: '',
+    twitchClientSecret: ''
+  }
+};
+
+App.config = config[process.env.NODE_ENV];

@@ -1,0 +1,29 @@
+<template name="Player">
+    <div class="video video-wrapper {{isHidden isAdmin}}" data-state="{{getSession "player-state"}}" data-items="{{radio.playlist.length}}">
+        {{#if isState "loading"}}
+            <div class="middle">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+        <div id="youtube-player"></div>
+        <div class="cover cover-play"><a class="valign-wrapper" href="#" data-action="play"><h4 class="center-align valign"><i class="material-icons large">play_arrow</i></h4></a></div>
+        <div class="cover cover-empty"><div class="valign-wrapper"><h4 class="center-align valign">The playlist is empty<br />Add songs to start the radio</h4></div></div>
+    </div>
+    {{#if isAdmin}}
+    <div class="row controls">
+        <div class="col s12 right-align">
+            {{>BtnNext}}
+        </div>
+    </div>
+    {{/if}}
+</template>

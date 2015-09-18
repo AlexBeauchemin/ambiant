@@ -1,0 +1,26 @@
+<template name="Radio">
+    <div class="row">
+        {{#if radio}}
+            {{#if isAdmin}}
+                <div class="col s7">
+                    {{>FormAddSong}}
+                    {{>Player}}
+                </div>
+                <div class="col s5">
+                    {{>Options}}
+                    {{>Playlist}}
+                </div>
+            {{else}}
+                <div class="col s12">
+                    {{>FormAddSong}}
+                    {{>Player}}
+                </div>
+                <div class="col s12">
+                    {{>Playlist}}
+                </div>
+            {{/if}}
+        {{else}}
+            <h2 class="center-align space-top">Radio not found</h2>
+        {{/if}}
+    </div>
+</template>

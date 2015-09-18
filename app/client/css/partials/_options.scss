@@ -1,0 +1,30 @@
+.options {
+    margin-top: 0;
+
+    p { padding: 0; }
+
+    .title {
+        font-size: 1.1rem;
+        padding: 30px 0 0 0;
+        position: relative;
+
+        &:first-child {
+            padding-top: 20px;
+        }
+    }
+
+    label {
+        color: $primary-color;
+        font-size: 0.9rem;
+    }
+
+    .tooltipped {
+        position: absolute;
+        right: 0;
+    }
+
+    a .material-icons { vertical-align: top; }
+    .collapsible-body { padding: 5px 20px 25px 20px; }
+    .divider { margin-bottom: 10px; }
+    .row { margin-bottom: 0; }
+}

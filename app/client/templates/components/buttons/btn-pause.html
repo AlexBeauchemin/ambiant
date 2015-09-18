@@ -1,0 +1,21 @@
+<template name="BtnPause">
+    {{#if radio.playlist.length}}
+        {{#if isState "loading"}}
+            <button type="button" class="btn waves-effect waves-light" disabled><i class="material-icons right">play_arrow</i>Play</button>
+        {{/if}}
+
+        {{#if isState "pause"}}
+            <button type="button" class="btn waves-effect waves-light" data-action="pause-toggle"><i class="material-icons right">play_arrow</i>Play</button>
+        {{/if}}
+
+        {{#if isState "play"}}
+            <button type="button" class="btn waves-effect waves-light" data-action="pause-toggle"><i class="material-icons right">pause</i>Pause</button>
+        {{/if}}
+
+        {{#if isState "stop"}}
+            <button type="button" class="btn waves-effect waves-light" data-action="pause-toggle"><i class="material-icons right">play_arrow</i>Play</button>
+        {{/if}}
+    {{else}}
+        <button type="button" class="btn waves-effect waves-light" disabled><i class="material-icons right">play_arrow</i>Play</button>
+    {{/if}}
+</template>

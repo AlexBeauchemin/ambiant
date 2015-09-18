@@ -1,0 +1,8 @@
+p a:hover {
+    text-decoration: underline;
+}
+
+.input-field.error {
+    label { color: $error-color; }
+    input { border-bottom: 1px solid $error-color; }
+}

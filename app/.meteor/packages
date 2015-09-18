@@ -1,0 +1,22 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+insecure
+fourseven:scss
+iron:router
+cwaring:modernizr
+jquery
+accounts-password
+jaywon:meteor-node-uuid
+momentjs:moment
+renaldo:youtube-api
+accounts-google
+service-configuration
+http
+alexbeauchemin:accounts-twitch
+artwells:accounts-guest
+mrt:allow-env

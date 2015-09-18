@@ -1,0 +1,38 @@
+<template name="Header">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper container">
+                <a href="/" class="brand-logo">Ambiant.io</a>
+                <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    {{#if myRadio}}
+                        <li><a href="/radio/{{myRadio.url}}">My radio</a></li>
+                    {{else}}
+                        <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
+                    {{/if}}
+                    {{#if currentUser}}
+                        <li><a href="#" data-action="logout">Log out</a></li>
+                        <li class="username">({{currentUser.profile.name}})</li>
+                    {{else}}
+                        <li><a href="#modal-login" data-action="open-login-modal">Login</a></li>
+                        <li><a href="#modal-signup" data-action="open-signup-modal">Register</a></li>
+                    {{/if}}
+                </ul>
+                <ul class="side-nav" id="mobile-menu">
+                    {{#if myRadio}}
+                        <li><a href="/radio/{{myRadio.url}}">My radio</a></li>
+                    {{else}}
+                        <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
+                    {{/if}}
+                    {{#if currentUser}}
+                        <li><a href="#" data-action="logout">Log out</a></li>
+                        <li class="username">({{currentUser.profile.name}})</li>
+                    {{else}}
+                        <li><a href="#modal-login" data-action="open-login-modal">Login</a></li>
+                        <li><a href="#modal-signup" data-action="open-signup-modal">Register</a></li>
+                    {{/if}}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</template>

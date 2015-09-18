@@ -1,0 +1,49 @@
+<template name="Playlist">
+    <div class="playlist">
+        <div class="collection with-header">
+            <div class="collection-header">
+                {{#if isAdmin}}
+                    <h4 class="space-right">
+                        {{radio.name}}
+                        <button class="btn btn-flat" title="Clear Playlist" data-action="clear"><i class="material-icons">delete</i></button>
+                    </h4>
+                {{else}}
+                    <h4>{{radio.name}}</h4>
+                {{/if}}
+            </div>
+            {{#unless playlistLength radio}}
+                <div class="collection-item collection-empty">
+                    <p class="center-align"><span class="title">This playlist is empty</span></p>
+                </div>
+            {{/unless}}
+            {{#each radio.playlistEnded}}
+                {{debug this}}
+                <div class="collection-item avatar" data-state="ended" data-position="{{position}}">
+                    <img src="{{data.thumbnails.default.url}}" alt="" class="circle">
+                    <span class="title">{{data.title}}</span>
+                    <br />
+                    <span>
+                        Added by : {{user.name}}<br />
+                        {{data.duration}}
+                    </span>
+                </div>
+            {{/each}}
+            {{#each radio.playlist}}
+                <div class="collection-item avatar" data-state="{{this.state}}">
+                    <img src="{{data.thumbnails.default.url}}" alt="" class="circle">
+                    <span class="title">{{data.title}} <span>{{data.duration}}</span></span>
+                    <span>Added by : {{user.name}}</span>
+                    {{#if ../isAdmin}}
+                    <div class="actions clearfix">
+                        <a href="#" data-action="block-song">Block song</a>
+                        <a href="#" data-action="block-user">Block user</a>
+                        <a href="#" data-action="remove-song">Remove</a>
+                    </div>
+                    {{else}}
+                        <div class="actions"></div>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>

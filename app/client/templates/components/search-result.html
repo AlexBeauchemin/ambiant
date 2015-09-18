@@ -1,0 +1,9 @@
+<template name="searchResult">
+    {{#with getSession "search-result"}}
+        <div id="search-result" class="collection">
+            {{#each this}}
+                <a href="#" class="collection-item {{isSelected this}}" data-id="{{id.videoId}}">{{snippet.title}}</a>
+            {{/each}}
+        </div>
+    {{/with}}
+</template>

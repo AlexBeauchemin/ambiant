@@ -1,0 +1,16 @@
+<template name="modalCreateRadio">
+    {{#unless myRadio}}
+    <form id="modal-create-radio" class="modal {{getSession "create-error"}}" data-action="create-radio">
+        <div class="modal-content">
+            <h4>New radio</h4>
+            <div class="input-field">
+                <input type="text" name="radio-name" id="radio-name" />
+                <label for="radio-name">Radio Name</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="modal-action waves-effect waves-light btn-flat">Create</button>
+        </div>
+    </form>
+    {{/unless}}
+</template>

@@ -1,0 +1,21 @@
+.btn {
+    &:hover { text-decoration: none; }
+}
+
+.btn-flat:focus,
+.btn-flat:hover,
+.btn-flat:active {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.btn-twitch {
+    color: #fff;
+    background: $colorTwitch url('/twitch.png') no-repeat;
+    background-position: right 10px center;
+    background-size: auto 80%;
+
+    &:hover,
+    &:active,
+    &:focus { background-color: #8266b6; }
+}

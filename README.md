@@ -9,6 +9,7 @@ https://atmospherejs.com/tmeasday/presence
 
 https://atmospherejs.com/mizzao/user-status
 
+* Handle restricted videos
 * Responsive
 * Donations + contact
 * Api keys + config for test (.meteor.com) and live environment

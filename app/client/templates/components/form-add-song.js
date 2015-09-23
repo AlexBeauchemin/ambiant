@@ -54,7 +54,6 @@ var addSong = function (song, radioId) {
   var songId = App.youtube.getSongIdFromUrl(song);
 
   App.youtube.getSongInfo(songId, function (songInfo) {
-    console.log('add to playlist');
     Meteor.call('addSongToPlaylist', {id: songId, type: 'user-added', data: songInfo}, radioId, function (error, res) {
       if (error) return Materialize.toast(error.reason, 5000);
 

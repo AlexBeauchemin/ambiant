@@ -35,4 +35,4 @@ Template.Player.helpers({
         if (!val) return "hidden";
         return "";
     }
-})
+});

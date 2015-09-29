@@ -10,3 +10,9 @@ Template.Layout.rendered = function() {
         belowOrigin: true
     });
 };
+
+Template.Layout.helpers({
+   getRoute: function() {
+       return Router.current().route.getName();
+   }
+});

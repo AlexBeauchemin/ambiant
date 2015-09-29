@@ -1,14 +1,29 @@
-.page-home {
-    ul {
-        font-size: 20px;
-        list-style-type: decimal;
+[data-route="home"] {
+    background: url('/bg.jpg') no-repeat top center;
+    background-size: cover;
 
-        li {
-            list-style-type: decimal;
+    main {
+        h1 {
+            margin-top: 40px;
         }
-    }
 
-    p {
-        font-size: 18px;
+        ul {
+            font-size: 20px;
+            list-style-type: decimal;
+
+            li {
+                list-style-type: decimal;
+            }
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            padding: 50px 100px;
+        }
     }
 }

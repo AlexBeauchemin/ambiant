@@ -1,19 +1,25 @@
 <template name="Layout">
-    <header>
-        {{> Header }}
-    </header>
+    <body data-route="{{getRoute}}">
+        <header>
+            {{> Header }}
+        </header>
 
-    <main>
-        <div class="container">
-            {{> yield }}
-        </div>
-    </main>
+        <main>
+            <div class="container">
+                {{> yield }}
+            </div>
+        </main>
 
-    <footer class="page-footer">
-        {{> Footer }}
-    </footer>
+        <footer class="page-footer">
+            {{> Footer }}
+        </footer>
 
-    {{> modalCreateRadio}}
-    {{> modalLogin }}
-    {{> modalSignup }}
+        {{> modalCreateRadio}}
+        {{> modalLogin }}
+        {{> modalSignup }}
+
+        <script>
+            window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+        </script>
+    </body>
 </template>

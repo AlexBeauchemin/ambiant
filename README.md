@@ -9,6 +9,8 @@ https://atmospherejs.com/tmeasday/presence
 
 https://atmospherejs.com/mizzao/user-status
 
+* Add song process in two steps (instead of 3) search -> click -> add
+* Option so anyone can skip songs
 * Handle restricted videos
 * Responsive
 * Donations + contact

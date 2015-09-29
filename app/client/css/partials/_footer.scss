@@ -1,0 +1,29 @@
+footer.page-footer {
+    font-size: 12px;
+    line-height: 26px;
+    vertical-align: top;
+
+    a {
+        display: inline-block;
+        height: 26px;
+        line-height: 26px;
+        vertical-align: top;
+    }
+
+    img {
+        display: inline-block;
+        height: 20px;
+        vertical-align: top;
+    }
+
+    .spacer {
+        display: inline-block;
+        line-height: 26px;
+        padding: 0 10px;
+        vertical-align: top;
+    }
+
+    iframe {
+        transform: translateY(3px);
+    }
+}

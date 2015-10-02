@@ -1,7 +1,8 @@
 <template name="FormAddSong">
     <form class="row control-add" data-action="add-song">
         <div class="input-field col s12 m8 search">
-            <input type="text" name="add-song" placeholder="Search song name or enter youtube Url" autocomplete="off" />
+            <input type="text" name="add-song" id="add-song" autocomplete="off" />
+            <label for="add-song">Search song name or enter youtube url</label>
 
             {{#if getSession "isSearching"}}
             <div class="center-align loading">

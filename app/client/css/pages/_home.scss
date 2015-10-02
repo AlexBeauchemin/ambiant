@@ -3,13 +3,12 @@
     background-size: cover;
 
     main {
-        h1 {
-            margin-top: 40px;
-        }
+        align-items: center;
+        display: flex;
 
         ul {
-            font-size: 20px;
             list-style-type: decimal;
+            padding-left: 1.5rem;
 
             li {
                 list-style-type: decimal;
@@ -17,13 +16,23 @@
         }
 
         p {
-            font-size: 18px;
+            font-size: 0.9rem;
         }
 
         .card {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
-            padding: 50px 100px;
+            padding: 20px;
+        }
+    }
+
+    @media (min-width: $tablet) {
+        main {
+            font-size: 20px;
+
+            .card {
+                padding: 50px 100px;
+            }
         }
     }
 }

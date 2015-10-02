@@ -14,7 +14,6 @@ https://atmospherejs.com/mizzao/user-status
 * Handle restricted videos
 * Responsive
 * Donations + contact
-* Api keys + config for test (.meteor.com) and live environment
 * Logo
 * List of streamers (home page)
 * Limit submissions per users

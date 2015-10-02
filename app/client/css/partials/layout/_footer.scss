@@ -1,6 +1,7 @@
 footer.page-footer {
     font-size: 12px;
     line-height: 26px;
+    text-align: center;
     vertical-align: top;
 
     a {
@@ -16,14 +17,38 @@ footer.page-footer {
         vertical-align: top;
     }
 
+    p {
+        display: inline-block;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
     .spacer {
         display: inline-block;
         line-height: 26px;
-        padding: 0 10px;
+        padding: 0 3px;
         vertical-align: top;
+    }
+
+    .container {
+        width: 96%;
     }
 
     iframe {
         transform: translateY(3px);
+    }
+
+    @media (min-width: $tablet) {
+        text-align: left;
+
+        p {
+            float: right;
+            margin-top: 0;
+            width: auto;
+        }
+
+        .spacer {
+            padding: 0 10px;
+        }
     }
 }

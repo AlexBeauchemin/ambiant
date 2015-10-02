@@ -1,9 +1,9 @@
-Template.Options.rendered = function() {
+Template.Settings.rendered = function() {
     $('.collapsible').collapsible();
     $('.tooltipped').tooltip();
 };
 
-Template.Options.events({
+Template.Settings.events({
     'click [name="access"]': function(e) {
         var value = e.target.value;
         if (value) Meteor.call('updateConfig', this.radio._id, {access: value});
@@ -28,7 +28,7 @@ Template.Options.events({
     }
 });
 
-Template.Options.helpers({
+Template.Settings.helpers({
    isChecked: function(param1, param2) {
        if (param1 === param2) return "checked";
        return "";

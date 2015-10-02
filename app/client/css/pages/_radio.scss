@@ -1,0 +1,30 @@
+[data-route="radio"] {
+    main {
+        h1 {
+            text-align: center;
+        }
+
+        .controls {
+            button {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: $tablet) {
+            h1 {
+                text-align: left;
+            }
+
+            .controls {
+                button {
+                    width: auto;
+                }
+            }
+
+            .settings-container,
+            .playlist-container {
+                float: right;
+            }
+        }
+    }
+}

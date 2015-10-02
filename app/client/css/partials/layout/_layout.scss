@@ -1,6 +1,7 @@
 html {
     background-color: rgb(245, 245, 245);
     font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
 }
 
 body {
@@ -11,11 +12,15 @@ body {
 
 main {
     flex: 1 0 auto;
-    padding-top: 30px;
+    padding: 20px;
 }
 
 nav {
-    background-color: $primary-color;
+
+}
+
+.container {
+    padding: 0;
 }
 
 footer.page-footer {
@@ -24,14 +29,8 @@ footer.page-footer {
     padding: 10px 0;
 }
 
-@media only screen and (min-width: 993px) {
-    .container {
-        width: 90%;
-    }
-}
-
-@media only screen and (min-width: 601px) {
-    .container {
-        width: 90%;
+@media (min-width: $tablet) {
+    main {
+        padding: 30px 0;
     }
 }

@@ -1,6 +1,17 @@
 h1 {
     text-shadow: 0 1px 1px #fefefe;
+    font-size: 2rem;
     font-weight: 700;
+    line-height: 2.2rem;
+    margin-top: 0;
+}
+
+ul {
+    list-style-type: none;
+
+    li {
+        margin-bottom: 0.5rem;
+    }
 }
 
 p a:hover {
@@ -10,4 +21,11 @@ p a:hover {
 .input-field.error {
     label { color: $error-color; }
     input { border-bottom: 1px solid $error-color; }
+}
+
+@media (min-width: $tablet) {
+    h1 {
+        font-size: 3rem;
+        line-height: 3.3rem;
+    }
 }

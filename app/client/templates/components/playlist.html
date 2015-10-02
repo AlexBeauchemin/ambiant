@@ -4,11 +4,11 @@
             <div class="collection-header">
                 {{#if isAdmin}}
                     <h4 class="space-right">
-                        {{radio.name}}
+                        Playlist
                         <button class="btn btn-flat" title="Clear Playlist" data-action="clear"><i class="material-icons">delete</i></button>
                     </h4>
                 {{else}}
-                    <h4>{{radio.name}}</h4>
+                    <h4>Playlist</h4>
                 {{/if}}
             </div>
             {{#unless playlistLength radio}}
@@ -20,19 +20,18 @@
                 {{debug this}}
                 <div class="collection-item avatar" data-state="ended" data-position="{{position}}">
                     <img src="{{data.thumbnails.default.url}}" alt="" class="circle">
-                    <span class="title">{{data.title}}</span>
+                    <span class="title">{{data.title}} <span class="smaller">{{data.duration}}</span></span>
                     <br />
-                    <span>
-                        Added by : {{user.name}}<br />
-                        {{data.duration}}
+                    <span class="smaller">
+                        Added by : {{user.name}}
                     </span>
                 </div>
             {{/each}}
             {{#each radio.playlist}}
                 <div class="collection-item avatar" data-state="{{this.state}}">
                     <img src="{{data.thumbnails.default.url}}" alt="" class="circle">
-                    <span class="title">{{data.title}} <span>{{data.duration}}</span></span>
-                    <span>Added by : {{user.name}}</span>
+                    <span class="title">{{data.title}} <span class="smaller">{{data.duration}}</span></span>
+                    <span class="smaller">Added by : {{user.name}}</span>
                     {{#if ../isAdmin}}
                     <div class="actions clearfix">
                         <a href="#" data-action="block-song">Block song</a>

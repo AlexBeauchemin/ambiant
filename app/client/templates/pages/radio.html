@@ -1,13 +1,16 @@
 <template name="Radio">
     <div class="row">
         {{#if radio}}
+            <div class="col s12">
+                <h1>{{radio.name}}</h1>
+            </div>
             {{#if isAdmin}}
-                <div class="col s7">
+                <div class="col s12 m7">
                     {{>FormAddSong}}
                     {{>Player}}
                 </div>
-                <div class="col s5">
-                    {{>Options}}
+                <div class="col s12 m5">
+                    {{>Settings}}
                     {{>Playlist}}
                 </div>
             {{else}}

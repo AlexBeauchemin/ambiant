@@ -19,6 +19,7 @@ https://atmospherejs.com/mizzao/user-status
 * Limit submissions per users
 * Max songs in playlist
 * Do not allow blocked songs in related
+* Use postcss (currently not avaiblable with meteor+scss) for autoprefixer
 
 * Delete guests user after some time + radio
 

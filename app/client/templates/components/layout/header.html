@@ -10,12 +10,12 @@
                     {{else}}
                         <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
                     {{/if}}
-                    {{#if currentUser}}
-                        <li><a href="#" data-action="logout">Log out</a></li>
-                        <li class="username">({{currentUser.profile.name}})</li>
-                    {{else}}
+                    {{#if isGuest}}
                         <li><a href="#modal-login" data-action="open-login-modal">Log In</a></li>
                         <li><a href="#modal-signup" data-action="open-signup-modal">Register</a></li>
+                    {{else}}
+                        <li><a href="#" data-action="logout">Log out</a></li>
+                        <li class="username">({{currentUser.profile.name}})</li>
                     {{/if}}
                 </ul>
                 <ul class="side-nav" id="mobile-menu">
@@ -24,12 +24,12 @@
                     {{else}}
                         <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
                     {{/if}}
-                    {{#if currentUser}}
-                        <li><a href="#" data-action="logout">Log out</a></li>
-                        <li class="username">({{currentUser.profile.name}})</li>
-                    {{else}}
+                    {{#if isGuest}}
                         <li><a href="#modal-login" data-action="open-login-modal">Log In</a></li>
                         <li><a href="#modal-signup" data-action="open-signup-modal">Register</a></li>
+                    {{else}}
+                        <li><a href="#" data-action="logout">Log out</a></li>
+                        <li class="username">({{currentUser.profile.name}})</li>
                     {{/if}}
                 </ul>
             </div>

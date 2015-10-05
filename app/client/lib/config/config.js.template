@@ -1,5 +1,4 @@
-if (!App) App = {};
-
+var env = process.env.NODE_ENV;
 var config = {
   dev: {
     youtubeApiKey: ''
@@ -9,4 +8,8 @@ var config = {
   }
 };
 
-App.config = config[process.env.NODE_ENV];
+if (!App) App = {};
+
+App.config = config['prod'];
+
+if (env === "dev" || env === "development") App.config = config['dev'];

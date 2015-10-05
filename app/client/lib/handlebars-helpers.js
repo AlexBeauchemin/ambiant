@@ -28,4 +28,10 @@ if (Meteor.isClient) {
         var user = Meteor.user();
         return !!(user && user.services && user.services.twitch);
     });
+
+    Template.registerHelper('isGuest', function() {
+        var user = Meteor.user();
+        if (!user) return true;
+        return !!(user.profile && user.profile.guest);
+    });
 }

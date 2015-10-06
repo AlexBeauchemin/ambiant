@@ -18,4 +18,26 @@
             <a href="#modal-create-radio" class="btn btn-large waves-effect waves-light modal-trigger">Create your radio</a>
         {{/if}}
     </p>
+
+    <div class="top-radios row">
+        {{#each radios}}
+            <div class="col s6 m4 l3">
+                <div class="radio z-depth-1">
+                    <h2>
+                        <a href="/radio/{{url}}">{{name}}</a>
+                        {{#if twitchChannel}}
+                            <a href="http://www.twitch.tv/{{twitchChannel}}" class="right twitch" target="_blank"><img src="/twitch.png" alt="Twitch channel" /></a>
+                        {{/if}}
+                    </h2>
+                    <div class="song">
+                        <p class="subtitle center-align">Currently playing</p>
+                        <a href="/radio/{{url}}">
+                            <img src="{{getCurrentSongImage this}}" alt="" />
+                        </a>
+                    </div>
+                    <p class="song-title">{{getCurrentSongTitle this}}</p>
+                </div>
+            </div>
+        {{/each}}
+    </div>
 </template>

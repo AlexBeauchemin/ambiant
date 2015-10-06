@@ -6,13 +6,8 @@
         align-items: center;
         display: flex;
 
-        ul {
-            list-style-type: decimal;
-            padding-left: 1.5rem;
-
-            li {
-                list-style-type: decimal;
-            }
+        h1 {
+            margin: 30px 0 50px 0;
         }
 
         p {
@@ -22,7 +17,71 @@
         .card {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
+            border-top: 10px solid $primary-color;
             padding: 20px;
+
+            ul {
+                list-style-type: decimal;
+                margin-top: 0;
+                padding-left: 1.5rem;
+
+                li {
+                    list-style-type: decimal;
+                }
+            }
+        }
+
+        .top-radios {
+            color: $primary-color;
+
+            a { color: $primary-color; }
+            p { margin: 10px 0 0 0; }
+
+            img {
+                display: block;
+                width: 100%;
+            }
+
+            h2 {
+                font-size: 24px;
+                font-weight: bold;
+                line-height: 26px;
+                margin: 0 0 10px 0;
+
+                .twitch {
+                    background-color: $colorTwitch;
+                    border-radius: 3px;
+                    display: inline-block;
+                    padding: 3px 5px;
+
+                    img {
+                        height: 20px;
+                        width: auto;
+                    }
+                }
+            }
+
+            .radio {
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 5px;
+                border-top: 5px solid #222831;
+                margin-top: 30px;
+                padding: 10px 20px 10px 20px;
+            }
+
+            .song {
+                position: relative;
+            }
+
+            .subtitle {
+                background: rgba(0,0,0,0.6);
+                color: rgba(255,255,255,0.9);
+                margin: 0;
+                padding: 3px 10px;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
         }
     }
 

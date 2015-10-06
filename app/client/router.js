@@ -19,9 +19,10 @@ Router.configure({
     },
     waitOn: function () {
         return [
-            Meteor.subscribe('radios'),
             Meteor.subscribe('my-radio'),
-            Meteor.subscribe('user-data')
+            Meteor.subscribe('top-radios'),
+            Meteor.subscribe('user-data'),
+            Meteor.subscribe('user-presence', Session.get('currentRadioId'))
         ];
     }
 });

@@ -4,11 +4,17 @@ RadioController = RouteController.extend({
         var myRadio = null;
         var isAdmin = false;
         var user = Meteor.user();
+        var radioId = null;
+
+        if (radio && radio._id) radioId = radio._id;
 
         if (user && user._id) myRadio = Radios.findOne({users: user._id });
 
-        if (radio && myRadio && radio._id === myRadio._id) {
+        if (radioId && myRadio && radio._id === myRadio._id) {
             isAdmin = true;
+        }
+        else if (radioId) {
+            Session.set('currentRadioId', radio._id);
         }
 
         if (radio && radio.playlistEnded) {
@@ -28,7 +34,21 @@ RadioController = RouteController.extend({
 
         return {
             isAdmin: isAdmin,
-            radio: radio
+            radio: radio,
+            users: Presences.find({state: { currentRadioId: radioId }}).fetch()
         };
+    },
+
+    onStop: function() {
+        Session.set('currentRadioId', null);
+    },
+
+    waitOn: function () {
+        return [
+            Meteor.subscribe('radio', this.params.url),
+            Meteor.subscribe('my-radio'),
+            Meteor.subscribe('user-data'),
+            Meteor.subscribe('user-presence', Session.get('currentRadioId'))
+        ];
     }
 });

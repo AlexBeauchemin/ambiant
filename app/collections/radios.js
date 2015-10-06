@@ -10,12 +10,39 @@ if(Meteor.isClient) {
 if(Meteor.isServer) {
     var Future = Npm.require('fibers/future');
 
-    Meteor.publish("radios", function () {
-        return Radios.find({public: true});
+    Meteor.publish("radio", function (url) {
+        return Radios.find({url: url});
     });
 
     Meteor.publish("my-radio", function () {
         return Radios.find({users: this.userId});
+    });
+
+    Meteor.publish('top-radios', function() {
+        //Get all users currently in a radio
+        var radioIds = Presences.find({}, { fields: { 'state.currentRadioId': 1 } }).map(function(user) {
+            if (user.state && user.state.currentRadioId) return user.state.currentRadioId;
+            return '';
+        });
+
+        //Group all radios
+        var groupedIds = _.groupBy(radioIds, function(radio){ return radio; });
+        var radioCount = [];
+
+        //Count how many users per radio
+        for (var radio in groupedIds) {
+            if (radio) radioCount.push({ id: radio, count: groupedIds[radio].length});
+        };
+
+        //Keep only 10 radios with most users
+        var top = _.sortBy(radioCount, 'count').slice(0,9);
+
+        //Get an array of the top radio id's
+        radioIds = top.map(function(topRadio) {
+            return topRadio.id;
+        });
+
+        return Radios.find({ _id: {$in: radioIds}}, { fields: { name: 1, playlist: 1, twitchChannel: 1 }});
     });
 
     Meteor.methods({
@@ -70,6 +97,11 @@ if(Meteor.isServer) {
 
             if (isSongBlocked(radioId, song.id)) throw new Meteor.Error(500, 'This song is blocked');
             if (isUserBlocked(radioId, song.user)) throw new Meteor.Error(500, 'Sorry, you cannot add songs to this radio');
+
+            var radio = Radios.findOne(radioId);
+
+            if (!radio) throw new Meteor.Error(500, 'Cannot access this radio');
+            if (radio.playlist.length >= 100) throw new Meteor.Error(500, 'Sorry, the playlist is full');
 
             if (isOwner(radioId) || canAdd(radioId)) Radios.update({ _id: radioId },{ $push: { playlist: song, songs: song.id }});
         },

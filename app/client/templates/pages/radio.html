@@ -1,8 +1,9 @@
 <template name="Radio">
     <div class="row">
+        {{debug users}}
         {{#if radio}}
             <div class="col s12">
-                <h1>{{radio.name}}</h1>
+                <h1>{{radio.name}} <span class="small right">Users: {{users.length}}</span></h1>
             </div>
             {{#if isAdmin}}
                 <div class="col s12 m7">

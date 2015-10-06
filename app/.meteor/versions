@@ -14,7 +14,7 @@ blaze-html-templates@1.0.1
 blaze-tools@1.0.4
 boilerplate-generator@1.0.4
 brettle:accounts-login-state@0.0.3
-brettle:accounts-patch-ui@0.1.1
+brettle:accounts-patch-ui@0.1.2
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
@@ -90,6 +90,7 @@ srp@1.0.4
 standard-minifiers@1.0.1
 templating@1.1.4
 templating-tools@1.0.0
+tmeasday:presence@1.0.6
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4

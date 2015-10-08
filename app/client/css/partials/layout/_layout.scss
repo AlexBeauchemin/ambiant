@@ -23,6 +23,17 @@ nav {
     padding: 0;
 }
 
+@media #{$medium-and-up} {
+    .container {
+        width: 90%;
+    }
+}
+@media #{$large-and-up} {
+    .container {
+        width: 90%;
+    }
+}
+
 footer.page-footer {
     color: #fff;
     font-size: 85%;

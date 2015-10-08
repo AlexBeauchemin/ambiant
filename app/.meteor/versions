@@ -14,7 +14,7 @@ blaze-html-templates@1.0.1
 blaze-tools@1.0.4
 boilerplate-generator@1.0.4
 brettle:accounts-login-state@0.0.3
-brettle:accounts-patch-ui@0.1.2
+brettle:accounts-patch-ui@0.1.3
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
@@ -47,8 +47,8 @@ iron:core@1.0.8
 iron:dynamic-template@1.0.8
 iron:layout@1.0.8
 iron:location@1.0.9
-iron:middleware-stack@1.0.9
-iron:router@1.0.9
+iron:middleware-stack@1.0.10
+iron:router@1.0.10
 iron:url@1.0.9
 jaywon:meteor-node-uuid@1.0.1
 jquery@1.11.4

@@ -1,9 +1,14 @@
 <template name="Radio">
     <div class="row">
-        {{debug users}}
         {{#if radio}}
             <div class="col s12">
-                <h1>{{radio.name}} <span class="small right">Users: {{users.length}}</span></h1>
+                <h1>
+                    {{#if radio.twitchChannel}}
+                        <a href="http://www.twitch.tv/{{radio.twitchChannel}}" class="left twitch" target="_blank"><img src="/twitch.png" alt="Twitch channel" /></a>
+                    {{/if}}
+                    {{radio.name}}
+                    <span class="small right">Users: {{users.length}}</span>
+                </h1>
             </div>
             {{#if isAdmin}}
                 <div class="col s12 m7">

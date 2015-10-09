@@ -1,6 +1,6 @@
 App.youtube = (function() {
-    var API_URL = "https://apis.google.com/js/client.js";
-    var IFRAME_API_URL = "https://www.youtube.com/iframe_api";
+    const API_URL = "https://apis.google.com/js/client.js";
+    const IFRAME_API_URL = "https://www.youtube.com/iframe_api";
 
     var Youtube = {
         config: {
@@ -21,9 +21,7 @@ App.youtube = (function() {
         // -------------------------
         // Public functions
         // -------------------------
-        init: function(config) {
-            var _this = this;
-
+        init(config) {
             $.extend(this.config, config);
 
             if (!this.config.apiKey) {
@@ -37,17 +35,17 @@ App.youtube = (function() {
 
             this.loadIframeAPI()
                 .then(this.initIframeAPI)
-                .then(function() {
-                    _this.loadPlayer();
-                    _this.setState('stop');
-                    if (_this.config.onReady) _this.config.onReady();
+                .then(() => {
+                    this.loadPlayer();
+                    this.setState('stop');
+                    if (this.config.onReady) this.config.onReady();
                 });
         },
 
         //if the video is a youtube url, parse and return the video id
         //else : assume that the url is a valid youtube id and return it
-        getSongIdFromUrl: function getSongIdFromUrl(url) {
-            var videoId,
+        getSongIdFromUrl(url) {
+            let videoId,
                 ampersandPosition;
 
             if (!url) return false;
@@ -64,34 +62,32 @@ App.youtube = (function() {
             return videoId;
         },
 
-        getSongInfo: function getSongInfo(id, callback) {
-            var _this = this;
-
+        getSongInfo(id, callback) {
             if (!window.gapi || !window.gapi.client.youtube) {
                 Materialize.toast("Google api is not accessible", 5000);
                 return;
             }
 
-            var request = gapi.client.youtube.videos.list({
+            let request = gapi.client.youtube.videos.list({
                 id: id,
                 part: 'snippet,contentDetails',
                 type: 'video',
                 maxResults: 1
             });
 
-            request.execute(function(response) {
+            request.execute((response) => {
                 if (!response || !response.items || !response.items.length) {
                     Materialize.toast("Cannot retrieve song information", 5000);
                     return;
                 }
 
-                var info = _this.getSongDetails(response.items[0]);
+                let info = this.getSongDetails(response.items[0]);
 
                 if (callback) callback(info);
             });
         },
 
-        pauseToggle: function pause() {
+        pauseToggle() {
             if (this.playerState != "pause") {
                 this.player.pauseVideo();
                 this.setState('pause');
@@ -102,12 +98,12 @@ App.youtube = (function() {
             }
         },
 
-        play: function play(id) {
+        play(id) {
             this.player.loadVideoById(id);
             this.setState('play');
         },
 
-        search: function search(q, callback) {
+        search(q, callback) {
             var _this = this;
 
             if (!window.gapi || !window.gapi.client.youtube) {
@@ -123,12 +119,12 @@ App.youtube = (function() {
                 videoCategoryId: _this.musicCategoryId
             });
 
-            request.execute(function(response) {
+            request.execute((response) => {
                 if (callback) callback(response.result);
             });
         },
 
-        stop: function stop() {
+        stop() {
             this.player.stopVideo();
             this.setState('stop');
         },
@@ -139,29 +135,28 @@ App.youtube = (function() {
         // -------------------------
 
         //Add leading 0 if number < 10
-        formatTime: function formatTime(time) {
+        formatTime(time) {
             time = parseInt(time,10);
             if (time<10) return '0' + time;
             return time;
         },
 
-        getMusicCategoryId: function getMusicCategoryId() {
-            var _this = this,
-                p = $.Deferred();
+        getMusicCategoryId() {
+            var p = $.Deferred();
 
             var request = gapi.client.youtube.videoCategories.list({
                 regionCode: 'us',
                 part: 'snippet'
             });
 
-            request.execute(function(response) {
+            request.execute((response) => {
                 if (response.error) return console.log(response.message);
 
                 var categories = response.result.items;
 
                 for (var i = 0; i < categories.length; i++) {
                     if (categories[i].snippet.title.toLowerCase().indexOf('music') > -1) {
-                        _this.musicCategoryId = categories[i].id;
+                        this.musicCategoryId = categories[i].id;
                         p.resolve();
                         break;
                     }
@@ -171,9 +166,9 @@ App.youtube = (function() {
             return p.promise();
         },
 
-        getSongDetails: function getSongDetails(data) {
-            var info = _.extend(data.snippet, data.contentDetails);
-            var duration = null;
+        getSongDetails(data) {
+            let info = _.extend(data.snippet, data.contentDetails);
+            let duration = null;
 
             if (info.duration) {
                 duration = moment.duration(info.duration);
@@ -183,8 +178,8 @@ App.youtube = (function() {
             return info;
         },
 
-        initAPI: function initAPI() {
-            var _this = this,
+        initAPI() {
+            let _this = this,
                 p = $.Deferred(),
                 load = null;
 
@@ -203,8 +198,8 @@ App.youtube = (function() {
             return p.promise();
         },
 
-        initIframeAPI: function initAPI() {
-            var p = $.Deferred(),
+        initIframeAPI() {
+            let p = $.Deferred(),
                 load = null;
 
             load = function load() {
@@ -219,8 +214,8 @@ App.youtube = (function() {
             return p.promise();
         },
 
-        loadAPI: function loadAPI() {
-            var p = $.Deferred();
+        loadAPI() {
+            let p = $.Deferred();
 
             $.getScript(API_URL, function() {
                 p.resolve();
@@ -229,8 +224,8 @@ App.youtube = (function() {
             return p.promise();
         },
 
-        loadIframeAPI: function loadIframeAPI() {
-            var p = $.Deferred();
+        loadIframeAPI() {
+            let p = $.Deferred();
 
             $.getScript(IFRAME_API_URL, function() {
                 p.resolve();
@@ -239,8 +234,8 @@ App.youtube = (function() {
             return p.promise();
         },
 
-        loadPlayer: function loadPlayer() {
-            var _this = this;
+        loadPlayer() {
+            let _this = this;
 
             _this.player = new YT.Player(_this.config.element, {
                 height: '100%',
@@ -252,13 +247,13 @@ App.youtube = (function() {
             });
         },
 
-        onPlayerStateChange: function onPlayerStateChange(e) {
+        onPlayerStateChange(e) {
             if (e.data === 0) {
                 if (this.config.onSongEnded) this.config.onSongEnded();
             }
         },
 
-        setState: function setState(state) {
+        setState(state) {
             this.playerState = state;
             if (this.config.onStateChange) this.config.onStateChange(state);
         }

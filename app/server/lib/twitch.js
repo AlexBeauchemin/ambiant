@@ -1,8 +1,8 @@
 Meteor.methods({
-  isFollowingChannel: function isFollowingChannel(channel) {
+  isFollowingChannel(channel) {
     return App.twitch.isFollowing(channel);
   },
-  isSubscribedChannel: function isSubscribedChannel(channel) {
+  isSubscribedChannel(channel) {
     return App.twitch.isSubscribed(channel);
   }
 });
@@ -19,8 +19,8 @@ App.twitch = (function() {
     // Public functions
     // -------------------------
 
-    getUser: function getUser() {
-      var accessToken = this.getAccessToken();
+    getUser() {
+      let accessToken = this.getAccessToken();
       if (!accessToken) throw new Meteor.Error(500, 'Can\'t get twitch user: Invalid access token');
 
       try {
@@ -33,9 +33,10 @@ App.twitch = (function() {
       }
     },
 
-    isFollowing: function isFollowing(channel) {
-      var accessToken = this.getAccessToken();
-      var user = this.getUserTwitchName();
+    isFollowing(channel) {
+      let accessToken = this.getAccessToken();
+      let user = this.getUserTwitchName();
+
       if (!channel) throw new Meteor.Error(500, 'Invalid channel');
       if (!user) throw new Meteor.Error(500, 'Invalid user');
       if (!accessToken) throw new Meteor.Error(500, 'Invalid access token');
@@ -51,9 +52,10 @@ App.twitch = (function() {
       }
     },
 
-    isSubscribed: function isSubscribed(channel) {
-      var accessToken = this.getAccessToken();
-      var user = this.getUserTwitchName();
+    isSubscribed(channel) {
+      let accessToken = this.getAccessToken();
+      let user = this.getUserTwitchName();
+
       if (!channel) throw new Meteor.Error(500, 'Invalid channel');
       if (!user) throw new Meteor.Error(500, 'Invalid user');
       if (!accessToken) throw new Meteor.Error(500, 'Invalid access token');
@@ -70,20 +72,20 @@ App.twitch = (function() {
       }
     },
 
-    getUserTwitchName: function getUserTwitchName() {
+    getUserTwitchName() {
       if (!Meteor.user() || !Meteor.user().services || !Meteor.user().services.twitch) return false;
       return Meteor.user().services.twitch.name;
     },
 
-    getUserBlockList: function getUserBlockList() {
-
+    getUserBlockList() {
+      //TODO: Get user block list
     },
 
     // -------------------------
     // Private functions
     // -------------------------
-    getAccessToken: function getAccessToken() {
-      var user = Meteor.user();
+    getAccessToken() {
+      let user = Meteor.user();
 
       if (!user || !user._id || !user.services || !user.services.twitch) return false;
       return user.services.twitch.accessToken;

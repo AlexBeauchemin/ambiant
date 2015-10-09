@@ -10,7 +10,7 @@ App.youtube = (function() {
     // Public functions
     // -------------------------
 
-    init: function init() {
+    init() {
       YoutubeApi.authenticate({
         type: 'key',
         key: App.config.youtubeApiKey
@@ -19,7 +19,7 @@ App.youtube = (function() {
       this.getMusicCategoryId();
     },
 
-    findRelated: function findRelated(songId, maxResult, callback) {
+    findRelated(songId, maxResult, callback) {
       var _this = this;
 
       YoutubeApi.search.list({
@@ -32,8 +32,8 @@ App.youtube = (function() {
           if (err) throw new Meteor.Error(500, { message: 'can\'t find related', info: err});
           if (data && data.items) {
             data.items.push({id: {videoId: songId}}); // Put the reference song in the related list so it can play again
-            var randomSong = data.items[Math.floor(Math.random() * data.items.length)];
-            var id = randomSong.id.videoId;
+            let randomSong = data.items[Math.floor(Math.random() * data.items.length)];
+            let id = randomSong.id.videoId;
 
             _this.getSongInfo(id, function(songInfo) {
               if (callback) callback({ id: id, type: 'related', data: songInfo });
@@ -42,7 +42,7 @@ App.youtube = (function() {
       });
     },
 
-    getSongInfo: function getSongInfo(id, callback) {
+    getSongInfo(id, callback) {
       var _this = this;
 
       YoutubeApi.videos.list({
@@ -65,13 +65,13 @@ App.youtube = (function() {
     // -------------------------
 
     //Add leading 0 if number < 10
-    formatTime: function formatTime(time) {
+    formatTime(time) {
       time = parseInt(time,10);
       if (time<10) return '0' + time;
       return time;
     },
 
-    getMusicCategoryId: function getMusicCategoryId() {
+    getMusicCategoryId() {
       var _this = this;
 
       YoutubeApi.videoCategories.list({
@@ -90,7 +90,7 @@ App.youtube = (function() {
       });
     },
 
-    getSongDetails: function getSongDetails(data) {
+    getSongDetails(data) {
       var info = _.extend(data.snippet, data.contentDetails);
       var duration = null;
 

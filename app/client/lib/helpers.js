@@ -3,21 +3,21 @@ App.helpers = (function () {
         /**
          * Private Functions
          */
-        addFieldError: function addFieldError(field) {
+        addFieldError(field) {
             if (Meteor.isClient) {
                 Session.set('error.' + field, 'error');
             }
         },
-        removeFieldError: function removeFieldError(field) {
+        removeFieldError(field) {
             if (Meteor.isClient) {
                 Session.set('error.' + field, null);
             }
         },
-        validateEmail: function validateEmail(email) {
+        validateEmail(email) {
             var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
             return re.test(email);
         },
-        validateString: function validateString(text, minLength, maxLength) {
+        validateString(text, minLength, maxLength) {
             if (!minLength) minLength = 1;
             if (!maxLength) maxLength = 100;
             if (!text || text.length < minLength || text > maxLength) {
@@ -31,8 +31,8 @@ App.helpers = (function () {
         /**
          * Public functions
          */
-        validateAccountCreation: function validateAccountCreation(fields) {
-            var data = fields,
+        validateAccountCreation(fields) {
+            let data = fields,
                 errors = [];
 
             this.removeFieldError('email');

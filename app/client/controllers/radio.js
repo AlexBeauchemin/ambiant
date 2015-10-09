@@ -1,10 +1,10 @@
 RadioController = RouteController.extend({
-    data: function() {
-        var radio = Radios.findOne({url: this.params.url });
-        var myRadio = null;
-        var isAdmin = false;
-        var user = Meteor.user();
-        var radioId = null;
+    data() {
+        let radio = Radios.findOne({url: this.params.url });
+        let myRadio = null;
+        let isAdmin = false;
+        let user = Meteor.user();
+        let radioId = null;
 
         if (radio && radio._id) radioId = radio._id;
 
@@ -39,11 +39,11 @@ RadioController = RouteController.extend({
         };
     },
 
-    onStop: function() {
+    onStop() {
         Session.set('currentRadioId', null);
     },
 
-    waitOn: function () {
+    waitOn() {
         return [
             Meteor.subscribe('radio', this.params.url),
             Meteor.subscribe('my-radio'),

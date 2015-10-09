@@ -6,11 +6,20 @@ Template.searchResult.helpers({
 });
 
 Template.searchResult.events({
-  'click a': function(e) {
-    var $target = $(e.target);
+  'click [data-action="select"]': function(e) {
+    e.preventDefault();
 
-    Session.set('search-selected-song', $target.data('id'));
+    Session.set('search-selected-song', this.id.videoId);
     Session.set('search-result', null);
-    $('input[name="add-song"]').val($target.text());
+    $('input[name="add-song"]').val(this.snippet.title);
+  },
+  'click [data-action="add"]': function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let radioId = Template.parentData().radio._id;
+    let songId = this.id.videoId;
+
+    App.search.addSong(songId, radioId);
   }
 });

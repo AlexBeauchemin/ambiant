@@ -13,3 +13,9 @@ Meteor.publish("user-data", function () {
     return Meteor.users.find({_id: this.userId},
       {fields: {services: 1}});
 });
+
+Meteor.users.deny({
+    update: function() {
+        return true;
+    }
+});

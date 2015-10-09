@@ -1,7 +1,7 @@
 <template name="FormAddSong">
     <form class="row control-add" data-action="add-song">
         <div class="input-field col s12 m8 search">
-            <input type="text" name="add-song" id="add-song" autocomplete="off" />
+            <input type="text" name="add-song" id="add-song" autocomplete="off" data-action="search" />
             <label for="add-song">Search song name or enter youtube url</label>
 
             {{#if getSession "isSearching"}}
@@ -20,7 +20,7 @@
             </div>
             {{/if}}
 
-            {{> searchResult}}
+            {{> searchResult radioId=radio._id}}
         </div>
         <div class="col s12 m4 align-right">
             {{#if isState "loading"}}

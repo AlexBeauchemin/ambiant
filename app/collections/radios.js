@@ -79,6 +79,7 @@ if(Meteor.isServer) {
                     playlist: [], //current playlist
                     playlistEnded: [], //past songs
                     public: true,
+                    skip: "admin", // admin, all
                     songs: [], //list of songs added, minus related songs (automatically added at the end of the playlist
                     threshold: 10,
                     twitchChannel: twitchChannel,
@@ -165,6 +166,7 @@ if(Meteor.isServer) {
             var config = {};
 
             if (data.access) config.access = data.access;
+            if (data.skip) config.skip = data.skip;
             if (data.public || data.public === false) config.public = !!data.public;
             if (data.threshold) {
                 data.threshold = parseInt(data.threshold,10);

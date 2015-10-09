@@ -5,14 +5,14 @@ Template.Player.onRendered(function() {
 
     App.youtube.init({
         apiKey: App.config.youtubeApiKey,
-        onSongEnded: function() {
+        onSongEnded() {
             Meteor.call('getNextSong', _this.data.radio._id, function(error, res) {
                 if (error) Materialize.toast(error.reason, 5000);
                 else if (res && res.id) App.youtube.play(res.id);
                 else Session.set('autoplay', true);
             });
         },
-        onStateChange: function(state) {
+        onStateChange(state) {
             Session.set('player-state', state);
         }
     });
@@ -31,8 +31,13 @@ Template.Player.events({
 });
 
 Template.Player.helpers({
-    isHidden: function isHidden(val) {
+    isHidden(val) {
         if (!val) return "hidden";
         return "";
+    },
+    canSkip() {
+        if (this.isAdmin) return true;
+        if (this.radio.skip === "all") return true;
+        return false;
     }
 });

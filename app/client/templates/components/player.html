@@ -19,7 +19,7 @@
         <div class="cover cover-play"><a class="valign-wrapper" href="#" data-action="play"><h4 class="center-align valign"><i class="material-icons large">play_arrow</i></h4></a></div>
         <div class="cover cover-empty"><div class="valign-wrapper"><h4 class="center-align valign">The playlist is empty<br />Add songs to start the radio</h4></div></div>
     </div>
-    {{#if isAdmin}}
+    {{#if canSkip}}
     <div class="row controls">
         <div class="col s12 right-align">
             {{>BtnNext}}

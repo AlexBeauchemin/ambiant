@@ -8,6 +8,10 @@ Template.Settings.events({
         var value = e.target.value;
         if (value) Meteor.call('updateConfig', this.radio._id, {access: value});
     },
+    'click [name="skip"]': function(e) {
+        var value = e.target.value;
+        if (value) Meteor.call('updateConfig', this.radio._id, {skip: value});
+    },
     'change #public': function(e) {
         var value = !!e.currentTarget.checked;
         Meteor.call('updateConfig', this.radio._id, {public: value});

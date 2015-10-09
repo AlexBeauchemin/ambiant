@@ -3,7 +3,6 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
-* Add song process in two steps (instead of 3) search -> click -> add
 * Option so anyone can skip songs
 * Limit submissions per user (time / number limit)
 * Handle restricted videos

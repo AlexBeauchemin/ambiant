@@ -25,4 +25,8 @@ main>.container>.loading {
 .toast {
   @extend .red;
   @extend .darken-3;
+
+  &.success {
+    background-color: $secondary-color !important;
+  }
 }

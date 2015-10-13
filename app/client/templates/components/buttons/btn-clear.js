@@ -4,9 +4,7 @@ Template.BtnClear.events({
 
         Meteor.call('clearRadio', this.radio._id, function(error, res) {
             if (error) Materialize.toast(error.reason, 5000);
-            else {
-                App.youtube.stop();
-            }
+            else App.youtube.stop();
         });
     }
 });

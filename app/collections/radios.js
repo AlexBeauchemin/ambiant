@@ -75,6 +75,8 @@ if(Meteor.isServer) {
                     blacklistedUsers: [],
                     dateCreated: new Date(),
                     dateLastAccess: new Date(),
+                    limitType: 'number', //number or time
+                    limitValue: 5,
                     name: name,
                     playlist: [], //current playlist
                     playlistEnded: [], //past songs
@@ -95,11 +97,14 @@ if(Meteor.isServer) {
             if (!song || !song.id || !song.data) throw new Meteor.Error(500, 'Song invalid');
 
             song.user = getUser();
+            song.dateAdded = new Date();
 
             if (isSongBlocked(radioId, song.id)) throw new Meteor.Error(500, 'This song is blocked');
             if (isUserBlocked(radioId, song.user)) throw new Meteor.Error(500, 'Sorry, you cannot add songs to this radio');
 
             var radio = Radios.findOne(radioId);
+
+            //TODO Check user limits (limitType + limitValue)
 
             if (!radio) throw new Meteor.Error(500, 'Cannot access this radio');
             if (radio.playlist.length >= 100) throw new Meteor.Error(500, 'Sorry, the playlist is full');
@@ -142,10 +147,11 @@ if(Meteor.isServer) {
         },
         getNextSong: function(radioId) {
             if (!radioId) throw new Meteor.Error(500, 'Cannot access this radio');
-            if (!isOwner(radioId)) throw new Meteor.Error(500, 'Cannot skip on this radio');
 
-            var radio = Radios.findOne(radioId);
+            let radio = Radios.findOne(radioId);
+
             if (!radio) throw new Meteor.Error(500, 'Cannot access this radio');
+            if (!isOwner(radioId) && radio.skip === "admin") throw new Meteor.Error(500, 'Cannot skip on this radio');
 
             radio.playlistEnded.push(radio.playlist[0]);
             radio.playlist.shift();
@@ -167,6 +173,8 @@ if(Meteor.isServer) {
 
             if (data.access) config.access = data.access;
             if (data.skip) config.skip = data.skip;
+            if (data.limitValue) config.limitValue = data.limitValue;
+            if (data.limitType) config.limitType = data.limitType;
             if (data.public || data.public === false) config.public = !!data.public;
             if (data.threshold) {
                 data.threshold = parseInt(data.threshold,10);

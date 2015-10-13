@@ -5,6 +5,7 @@ RadioController = RouteController.extend({
         let isAdmin = false;
         let user = Meteor.user();
         let radioId = null;
+        let currentlyPlaying = Session.get('currentlyPlaying');
 
         if (radio && radio._id) radioId = radio._id;
 
@@ -19,16 +20,17 @@ RadioController = RouteController.extend({
 
         if (radio && radio.playlistEnded) {
             if (radio.playlistEnded.length > 2) radio.playlistEnded = radio.playlistEnded.slice(Math.max(radio.playlistEnded.length - 2, 1));
-            //if (radio.playlistEnded.length === 3) {
-            //    radio.playlistEnded[0].position = "last";
-            //}
         }
 
         if (radio && radio.playlist.length) {
             radio.playlist[0] = _.extend(radio.playlist[0], {state: "playing"});
+
             if (Session.get('autoplay')) {
                 App.youtube.play(radio.playlist[0].id);
                 Session.set('autoplay', false);
+            }
+            else if (currentlyPlaying && currentlyPlaying !== radio.playlist[0].id) {
+                App.youtube.play(radio.playlist[0].id);
             }
         }
 
@@ -41,6 +43,7 @@ RadioController = RouteController.extend({
 
     onStop() {
         Session.set('currentRadioId', null);
+        Session.set('currentlyPlaying', null);
     },
 
     waitOn() {

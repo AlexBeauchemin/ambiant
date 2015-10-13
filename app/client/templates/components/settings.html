@@ -20,6 +20,22 @@
                     <input type="range" id="threshold" min="5" max="25" value="{{radio.threshold}}" />
                 </div>
 
+                <div class="title">Limit submissions per user</div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div class="col s6">
+                        <input name="limit-type" type="radio" id="limit-number" value="number" {{isChecked "number" radio.limit}} /><label for="limit-number">Number</label>
+                    </div>
+                    <div class="col s6">
+                        <input name="limit-type" type="radio" id="limit-time" value="time" {{isChecked "time" radio.limit}} /><label for="limit-time">Time</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="range-field">
+                        <input type="range" id="limit-value" min="1" max="100" value="{{radio.threshold}}" />
+                    </div>
+                </div>
+
                 <div class="title">Who can add songs?</div>
                 <div class="divider"></div>
                 <div class="row">

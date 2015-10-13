@@ -3,7 +3,6 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
-* Option so anyone can skip songs
 * Limit submissions per user (time / number limit)
 * Handle restricted videos
 * Responsive

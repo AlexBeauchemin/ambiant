@@ -99,8 +99,11 @@ App.youtube = (function() {
         },
 
         play(id) {
+            if (!$('#' + this.config.element).is(':visible')) return;
+
             this.player.loadVideoById(id);
             this.setState('play');
+            Session.set('currentlyPlaying', id);
         },
 
         search(q, callback) {

@@ -42,7 +42,7 @@ if(Meteor.isServer) {
             return topRadio.id;
         });
 
-        return Radios.find({ _id: {$in: radioIds}}, { fields: { name: 1, playlist: 1, twitchChannel: 1 }});
+        return Radios.find({ _id: {$in: radioIds}}, { fields: { name: 1, playlist: 1, twitchChannel: 1, url: 1 }});
     });
 
     Meteor.methods({
@@ -102,12 +102,14 @@ if(Meteor.isServer) {
             if (isSongBlocked(radioId, song.id)) throw new Meteor.Error(500, 'This song is blocked');
             if (isUserBlocked(radioId, song.user)) throw new Meteor.Error(500, 'Sorry, you cannot add songs to this radio');
 
-            var radio = Radios.findOne(radioId);
-
-            //TODO Check user limits (limitType + limitValue)
+            let radio = Radios.findOne(radioId);
 
             if (!radio) throw new Meteor.Error(500, 'Cannot access this radio');
             if (radio.playlist.length >= 100) throw new Meteor.Error(500, 'Sorry, the playlist is full');
+
+            if (!isOwner(radioId)) {
+                if (hasUserReachedLimit(radio)) throw new Meteor.Error(500, 'You have reached your limit for this radio. Please try again later');
+            }
 
             if (isOwner(radioId) || canAdd(radioId)) Radios.update({ _id: radioId },{ $push: { playlist: song, songs: song.id }});
         },
@@ -282,4 +284,38 @@ if(Meteor.isServer) {
 
         return isBlacklisted;
     };
+
+    var hasUserReachedLimit = function hasUserReachedLimit(radio) {
+        if (radio.limitType === "number") {
+            let count = 0;
+
+            radio.playlist.forEach(function(song) {
+                if (song.user && song.user.id === Meteor.user()._id) count++;
+            });
+
+            if (count >= radio.limitValue) return true;
+        }
+        else {
+            if (radio.playlist.length) {
+                let hasEnded = false;
+                let count = 0;
+                let song = null;
+
+                while (!hasEnded) {
+                    song = radio.playlist[radio.playlist.length - (count + 1)];
+                    count++;
+                    if (count === radio.playlist.length) hasEnded = true;
+                    if (song.user && song.user.id === Meteor.user()._id) {
+                        let now = new Date().getTime();
+                        let minutesFromNow = Math.floor((now - song.dateAdded.getTime()) / (1000 * 60));
+
+                        if (minutesFromNow <= parseInt(radio.limitValue,10)) return true;
+                        hasEnded = true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }

@@ -3,10 +3,9 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
-* Limit submissions per user (time / number limit)
 * Handle restricted videos
 * Responsive
-* Donations + contact
+* Donations
 * Logo
 * Home categories (most popular, recent with playlist, twitch streamers)
 * Do not allow blocked songs in related

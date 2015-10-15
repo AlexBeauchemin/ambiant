@@ -29,4 +29,5 @@ Router.configure({
 
 Router.route('/', {name: 'home'});
 Router.route('/radio/:url', {name: 'radio'});
+Router.route('/contact', {name: 'contact'});
 

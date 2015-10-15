@@ -19,3 +19,4 @@ Meteor.users.deny({
         return true;
     }
 });
+

@@ -3,12 +3,14 @@ var config = {
   dev: {
     youtubeApiKey: '',
     twitchClientId: '',
-    twitchClientSecret: ''
+    twitchClientSecret: '',
+    mailgunApiKey: ''
   },
   prod: {
     youtubeApiKey: '',
     twitchClientId: '',
-    twitchClientSecret: ''
+    twitchClientSecret: '',
+    mailgunApiKey: ''
   }
 };
 

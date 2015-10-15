@@ -34,3 +34,4 @@ check
 fourseven:scss@=3.2.0
 tmeasday:presence
 ecmascript
+gfk:mailgun-api

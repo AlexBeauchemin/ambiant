@@ -13,7 +13,7 @@ Router.configure({
         };
     },
     onRun: function () {
-        Session.set('autoplay', false);
+        $('body').removeAttr('data-route').attr('data-route', Router.current().route.getName());
 
         this.next();
     },

@@ -41,6 +41,12 @@ RadioController = RouteController.extend({
         };
     },
 
+    onRun() {
+        Session.set('autoplay', false);
+
+        this.next();
+    },
+
     onStop() {
         Session.set('currentRadioId', null);
         Session.set('currentlyPlaying', null);

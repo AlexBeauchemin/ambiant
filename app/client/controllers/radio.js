@@ -43,7 +43,6 @@ RadioController = RouteController.extend({
 
     onRun() {
         Session.set('autoplay', false);
-
         this.next();
     },
 

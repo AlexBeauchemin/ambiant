@@ -1,7 +1,7 @@
 Router.configure({
     layoutTemplate: 'Layout',
     loadingTemplate: 'Loading',
-    data: function() {
+    data() {
         var radio = null;
         var user = Meteor.user();
 
@@ -12,12 +12,16 @@ Router.configure({
             myRadio: radio
         };
     },
-    onRun: function () {
+    onRun() {
         $('body').removeAttr('data-route').attr('data-route', Router.current().route.getName());
-
         this.next();
     },
-    waitOn: function () {
+    onBeforeAction() {
+        //Safety case, onRun doesn't seems to run after a hot reload (after code change)
+        $('body').removeAttr('data-route').attr('data-route', Router.current().route.getName());
+        this.next();
+    },
+    waitOn() {
         return [
             Meteor.subscribe('my-radio'),
             Meteor.subscribe('top-radios'),

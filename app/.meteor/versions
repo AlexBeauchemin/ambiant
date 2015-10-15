@@ -85,6 +85,7 @@ routepolicy@1.0.6
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
+siyfion:webfontloader@1.5.18
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4

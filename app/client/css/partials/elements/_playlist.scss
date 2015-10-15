@@ -143,6 +143,14 @@
 .search {
     position: relative;
 
+    label {
+        max-width: 100%;
+        overflow: hidden;
+        padding-right: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     .collection {
         left: 10px;
         //opacity: 0.95;

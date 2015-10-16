@@ -2,33 +2,22 @@
     <form id="modal-signup" class="modal {{getSession "signup-error"}}">
         <div class="modal-content">
             <h4>Create account</h4>
-            <div class="row">
-                <div class="col s12 l5">
-                    <div class="input-field">
-                        <button type="button" class="btn btn-twitch waves-effect waves-light full-width" data-action="login-twitch">Login with Twitch</button>
-                    </div>
-                </div>
-                <div class="col s12 l2">
-                    <h5>OR</h5>
-                </div>
-                <div class="col s12 l5">
-                    <div class="input-field {{getSession "error.email"}}">
-                        <input id="email" name="email" type="email" maxlength="100" />
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="input-field">
-                        <input id="name" name="name" type="text" maxlength="50" />
-                        <label for="name">Name</label>
-                    </div>
-                    <div class="input-field {{getSession "error.password"}}">
-                        <input id="password" name="password" type="password" maxlength="100" />
-                        <label for="password">Password</label>
-                    </div>
-                    <div class="input-field">
-                        <button type="submit" class="btn waves-effect waves-light full-width">Sign up</button>
-                    </div>
-                </div>
+            <div class="input-field {{getSession "error.email"}}">
+                <input id="email" name="email" type="email" maxlength="100" />
+                <label for="email">Email</label>
             </div>
+            <div class="input-field">
+                <input id="name" name="name" type="text" maxlength="50" />
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field {{getSession "error.password"}}">
+                <input id="password" name="password" type="password" maxlength="100" />
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn waves-effect waves-light">Sign up</button>
+            <button type="button" class="btn btn-twitch waves-effect waves-light" data-action="login-twitch">Twitch Login</button>
         </div>
     </form>
 </template>

@@ -1,9 +1,11 @@
 var env = process.env.NODE_ENV;
 var config = {
   dev: {
+    stripeApiKey: '',
     youtubeApiKey: ''
   },
   prod: {
+    stripeApiKey: '',
     youtubeApiKey: ''
   }
 };

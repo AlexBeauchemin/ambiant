@@ -4,7 +4,6 @@ Collaborative radio for streamers / partys
 ## TODO:
 
 * Handle restricted videos
-* Donations
 * Logo
 * Home categories (most popular, recent with playlist, twitch streamers)
 * Do not allow blocked songs in related

@@ -13,9 +13,9 @@
 
     <p class="space-top-big center-align">
         {{#if myRadio}}
-            <a href="/radio/{{myRadio.url}}" class="btn btn-large waves-effect waves-light modal-trigger">Go to my radio</a>
+            <a href="/radio/{{myRadio.url}}" class="btn btn-large waves-effect waves-light">Go to my radio</a>
         {{else}}
-            <a href="#modal-create-radio" class="btn btn-large waves-effect waves-light modal-trigger">Create your radio</a>
+            <a href="#modal-create-radio" class="btn btn-large waves-effect waves-light" data-action="open-create-radio">Create your radio</a>
         {{/if}}
     </p>
 

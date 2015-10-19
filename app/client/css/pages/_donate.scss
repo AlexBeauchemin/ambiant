@@ -1,0 +1,11 @@
+[data-route="donate"] {
+    main {
+        text-align: center;
+
+        @media (min-width: $tablet) {
+            h2.space-top-big {
+                margin-top: 2em;
+            }
+        }
+    }
+}

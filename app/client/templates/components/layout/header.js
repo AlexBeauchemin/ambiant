@@ -3,6 +3,13 @@ Template.Header.rendered = function() {
 };
 
 Template.Header.events({
+    'click [data-action="open-create-radio"]': function() {
+        var $modal = $('#modal-create-radio');
+
+        $modal.openModal();
+        $modal.find('input').first().trigger('click').trigger('focus');
+        return false;
+    },
     'click [data-action="open-signup-modal"]': function() {
         var $modal = $('#modal-signup');
 

@@ -1,0 +1,38 @@
+#twitchLoginButton {
+	background-color: #6441a5;
+    border: 0;
+	border-radius: 3px;
+    color: #fff;
+	cursor: pointer;
+    height: 36px;
+    line-height: 36px;
+    outline: 0;
+    padding: 0 1rem 0 55px;
+	position: relative;
+    text-align: center;
+	-webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#twitchLoginButton:hover,
+#twitchLoginButton:active,
+#twitchLoginButton:hover:before,
+#twitchLoginButton:active:before {
+	background-color: #7e5bbe;
+}
+
+#twitchLoginButton:before {
+	background: #6441a5 url("/packages/alexbeauchemin_accounts-twitch/twitch.png") no-repeat center;
+    background-size: auto 70%;
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
+    content: " ";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    width: 40px;
+}

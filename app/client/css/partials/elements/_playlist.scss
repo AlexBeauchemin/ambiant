@@ -17,16 +17,19 @@
 
     .collection {
         margin: 0;
+        overflow: visible;
 
         .collection-item {
+            align-items: center;
             color: $primary-color;
+            display: flex;
             height: auto;
-            padding: 10px 0 0 0;
+            padding: 10px 0;
 
             &.avatar {
                 .circle {
                     left: inherit;
-                    margin: 0 15px 10px 15px;
+                    margin: 0 10px;
                     position: inherit;
                     vertical-align: top;
                 }
@@ -35,6 +38,8 @@
             &[data-state="playing"] {
                 background-color: $secondary-color;
                 color: #fff;
+
+                .dropdown-button { color: #fff; }
 
                 //&:hover {
                 //    background-color: lighten($secondary-color, 10%);
@@ -49,29 +54,10 @@
                 overflow-y: hidden;
             }
 
-            &:hover,
-            &:active,
-            &:focus {
-                //background-color: #eee;
-
-                .actions {
-                    height: 30px;
-                    opacity: 1;
-                    overflow: hidden;
-                }
-            }
-
-            &:last-child {
-                .actions {
-                    transform: translateY(0);
-                }
-            }
-
             .info {
                 display: inline-block;
                 line-height: 20px;
-                margin-bottom: 10px;
-                width: calc(100% - 90px);
+                width: calc(100% - 100px);
             }
 
             .title {
@@ -85,40 +71,20 @@
                 }
             }
 
+            .dropdown-button {
+                align-items: center;
+                bottom: 0;
+                display: flex;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                i { font-size: 32px; }
+            }
+
             .actions {
-                height: 0;
-                opacity: 0;
-                overflow-y: hidden;
-                text-align: center;
-                transition: all 0.3s;
-                width: 100%;
-
-                a {
-                    background-color: $primary-color;
-                    border-left: 1px solid #666;
-                    color: #fff;
-                    display: block;
-                    float: left;
-                    line-height: 30px;
-                    transition: background-color 0.3s;
-                    width: 33.33333333%;
-
-                    &:first-child {
-                        border-left: none;
-                    }
-
-                    &:hover {
-                        background-color: #3A404A;
-                    }
-
-                    &:last-child {
-                        @extend .red;
-                        @extend .darken-4;
-
-                        &:hover {
-                            @extend .darken-2;
-                        }
-                    }
+                li:last-child {
+                    margin-bottom: 0;
                 }
             }
         }

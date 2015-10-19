@@ -1,6 +1,8 @@
 footer.page-footer {
+    color: #fff;
     font-size: 12px;
     line-height: 26px;
+    padding: 10px 0;
     text-align: center;
     vertical-align: top;
 
@@ -30,12 +32,14 @@ footer.page-footer {
         vertical-align: top;
     }
 
-    .container {
-        width: 96%;
-    }
-
     iframe {
         transform: translateY(3px);
+    }
+
+    @media (max-width: $tablet - 1) {
+        .container {
+            width: 96%;
+        }
     }
 
     @media (min-width: $tablet) {

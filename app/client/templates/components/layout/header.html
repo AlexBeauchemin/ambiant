@@ -8,7 +8,7 @@
                     {{#if myRadio}}
                         <li><a href="/radio/{{myRadio.url}}">My radio</a></li>
                     {{else}}
-                        <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
+                        <li><a href="#modal-create-radio" data-action="open-create-radio">New radio</a></li>
                     {{/if}}
                     {{#if isGuest}}
                         <li><a href="#modal-login" data-action="open-login-modal">Log In</a></li>

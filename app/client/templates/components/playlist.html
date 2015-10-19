@@ -39,11 +39,12 @@
                         {{/if}}
                     </div>
                     {{#if ../isAdmin}}
-                        <div class="actions clearfix">
-                            <a href="#" data-action="block-song">Block song</a>
-                            <a href="#" data-action="block-user">Block user</a>
-                            <a href="#" data-action="remove-song">Remove</a>
-                        </div>
+                        <a class='dropdown-button' href='#' data-activates='dropdown-actions'><i class="material-icons">more_vert</i></a>
+                        <ul id='dropdown-actions' class='dropdown-content actions'>
+                            <li><a href="#" data-action="remove-song">Remove</a></li>
+                            <li><a href="#" data-action="block-song">Block song</a></li>
+                            <li><a href="#" data-action="block-user">Block user</a></li>
+                        </ul>
                     {{/if}}
                 </div>
             {{/each}}

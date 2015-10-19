@@ -18,7 +18,7 @@
             }
         }
 
-        .info {
+        .status {
             color: rgba(0, 0, 0, 0.5);
             display: inline-block;
             font-size: 12px;
@@ -40,6 +40,10 @@
                 .twitch {
                     margin-top: 9px;
                 }
+            }
+
+            .status {
+                text-align: right;
             }
 
             .info {

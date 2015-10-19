@@ -10,33 +10,5 @@
 }
 
 .btn-twitch {
-    color: #fff;
-    background: $colorTwitch;
-    background-size: auto 80%;
-    padding-left: 45px;
-    padding-right: 10px;
-    position: relative;
-    text-align: center;
 
-    &:before {
-        background: $colorTwitch url('/twitch.png') no-repeat center;
-        background-size: auto 80%;
-        border-right: 1px solid rgba(0,0,0,0.3);
-        content: " ";
-        display: block;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        transition: all 0.2s;
-        width: 40px;
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-        background-color: lighten($colorTwitch, 10%);
-
-        &:before { background-color: lighten($colorTwitch, 10%); }
-    }
 }

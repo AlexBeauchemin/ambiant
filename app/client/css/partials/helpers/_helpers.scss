@@ -3,6 +3,7 @@
 .space-top { margin-top: 1em; }
 .space-top-big { margin-top: 2em; }
 .space-bottom { margin-bottom: 1em; }
+.break-word { word-break: break-all; }
 
 @media (min-width: $tablet) {
     .space-top { margin-top: 2em; }

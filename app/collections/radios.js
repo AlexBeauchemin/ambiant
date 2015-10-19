@@ -77,6 +77,7 @@ if(Meteor.isServer) {
                     dateLastAccess: new Date(),
                     limitType: 'number', //number or time
                     limitValue: 5,
+                    live: 0,
                     name: name,
                     playlist: [], //current playlist
                     playlistEnded: [], //past songs
@@ -166,6 +167,12 @@ if(Meteor.isServer) {
 
             if (!radio.playlist.length) return findRelated(radio);
             return radio.playlist[0];
+        },
+        goLive: function(radioId) {
+          if (isOwner(radioId)) Radios.update({_id: radioId}, {$set: {live: true}}) ;
+        },
+        goOffline: function(radioId) {
+            if (isOwner(radioId)) Radios.update({_id: radioId}, {$set: {live: false}}) ;
         },
         updateConfig: function(radioId, data) {
             if (!data) return;
@@ -258,6 +265,7 @@ if(Meteor.isServer) {
 
     var isOwner = function isOwner(radioId) {
         if (!radioId) return false;
+        if (!Meteor.user()) return false;
 
         return !!Radios.findOne({_id: radioId, users: Meteor.user()._id});
     };

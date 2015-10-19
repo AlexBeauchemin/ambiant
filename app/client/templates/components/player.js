@@ -24,9 +24,12 @@ Template.Player.events({
 
         if (!this.radio || !this.radio.playlist || !this.radio.playlist.length) return;
 
-        var songId = this.radio.playlist[0].id;
+        let songId = this.radio.playlist[0].id;
+
         if (!songId) return;
+
         App.youtube.play(songId);
+        Meteor.call('goLive', this.radio._id);
     }
 });
 

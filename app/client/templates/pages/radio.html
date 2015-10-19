@@ -1,15 +1,24 @@
 <template name="Radio">
-    <div class="row">
-        {{#if radio}}
-            <div class="col s12">
+    {{#if radio}}
+        <div class="row">
+            <div class="col s12 m10">
                 <h1>
                     {{#if radio.twitchChannel}}
                         <a href="http://www.twitch.tv/{{radio.twitchChannel}}" class="left twitch" target="_blank"><img src="/twitch.png" alt="Twitch channel" /></a>
                     {{/if}}
                     {{radio.name}}
-                    <span class="small right">Users: {{users.length}}</span>
                 </h1>
             </div>
+            <div class="col s12 m2 info left-align">
+                Users: {{users.length}}<br />
+                {{#if radio.live}}
+                    Status: <span class="live">live</span>
+                {{else}}
+                    Status: <span class="offline">offline</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="row">
             {{#if isAdmin}}
                 <div class="col s12 m7">
                     {{>FormAddSong}}
@@ -28,8 +37,10 @@
                     {{>Playlist}}
                 </div>
             {{/if}}
-        {{else}}
+        </div>
+    {{else}}
+        <div class="row">
             <h2 class="center-align space-top">Radio not found</h2>
-        {{/if}}
-    </div>
+        </div>
+    {{/if}}
 </template>

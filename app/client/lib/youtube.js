@@ -245,13 +245,36 @@ App.youtube = (function() {
                 width: '100%',
                 events: {
                     //'onReady': _this.playVideo,
-                    'onStateChange': _this.onPlayerStateChange.bind(_this)
+                    'onStateChange': _this.onPlayerStateChange.bind(_this),
+                    'onError': _this.onPlayerError.bind(_this)
                 }
             });
         },
 
+        onPlayerError(e) {
+            switch (e.data) {
+                case 2:
+                    Materialize.toast('Sorry, an error occured with the youtube player: The video id is invalid', 5000);
+                    break;
+                case 5:
+                    Materialize.toast('Sorry, an error occured with the youtube player: The requested content cannot be played in an HTML5 player', 5000);
+                    break;
+                case 100:
+                    Materialize.toast('Sorry, an error occured with the youtube player: The video requested was not found, it may have been removed or made private.', 5000);
+                    break;
+                case 101:
+                case 105:
+                    Materialize.toast('Sorry, an error occured with the youtube player: The owner of the requested video does not allow it to be played in embedded players.', 5000);
+                    break;
+                default:
+                    Materialize.toast('Sorry, an error occured with the youtube player', 5000);
+            }
+
+            if (this.config.onSongEnded) this.config.onSongEnded();
+        },
+
         onPlayerStateChange(e) {
-            if (e.data === 0) {
+            if (e.data === YT.PlayerState.ENDED) {
                 if (this.config.onSongEnded) this.config.onSongEnded();
             }
         },

@@ -1,16 +1,6 @@
 [data-route="radio"] {
     main {
         h1 {
-            .small {
-                color: rgba(0, 0, 0, 0.5);
-                display: inline-block;
-                font-size: 12px;
-                font-weight: normal;
-                padding: 0;
-                text-align: left;
-                width: 100%;
-            }
-
             .twitch {
                 background-color: $colorTwitch;
                 border-radius: 3px;
@@ -28,6 +18,17 @@
             }
         }
 
+        .info {
+            color: rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 16px;
+
+            span { color: $success-color; }
+            span.offline { color: $error-color; }
+        }
+
         .controls {
             button {
                 width: 100%;
@@ -36,14 +37,13 @@
 
         @media (min-width: $tablet) {
             h1 {
-                .small {
-                    padding-left: 20px;
-                    width: auto;
-                }
-
                 .twitch {
                     margin-top: 9px;
                 }
+            }
+
+            .info {
+                text-align: left;
             }
 
             .controls {

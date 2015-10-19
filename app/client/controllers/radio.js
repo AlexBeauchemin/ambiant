@@ -13,6 +13,7 @@ RadioController = RouteController.extend({
 
         if (radioId && myRadio && radio._id === myRadio._id) {
             isAdmin = true;
+            Session.set('currentRadioId', 'owner-' + radio._id);
         }
         else if (radioId) {
             Session.set('currentRadioId', radio._id);
@@ -41,12 +42,16 @@ RadioController = RouteController.extend({
         };
     },
 
-    onRun() {
+    onBeforeAction() {
         Session.set('autoplay', false);
         this.next();
     },
 
     onStop() {
+        let radio = Radios.findOne({url: this.params.url, users: Meteor.user()._id });
+
+        if (radio) Meteor.call('goOffline', radio._id);
+
         Session.set('currentRadioId', null);
         Session.set('currentlyPlaying', null);
     },

@@ -2,8 +2,8 @@ Router.configure({
     layoutTemplate: 'Layout',
     loadingTemplate: 'Loading',
     data() {
-        var radio = null;
-        var user = Meteor.user();
+        let radio = null;
+        let  user = Meteor.user();
 
         if (user && user._id) radio = Radios.findOne({users: user._id });
 
@@ -11,10 +11,6 @@ Router.configure({
             radios: Radios.find(),
             myRadio: radio
         };
-    },
-    onRun() {
-        $('body').removeAttr('data-route').attr('data-route', Router.current().route.getName());
-        this.next();
     },
     onBeforeAction() {
         //Safety case, onRun doesn't seems to run after a hot reload (after code change)

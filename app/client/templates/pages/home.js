@@ -11,6 +11,7 @@ Template.Home.events({
 Template.Home.rendered = function() {
     $('.collapsible').collapsible();
     $('.modal-trigger').leanModal();
+    $('ul.tabs').tabs();
 };
 
 Template.Home.helpers({

@@ -11,42 +11,19 @@
                     <h4>Playlist</h4>
                 {{/if}}
             </div>
+
             {{#unless playlistLength radio}}
                 <div class="collection-item collection-empty">
                     <p class="center-align"><span class="title">This playlist is empty</span></p>
                 </div>
             {{/unless}}
+
             {{#each radio.playlistEnded}}
-                <div class="collection-item avatar" data-state="ended" data-position="{{position}}">
-                    <img src="{{data.thumbnails.default.url}}" alt="" class="circle">
-                    <div class="info">
-                        <span class="title">{{data.title}} <span class="smaller">{{data.duration}}</span></span>
-                        {{#if user}}
-                            <span class="smaller">
-                                Added by : {{user.name}}
-                            </span>
-                        {{/if}}
-                    </div>
-                </div>
+                {{>PlaylistItem song=this state="ended" isAdmin=false}}
             {{/each}}
+
             {{#each radio.playlist}}
-                <div class="collection-item avatar" data-state="{{this.state}}">
-                    <img src="{{data.thumbnails.default.url}}" alt="" class="circle">
-                    <div class="info">
-                        <span class="title">{{data.title}} <span class="smaller">{{data.duration}}</span></span>
-                        {{#if user}}
-                            <span class="smaller">Added by : {{user.name}}</span>
-                        {{/if}}
-                    </div>
-                    {{#if ../isAdmin}}
-                        <a class='dropdown-button' href='#' data-activates='dropdown-actions'><i class="material-icons">more_vert</i></a>
-                        <ul id='dropdown-actions' class='dropdown-content actions'>
-                            <li><a href="#" data-action="remove-song">Remove</a></li>
-                            <li><a href="#" data-action="block-song">Block song</a></li>
-                            <li><a href="#" data-action="block-user">Block user</a></li>
-                        </ul>
-                    {{/if}}
-                </div>
+                {{>PlaylistItem song=this state=this.state isAdmin=../isAdmin}}
             {{/each}}
         </div>
     </div>

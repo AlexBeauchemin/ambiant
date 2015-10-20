@@ -18,8 +18,6 @@ Template.Donate.events({
 
     if (!amount) return;
 
-    console.log('send ' + amount);
-
     StripeCheckout.open({
       key: App.config.stripeApiKey,
       amount: amount,

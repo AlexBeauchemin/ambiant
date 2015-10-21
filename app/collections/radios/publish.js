@@ -11,12 +11,26 @@ if (Meteor.isServer) {
     return Radios.find({
         public: {$eq: true},
         live: {$eq: true},
+        twitchChannel: {$ne: null},
         playlist: {$not: {$size: 0}}
       }, {
         fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1},
         sort: {dateCreated: -1},
         limit: limit
       }
+    );
+  });
+
+  Meteor.publish("twitch-radios", function(limit = 10) {
+    return Radios.find({
+          public: {$eq: true},
+          live: {$eq: true},
+          playlist: {$not: {$size: 0}}
+        }, {
+          fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1},
+          sort: {dateCreated: -1},
+          limit: limit
+        }
     );
   });
 

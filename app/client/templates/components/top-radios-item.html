@@ -1,0 +1,19 @@
+<template name="TopRadiosItem">
+    <div class="col s12 m4 l3">
+        <div class="radio z-depth-1">
+            <h2>
+                <a href="/radio/{{radio.url}}">{{radio.name}}</a>
+                {{#if radio.twitchChannel}}
+                    <a href="http://www.twitch.tv/{{radio.twitchChannel}}" class="right twitch" target="_blank"><img src="/twitch.png" alt="Twitch channel" /></a>
+                {{/if}}
+            </h2>
+            <div class="song">
+                <p class="subtitle center-align">Currently playing</p>
+                <a href="/radio/{{radio.url}}">
+                    <img src="{{getCurrentSongImage radio}}" alt="" />
+                </a>
+            </div>
+            <p class="song-title">{{getCurrentSongTitle radio}}</p>
+        </div>
+    </div>
+</template>

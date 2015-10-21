@@ -1,0 +1,36 @@
+<template name="TopRadios">
+    <div class="row space-top-big">
+        <div class="col s12">
+            <ul class="tabs z-depth-1">
+                <li class="tab col s3"><a href="#top-radios">Popular</a></li>
+                <li class="tab col s3"><a href="#recent-radios" class="active">Recent</a></li>
+                <li class="tab col s3"><a href="#twitch-radios">Twitch</a></li>
+            </ul>
+        </div>
+        <div id="top-radios" class="radios-list">
+            <div class="col s12">
+                <h2 class="center-align empty">Coming soon</h2>
+            </div>
+        </div>
+        <div id="recent-radios" class="radios-list">
+            {{#unless recentRadios}}
+                <div class="col s12">
+                    <h2 class="center-align empty">There is no live recent radios</h2>
+                </div>
+            {{/unless}}
+            {{#each recentRadios}}
+                {{> TopRadiosItem radio=this}}
+            {{/each}}
+        </div>
+        <div id="twitch-radios" class="radios-list">
+            {{#unless twitchRadios}}
+                <div class="col s12">
+                    <h2 class="center-align empty">There is no live twitch radios</h2>
+                </div>
+            {{/unless}}
+            {{#each twitchRadios}}
+                {{> TopRadiosItem radio=this}}
+            {{/each}}
+        </div>
+    </div>
+</template>

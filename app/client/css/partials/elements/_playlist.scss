@@ -24,11 +24,16 @@
             color: $primary-color;
             display: flex;
             height: auto;
-            padding: 0;
+            padding: 0 10px 0 0;
             position: relative;
 
-            &.has-menu {
+            &.has-menu,
+            &.has-skip {
                 padding-right: 40px;
+            }
+
+            &.has-menu.has-skip {
+                padding-right: 70px;
             }
 
             &.avatar {
@@ -68,15 +73,21 @@
                 padding-left: 10px;
             }
 
-            .dropdown-button {
+            .dropdown-button,
+            .btn-skip {
                 align-items: center;
                 display: flex;
                 height: 100%;
-                padding-left: 12px;
+                padding: 0;
                 position: absolute;
                 right: 0;
 
                 i { font-size: 32px; }
+            }
+
+            .btn-skip {
+                color: #fff;
+                right: 30px;
             }
 
             .actions {

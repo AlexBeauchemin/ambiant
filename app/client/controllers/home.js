@@ -7,7 +7,8 @@ HomeController = RouteController.extend({
 
         return {
             myRadio: radio,
-            recentRadios: Radios.find({},{limit: 10, sort: {dateCreated: -1}})
+            recentRadios: Radios.find({},{limit: 10, sort: {dateCreated: -1}}),
+            twitchRadios: Radios.find({twitchChannel: {$ne: null}},{limit: 10, sort: {dateCreated: -1}})
         };
     },
 
@@ -16,6 +17,7 @@ HomeController = RouteController.extend({
             Meteor.subscribe('my-radio'),
             Meteor.subscribe('user-data'),
             Meteor.subscribe('top-radios', 10),
+            Meteor.subscribe('twitch-radios', 10),
             Meteor.subscribe('new-radios', 10)
         ];
     }

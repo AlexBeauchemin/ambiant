@@ -1,5 +1,5 @@
 <template name="PlaylistItem">
-    <div class="collection-item avatar {{hasMenu state}}" data-state="{{state}}">
+    <div class="collection-item avatar {{hasMenu state}} {{hasSkip state}}" data-state="{{state}}">
         <img src="{{song.data.thumbnails.default.url}}" alt="" class="circle">
         <div class="info">
             <p>{{song.data.title}}</p>
@@ -12,6 +12,9 @@
         <div class="smaller time">{{song.data.duration}}</div>
         {{#if isAdmin}}
             <a class='dropdown-button' href='#' data-activates='dropdown-actions'><i class="material-icons">more_vert</i></a>
+            {{#if hasSkip state}}
+                <button class="btn btn-flat btn-skip" title="Next Song" data-action="skip"><i class="material-icons">skip_next</i></button>
+            {{/if}}
             <ul id='dropdown-actions' class='dropdown-content actions'>
                 <li><a href="#" data-action="remove-song">Remove</a></li>
                 <li><a href="#" data-action="block-song">Block song</a></li>

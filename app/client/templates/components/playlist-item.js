@@ -9,6 +9,10 @@ Template.PlaylistItem.helpers({
   hasMenu: function (state) {
     if (Template.parentData(2).isAdmin && state != "ended") return "has-menu";
     return "";
+  },
+  hasSkip: function (state) {
+    if (state == "playing" && (Template.parentData(2).isAdmin || Template.parentData(2).radio.skip === "all")) return "has-skip";
+    return "";
   }
 });
 

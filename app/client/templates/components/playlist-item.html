@@ -1,0 +1,22 @@
+<template name="PlaylistItem">
+    <div class="collection-item avatar {{hasMenu state}}" data-state="{{state}}">
+        <img src="{{song.data.thumbnails.default.url}}" alt="" class="circle">
+        <div class="info">
+            <p>{{song.data.title}}</p>
+            {{#if song.user}}
+                <p class="smaller">
+                    Added by : {{song.user.name}}
+                </p>
+            {{/if}}
+        </div>
+        <div class="smaller time">{{song.data.duration}}</div>
+        {{#if isAdmin}}
+            <a class='dropdown-button' href='#' data-activates='dropdown-actions'><i class="material-icons">more_vert</i></a>
+            <ul id='dropdown-actions' class='dropdown-content actions'>
+                <li><a href="#" data-action="remove-song">Remove</a></li>
+                <li><a href="#" data-action="block-song">Block song</a></li>
+                <li><a href="#" data-action="block-user">Block user</a></li>
+            </ul>
+        {{/if}}
+    </div>
+</template>

@@ -2,13 +2,13 @@ Router.configure({
     layoutTemplate: 'Layout',
     loadingTemplate: 'Loading',
     data() {
+        console.log('data router');
         let radio = null;
-        let  user = Meteor.user();
+        let user = Meteor.user();
 
         if (user && user._id) radio = Radios.findOne({users: user._id });
 
         return {
-            radios: Radios.find(),
             myRadio: radio
         };
     },
@@ -20,9 +20,7 @@ Router.configure({
     waitOn() {
         return [
             Meteor.subscribe('my-radio'),
-            Meteor.subscribe('top-radios'),
-            Meteor.subscribe('user-data'),
-            Meteor.subscribe('user-presence', Session.get('currentRadioId'))
+            Meteor.subscribe('user-data')
         ];
     }
 });

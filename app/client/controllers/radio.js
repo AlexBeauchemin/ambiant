@@ -1,6 +1,6 @@
 RadioController = RouteController.extend({
     data() {
-        let radio = Radios.findOne({url: this.params.url });
+        let radio = Radios.findOne({url:  this.params.url.toLowerCase() });
         let myRadio = null;
         let isAdmin = false;
         let user = Meteor.user();
@@ -48,7 +48,7 @@ RadioController = RouteController.extend({
     },
 
     onStop() {
-        let radio = Radios.findOne({url: this.params.url, users: Meteor.user()._id });
+        let radio = Radios.findOne({url: this.params.url.toLowerCase(), users: Meteor.user()._id });
 
         if (radio) Meteor.call('goOffline', radio._id);
 
@@ -58,7 +58,7 @@ RadioController = RouteController.extend({
 
     waitOn() {
         return [
-            Meteor.subscribe('radio', this.params.url),
+            Meteor.subscribe('radio',  this.params.url.toLowerCase()),
             Meteor.subscribe('my-radio'),
             Meteor.subscribe('user-data'),
             Meteor.subscribe('user-presence', Session.get('currentRadioId'))

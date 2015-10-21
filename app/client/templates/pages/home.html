@@ -22,13 +22,16 @@
     <div class="row space-top-big">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#top-radios" class="active">Popular</a></li>
-                <li class="tab col s3"><a href="#recent-radios">Recent</a></li>
+                <li class="tab col s3"><a href="#top-radios">Popular</a></li>
+                <li class="tab col s3"><a href="#recent-radios" class="active">Recent</a></li>
                 <li class="tab col s3"><a href="#twitch-radios">Twitch</a></li>
             </ul>
         </div>
         <div id="top-radios" class="radios-list">
-            {{#each radios}}
+
+        </div>
+        <div id="recent-radios" class="radios-list">
+            {{#each recentRadios}}
                 <div class="col s12 m4 l3">
                     <div class="radio z-depth-1">
                         <h2>
@@ -48,7 +51,6 @@
                 </div>
             {{/each}}
         </div>
-        <div id="recent-radios" class="radios-list">Test 2</div>
         <div id="twitch-radios" class="radios-list">Test 3</div>
     </div>
 </template>

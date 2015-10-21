@@ -3,6 +3,9 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
+* Change song added alert color
+* Show all ended songs
+* Remove too long playlist ended
 * Only show public radios on homepage
 * Order homepage radio by viewers descending
 * Make top radios reactive (may have to push number of viewers via set interval)

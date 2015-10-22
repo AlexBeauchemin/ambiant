@@ -14,8 +14,7 @@ if (Meteor.isServer) {
         // presences of _all_ the users in the system.
 
         // If for example we wanted to publish only logged in users we could apply:
-        //var filter = { userId: { $exists: true }};
-        var filter = {};
+        var filter = {userId: {$exists: true}};
 
         if (radioId) filter.state = { currentRadioId: radioId };
 

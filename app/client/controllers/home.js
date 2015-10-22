@@ -8,7 +8,8 @@ HomeController = RouteController.extend({
         return {
             myRadio: radio,
             recentRadios: Radios.find({},{limit: 10, sort: {dateCreated: -1}}),
-            twitchRadios: Radios.find({twitchChannel: {$ne: null}},{limit: 10, sort: {dateCreated: -1}})
+            twitchRadios: Radios.find({twitchChannel: {$ne: null}},{limit: 10, sort: {nbUsers: -1}}),
+            topRadios:  Radios.find({}, {limit: 10, sort: {nbUsers: -1}})
         };
     },
 

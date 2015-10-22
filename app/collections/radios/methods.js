@@ -38,6 +38,7 @@ if (Meteor.isServer) {
           limitValue: 5,
           live: false,
           name: name,
+          nbUsers: 0,
           playlist: [], //current playlist
           playlistEnded: [], //past songs
           public: true,
@@ -156,6 +157,9 @@ if (Meteor.isServer) {
       }
 
       if (Object.keys(config).length > 0) Radios.update({ _id: radioId },{ $set: config });
+    },
+    updateUsers: function(radioId, nbUsers) {
+      Radios.update({ _id: radioId },{ $set: { nbUsers: nbUsers } });
     }
   });
 }

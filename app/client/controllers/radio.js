@@ -51,6 +51,11 @@ RadioController = RouteController.extend({
         this.next();
     },
 
+    onAfterAction() {
+        //TODO: Retrieve number of users from server
+        Meteor.call('updateUsers', this.data().users.length);
+    },
+
     onStop() {
         let radio = Radios.findOne({url: this.params.url.toLowerCase(), users: Meteor.user()._id });
 

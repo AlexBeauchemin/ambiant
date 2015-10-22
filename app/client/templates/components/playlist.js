@@ -14,5 +14,9 @@ Template.Playlist.events({
         App.youtube.stop();
       }
     });
+  },
+  'click [data-action="show-more"]': function() {
+    if (Session.get('showEndedMax') === 50) Session.set('showEndedMax', 2);
+    else Session.set('showEndedMax', 50);
   }
 });

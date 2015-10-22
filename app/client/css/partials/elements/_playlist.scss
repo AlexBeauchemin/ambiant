@@ -1,23 +1,30 @@
 .playlist {
-    h4 {
-        button {
-            float: right;
-            padding: 0 0 0 20px;
-
-            &:hover { @extend .red-text; }
-
-            i {
-                font-size: 2.2rem;
-                transform: translateY(-4px);
-            }
-        }
-    }
-
     .smaller { font-size: 11px; }
 
     .collection {
         margin: 0;
         overflow: visible;
+
+        .collection-header {
+            padding: 0 10px;
+
+            h3 {
+                line-height: 40px;
+                margin: 0;
+
+                button {
+                    float: right;
+                    line-height: 40px;
+                    padding: 0 0 0 20px;
+
+                    &:hover { @extend .red-text; }
+
+                    i {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
 
         .collection-item {
             align-items: center;
@@ -27,13 +34,25 @@
             padding: 0 10px 0 0;
             position: relative;
 
+            .info a {
+                color: $primary-color;
+                text-decoration: none;
+
+                &:hover { text-decoration: underline; }
+            }
+
             &.has-menu,
             &.has-skip {
                 padding-right: 40px;
             }
 
             &.has-menu.has-skip {
-                padding-right: 70px;
+                padding-right: 65px;
+
+                .btn-skip {
+                    padding-right: 0;
+                    right: 30px;
+                }
             }
 
             &.avatar {
@@ -48,6 +67,7 @@
                 background-color: $secondary-color;
                 color: #fff;
 
+                .info a { color: #fff; }
                 .dropdown-button { color: #fff; }
             }
 
@@ -56,9 +76,6 @@
                 color: rgba(0,0,0,0.5);
                 opacity: 0.5;
                 transition: all 0.3s;
-                overflow-y: hidden;
-
-                .time { padding-right: 10px; }
             }
 
             .info {
@@ -87,7 +104,9 @@
 
             .btn-skip {
                 color: #fff;
-                right: 30px;
+                padding-right: 5px;
+
+                i { transform: translateY(-2px); }
             }
 
             .actions {
@@ -111,71 +130,32 @@
                 }
             }
         }
-    }
-}
 
-.search {
-    position: relative;
+        .collection-show-more {
+            background-color: rgba(0,0,0,0.05);
+            color: rgba(0,0,0,0.5);
+            opacity: 0.5;
+            transition: all 0.3s;
 
-    label {
-        max-width: 100%;
-        overflow: hidden;
-        padding-right: 30px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .collection {
-        left: 10px;
-        //opacity: 0.95;
-        position: absolute;
-        top: 37px;
-        width: calc(100% - 20px);
-        z-index: 2;
-
-        a {
-            color: $primary-color;
-            padding-right: 45px;
-            position: relative;
-
-            &:hover, &:active, &:focus, &.active {
-                background-color: $secondary-color !important;
-                color: #fff;
-
-                .btn { background-color: #fff; }
-            }
-
-            .btn {
-                align-items: center;
-                background-color: transparent;
-                border: none;
-                border-left: 1px solid #e0e0e0;
-                border-radius: 0;
-                bottom: 0;
-                color: $primary-color;
-                display: flex;
-                height: 100%;
-                justify-content: center;
+            p {
                 margin: 0;
-                padding: 0 15px;
-                position: absolute;
-                right: 0;
-                top: 0;
-                transition: all 0.2s;
-                width: auto;
+                padding: 0;
+                width: 100%;
 
-                &:hover, &:active, &:focus {
-                    background-color: $primary-color;
-                    color: #fff;
+                a {
+                    display: block;
+                    padding: 5px 0;
+                    width: 100%;
                 }
             }
         }
     }
 
-    .loading {
-        margin: 0;
-        position: absolute;
-        right: 10px;
-        top: 10px;
+    @media (min-width: $tablet) {
+        .collection {
+            .collection-header {
+                padding: 10px 10px 10px 15px;
+            }
+        }
     }
 }

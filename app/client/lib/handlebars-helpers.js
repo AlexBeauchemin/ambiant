@@ -3,8 +3,16 @@ if (Meteor.isClient) {
         console.log(data);
     });
 
+    Template.registerHelper('isAdmin', function() {
+        return Session.get('currentRadioOwner');
+    });
+
     Template.registerHelper('isEqual', function(data1, data2) {
        return data1 === data2;
+    });
+
+    Template.registerHelper('notEqual', function(data1, data2) {
+        return data1 !== data2;
     });
 
     Template.registerHelper('getSession',function(index){

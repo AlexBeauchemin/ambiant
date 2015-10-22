@@ -1,5 +1,5 @@
-Template.Player.onRendered(function() {
-    var _this = this;
+Template.Player.rendered = function() {
+    let _this = this;
 
     Session.set('player-state', 'loading');
 
@@ -16,7 +16,7 @@ Template.Player.onRendered(function() {
             Session.set('player-state', state);
         }
     });
-});
+};
 
 Template.Player.events({
     'click [data-action="play"]': function(e) {
@@ -39,8 +39,6 @@ Template.Player.helpers({
         return "";
     },
     canSkip() {
-        if (this.isAdmin) return true;
-        if (this.radio.skip === "all") return true;
-        return false;
+        return App.helpers.canSkip(this.radio);
     }
 });

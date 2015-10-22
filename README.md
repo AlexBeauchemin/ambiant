@@ -3,15 +3,11 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
-* Change song added alert color
-* Show all ended songs
-* Remove too long playlist ended
-* Only show public radios on homepage* Order homepage radio by viewers descending
+* Faster add song - skip - remove (stub data)
 * Make top radios reactive (may have to push number of viewers via set interval)
 * Handle restricted videos
 * Only subscribed users config
 * Logo
-* Home categories (most popular, twitch streamers)
 * Do not allow blocked songs in related
 * Use postcss (currently not avaiblable with meteor+scss) for autoprefixer
 * Delete guests user after some time + radio

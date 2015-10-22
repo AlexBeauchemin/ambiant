@@ -1,6 +1,6 @@
 Template.Settings.rendered = function() {
-    $('.collapsible').collapsible();
-    $('.tooltipped').tooltip();
+    this.$('.collapsible').collapsible();
+    this.$('.tooltipped').tooltip();
 };
 
 Template.Settings.events({

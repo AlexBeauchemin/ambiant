@@ -3,12 +3,12 @@
         <div class="collection with-header">
             <div class="collection-header">
                 {{#if isAdmin}}
-                    <h4 class="space-right">
+                    <h3 class="space-right">
                         Playlist
                         <button class="btn btn-flat" title="Clear Playlist" data-action="clear"><i class="material-icons">delete</i></button>
-                    </h4>
+                    </h3>
                 {{else}}
-                    <h4>Playlist</h4>
+                    <h3>Playlist</h3>
                 {{/if}}
             </div>
 
@@ -18,12 +18,18 @@
                 </div>
             {{/unless}}
 
+            {{#if showMore.isVisible}}
+                <div class="collection-item collection-show-more">
+                    <p class="center-align"><a href="#" data-action="show-more">{{showMore.text}}</a></p>
+                </div>
+            {{/if}}
+
             {{#each radio.playlistEnded}}
-                {{>PlaylistItem song=this state="ended" isAdmin=false}}
+                {{>PlaylistItem song=this state="ended"}}
             {{/each}}
 
             {{#each radio.playlist}}
-                {{>PlaylistItem song=this state=this.state isAdmin=../isAdmin}}
+                {{>PlaylistItem song=this state=this.state}}
             {{/each}}
         </div>
     </div>

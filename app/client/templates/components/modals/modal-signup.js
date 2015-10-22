@@ -1,7 +1,3 @@
-Template.modalSignup.rendered = function() {
-
-};
-
 Template.modalSignup.events({
     "submit form": function (event) {
         var options = {

@@ -1,3 +1,3 @@
 Template.TopRadios.rendered = function() {
-    $('ul.tabs').tabs();
+    this.$('ul.tabs').tabs();
 };

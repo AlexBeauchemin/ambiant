@@ -1,19 +1,19 @@
 h1 {
     text-shadow: 0 1px 1px #fefefe;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    line-height: 2.2rem;
+    line-height: 1.8rem;
     margin-top: 0;
 }
 
 h2 {
-    font-size: 1.6rem;
-    line-height: 1.8rem;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
 }
 
 h3 {
-    font-size: 1.4rem;
-    line-height: 1.6rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
 }
 
 ul {
@@ -37,5 +37,15 @@ p a:hover {
     h1 {
         font-size: 3rem;
         line-height: 3.3rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        line-height: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+        line-height: 1.6rem;
     }
 }

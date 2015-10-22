@@ -1,7 +1,8 @@
 if (Meteor.isClient) {
     Presence.state = function() {
         return {
-            currentRadioId: Session.get('currentRadioId')
+            currentRadioId: Session.get('currentRadioId'),
+            currentRadioOwner: Session.get('currentRadioOwner')
         };
     }
 }

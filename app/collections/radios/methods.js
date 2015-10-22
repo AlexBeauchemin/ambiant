@@ -117,6 +117,11 @@ if (Meteor.isServer) {
       if (!Helpers.isOwner(radioId) && radio.skip === "admin") throw new Meteor.Error(500, 'Cannot skip on this radio');
 
       radio.playlistEnded.push(radio.playlist[0]);
+
+      while (radio.playlistEnded.length > 50) {
+        radio.playlistEnded.shift();
+      }
+
       radio.playlist.shift();
 
       Radios.update({ _id: radioId },{ $set: {

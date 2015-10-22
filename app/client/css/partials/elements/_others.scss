@@ -29,4 +29,9 @@ main>.container>.loading {
   &.success {
     background-color: $secondary-color !important;
   }
+
+  &.normal {
+    background-color: $primary-color !important;
+    color: #fff;
+  }
 }

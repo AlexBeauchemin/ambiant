@@ -1,7 +1,3 @@
-Template.Layout.rendered = function() {
-    $(".button-collapse").sideNav();
-};
-
 Template.Layout.onCreated(function() {
     WebFont.load({
         google: {

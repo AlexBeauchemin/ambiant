@@ -1,5 +1,5 @@
 Template.PlaylistItem.rendered = function() {
-  $('.dropdown-button').dropdown({
+  this.$('.dropdown-button').dropdown({
     alignment: 'right',
     constrain_width: false
   });
@@ -7,21 +7,36 @@ Template.PlaylistItem.rendered = function() {
 
 Template.PlaylistItem.helpers({
   hasMenu: function (state) {
-    if (Template.parentData(2).isAdmin && state != "ended") return "has-menu";
+    if (Session.get('currentRadioOwner') && state != "ended") return "has-menu";
     return "";
   },
   hasSkip: function (state) {
-    if (state == "playing" && (Template.parentData(2).isAdmin || Template.parentData(2).radio.skip === "all")) return "has-skip";
+    let data = Template.parentData(2);
+    if (state === "playing" && App.helpers.canSkip(data.radio)) return "has-skip";
     return "";
   }
 });
 
 Template.PlaylistItem.events({
+  'click [data-action="next"]': function() {
+    Meteor.call('getNextSong', Session.get('currentRadioId'), function(error, res) {
+      if (error) {
+        Materialize.toast(error.reason, 5000);
+      }
+      else if (res && res.id) {
+        App.youtube.play(res.id);
+      }
+      else {
+        Session.set('autoplay', true);
+        Session.set('currentlyPlaying', null);
+      }
+    });
+  },
   'click [data-action="remove-song"]': function(e) {
     e.preventDefault();
 
     let songId = Template.parentData().id;
-    let radioId = Template.parentData(2).radio._id;
+    let radioId = Session.get('currentRadioId');
 
     if (!radioId || !songId) return;
 
@@ -33,7 +48,7 @@ Template.PlaylistItem.events({
     e.preventDefault();
 
     let songId = Template.parentData().id;
-    let radioId = Template.parentData(2).radio._id;
+    let radioId = Session.get('currentRadioId');
 
     Meteor.call('blockSong', radioId, songId, function(error, res) {
       if (error) Materialize.toast(error.reason, 5000);
@@ -45,7 +60,7 @@ Template.PlaylistItem.events({
 
     let user = Template.parentData().user;
     let songId = Template.parentData().id;
-    let radioId = Template.parentData(2).radio._id;
+    let radioId = Session.get('currentRadioId');
 
     Meteor.call('blockUser', radioId, user, function(error, res) {
       if (error) Materialize.toast(error.reason, 5000);

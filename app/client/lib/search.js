@@ -25,7 +25,7 @@ App.search = (function () {
                 Meteor.call('addSongToPlaylist', {id: songId, type: 'user-added', data: songInfo}, radioId, (error, res) => {
                     if (error) return Materialize.toast(error.reason, 5000);
 
-                    Materialize.toast(`Song "${songInfo.title}" added!`, 3000, 'success');
+                    Materialize.toast(`Song "${songInfo.title}" added!`, 3000, 'normal');
                     this.resetValues();
                     $(this.selector).focus();
                 });

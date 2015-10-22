@@ -1,5 +1,6 @@
 Template.Header.rendered = function() {
-    $('.modal-trigger').leanModal();
+    this.$('.modal-trigger').leanModal();
+    this.$(".button-collapse").sideNav({closeOnClick: true})
 };
 
 Template.Header.events({

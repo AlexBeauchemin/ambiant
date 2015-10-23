@@ -3,8 +3,8 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
+* Handle automatic replay on hot reload
 * Faster add song - skip - remove (stub data)
-* Make top radios reactive (may have to push number of viewers via set interval)
 * Handle restricted videos
 * Only subscribed users config
 * Logo

@@ -5,11 +5,13 @@ HomeController = RouteController.extend({
 
         if (user && user._id) radio = Radios.findOne({users: user._id });
 
+        console.log(Radios.find().fetch());
+
         return {
             myRadio: radio,
-            recentRadios: Radios.find({},{limit: 10, sort: {dateCreated: -1}}),
-            twitchRadios: Radios.find({twitchChannel: {$ne: null}},{limit: 10, sort: {nbUsers: -1}}),
-            topRadios:  Radios.find({}, {limit: 10, sort: {nbUsers: -1}})
+            recentRadios: Radios.find({live: true},{limit: 10, sort: {dateCreated: -1}}),
+            twitchRadios: Radios.find({live: true, twitchChannel: {$ne: null}},{limit: 10, sort: {nbUsers: -1}}),
+            topRadios:  Radios.find({live: true}, {limit: 10, sort: {nbUsers: -1}})
         };
     },
 

@@ -13,7 +13,7 @@ if (Meteor.isServer) {
         live: {$eq: true},
         playlist: {$not: {$size: 0}}
       }, {
-        fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1},
+        fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1, live: 1},
         sort: {dateCreated: -1},
         limit: limit
       }
@@ -27,7 +27,7 @@ if (Meteor.isServer) {
           twitchChannel: {$ne: null},
           playlist: {$not: {$size: 0}}
         }, {
-          fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1},
+          fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1, live: 1},
           sort: {nbUsers: -1},
           limit: limit
         }
@@ -40,7 +40,7 @@ if (Meteor.isServer) {
           live: {$eq: true},
           playlist: {$not: {$size: 0}}
         }, {
-          fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1},
+          fields: {name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1, live: 1},
           sort: {nbUsers: -1},
           limit: limit
         }

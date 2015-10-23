@@ -8,32 +8,32 @@
             </ul>
         </div>
         <div id="top-radios" class="radios-list">
-            {{#unless topRadios}}
+            {{#unless ../topRadios}}
                 <div class="col s12">
                     <h2 class="center-align empty">There is no live radios</h2>
                 </div>
             {{/unless}}
-            {{#each topRadios}}
+            {{#each ../topRadios}}
                 {{> TopRadiosItem radio=this}}
             {{/each}}
         </div>
         <div id="recent-radios" class="radios-list">
-            {{#unless recentRadios}}
+            {{#unless ../recentRadios}}
                 <div class="col s12">
                     <h2 class="center-align empty">There is no live recent radios</h2>
                 </div>
             {{/unless}}
-            {{#each recentRadios}}
+            {{#each ../recentRadios}}
                 {{> TopRadiosItem radio=this}}
             {{/each}}
         </div>
         <div id="twitch-radios" class="radios-list">
-            {{#unless twitchRadios}}
+            {{#unless ../twitchRadios}}
                 <div class="col s12">
                     <h2 class="center-align empty">There is no live twitch radios</h2>
                 </div>
             {{/unless}}
-            {{#each twitchRadios}}
+            {{#each ../twitchRadios}}
                 {{> TopRadiosItem radio=this}}
             {{/each}}
         </div>

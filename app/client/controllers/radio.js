@@ -53,7 +53,7 @@ RadioController = RouteController.extend({
 
     onAfterAction() {
         //TODO: Retrieve number of users from server
-        Meteor.call('updateUsers', this.data().users.length);
+        Meteor.call('updateUsers', this.data().radio._id, this.data().users.length);
     },
 
     onStop() {

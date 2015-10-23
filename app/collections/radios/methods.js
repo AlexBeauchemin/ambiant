@@ -159,6 +159,7 @@ if (Meteor.isServer) {
       if (Object.keys(config).length > 0) Radios.update({ _id: radioId },{ $set: config });
     },
     updateUsers: function(radioId, nbUsers) {
+      if (!radioId) return;
       Radios.update({ _id: radioId },{ $set: { nbUsers: nbUsers } });
     }
   });

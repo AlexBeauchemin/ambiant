@@ -6,6 +6,8 @@ Template.FormAddSong.events({
   'submit [data-action="add-song"]': function (e) {
     e.preventDefault();
 
+    if (Session.get('isAddingSong')) return;
+
     let song = App.search.getValue();
     App.search.addSong(song, this.radio._id);
   },

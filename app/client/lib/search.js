@@ -21,8 +21,13 @@ App.search = (function () {
 
             let songId = App.youtube.getSongIdFromUrl(song);
 
+            Session.set('isAddingSong', true);
+
             App.youtube.getSongInfo(songId, (songInfo) => {
+                if (!songInfo) Session.set('isAddingSong', false);
+
                 Meteor.call('addSongToPlaylist', {id: songId, type: 'user-added', data: songInfo}, radioId, (error, res) => {
+                    Session.set('isAddingSong', false);
                     if (error) return Materialize.toast(error.reason, 5000);
 
                     Materialize.toast(`Song "${songInfo.title}" added!`, 3000, 'normal');

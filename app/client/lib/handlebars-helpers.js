@@ -32,6 +32,12 @@ if (Meteor.isClient) {
         return Session.get('player-state') === state;
     });
 
+    Template.registerHelper('canAdd', function (state) {
+        if (Session.get('player-state') === 'loading') return false;
+        if (Session.get('isAddingSong') === true) return false;
+        return true;
+    });
+
     Template.registerHelper('isTwitchUser', function () {
         var user = Meteor.user();
         return !!(user && user.services && user.services.twitch);

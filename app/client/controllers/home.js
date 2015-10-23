@@ -5,8 +5,6 @@ HomeController = RouteController.extend({
 
         if (user && user._id) radio = Radios.findOne({users: user._id });
 
-        console.log(Radios.find().fetch());
-
         return {
             myRadio: radio,
             recentRadios: Radios.find({live: true},{limit: 10, sort: {dateCreated: -1}}),

@@ -65,7 +65,7 @@ App.youtube = (function() {
         getSongInfo(id, callback) {
             if (!window.gapi || !window.gapi.client.youtube) {
                 Materialize.toast("Google api is not accessible", 5000);
-                return;
+                return callback(null);
             }
 
             let request = gapi.client.youtube.videos.list({
@@ -78,7 +78,7 @@ App.youtube = (function() {
             request.execute((response) => {
                 if (!response || !response.items || !response.items.length) {
                     Materialize.toast("Cannot retrieve song information", 5000);
-                    return;
+                    return callback(null);
                 }
 
                 let info = this.getSongDetails(response.items[0]);

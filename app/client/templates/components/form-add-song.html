@@ -23,10 +23,10 @@
             {{> searchResult radioId=radio._id}}
         </div>
         <div class="col s12 m4 align-right">
-            {{#if isState "loading"}}
-            <button type="button" class="btn waves-effect waves-light" disabled>Add To Queue</button>
+            {{#if canAdd}}
+                <button type="submit" class="btn waves-effect waves-light">Add To Queue</button>
             {{else}}
-            <button type="submit" class="btn waves-effect waves-light">Add To Queue</button>
+                <button type="button" class="btn waves-effect waves-light" disabled>Add To Queue</button>
             {{/if}}
         </div>
     </form>

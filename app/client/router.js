@@ -2,7 +2,6 @@ Router.configure({
     layoutTemplate: 'Layout',
     loadingTemplate: 'Loading',
     data() {
-        console.log('data router');
         let radio = null;
         let user = Meteor.user();
 

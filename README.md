@@ -4,7 +4,6 @@ Collaborative radio for streamers / partys
 ## TODO:
 
 * Handle automatic replay on hot reload
-* Faster add song - skip - remove (stub data)
 * Handle restricted videos
 * Only subscribed users config
 * Logo

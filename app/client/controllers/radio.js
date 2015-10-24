@@ -32,7 +32,7 @@ RadioController = RouteController.extend({
                 App.youtube.play(radio.playlist[0].id);
                 Session.set('autoplay', false);
             }
-            else if (currentlyPlaying && currentlyPlaying !== radio.playlist[0].id) {
+            else if (radio.playlist && currentlyPlaying !== radio.playlist[0].id) {
                 App.youtube.play(radio.playlist[0].id);
             }
         }

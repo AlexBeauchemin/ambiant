@@ -1,27 +1,30 @@
 if (Meteor.isClient) {
   Meteor.methods({
-    //TODO: Stub add/remove for faster feedback
+    deleteSong: function(radioId, songId) {
+      if (!radioId || !songId) return;
+      Radios.update({ _id: radioId },{$pull: {songs: songId, playlist: {id: songId}}});
+    },
 
-    //getNextSong: function(radioId) {
-    //  let radio = Radios.findOne(radioId);
-    //
-    //  if (!radio) return;
-    //
-    //  radio.playlistEnded.push(radio.playlist[0]);
-    //
-    //  while (radio.playlistEnded.length > 50) {
-    //    radio.playlistEnded.shift();
-    //  }
-    //
-    //  radio.playlist.shift();
-    //
-    //  Radios.update({ _id: radioId },{ $set: {
-    //    playlist: radio.playlist,
-    //    playlistEnded: radio.playlistEnded
-    //  }});
-    //
-    //  return radio.playlist[0];
-    //}
+    getNextSong: function(radioId) {
+      let radio = Radios.findOne(radioId);
+
+      if (!radio) return;
+
+      radio.playlistEnded.push(radio.playlist[0]);
+
+      while (radio.playlistEnded.length > 50) {
+        radio.playlistEnded.shift();
+      }
+
+      radio.playlist.shift();
+
+      Radios.update({ _id: radioId },{ $set: {
+        playlist: radio.playlist,
+        playlistEnded: radio.playlistEnded
+      }});
+
+      return radio.playlist[0];
+    }
   });
 }
 

@@ -45,7 +45,7 @@ RadioController = RouteController.extend({
         };
     },
 
-    onBeforeAction() {
+    onRun() {
         Session.set('autoplay', false);
         Session.set('showEndedMax', showEndedMaxDefault);
         this.next();

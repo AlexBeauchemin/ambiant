@@ -12,8 +12,7 @@ Router.configure({
         };
     },
     onBeforeAction() {
-        //Safety case, onRun doesn't seems to run after a hot reload (after code change)
-        $('body').removeAttr('data-route').attr('data-route', Router.current().route.getName());
+        $('body').attr('data-route', Router.current().route.getName());
         this.next();
     },
     waitOn() {

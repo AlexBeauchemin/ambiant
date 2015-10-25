@@ -37,7 +37,7 @@ App.youtube = (function() {
                 .then(this.initIframeAPI)
                 .then(() => {
                     this.loadPlayer();
-                    this.setState('stop');
+                    this.stop();
                     if (this.config.onReady) this.config.onReady();
                 });
         },
@@ -100,10 +100,12 @@ App.youtube = (function() {
 
         play(id) {
             if (!$('#' + this.config.element).is(':visible')) return;
+            if (!this.player || !this.player.loadVideoById) return;
 
             this.player.loadVideoById(id);
             this.setState('play');
             Session.set('currentlyPlaying', id);
+            Meteor.call('goLive', Session.get('currentRadioId'));
         },
 
         search(q, callback) {
@@ -128,7 +130,7 @@ App.youtube = (function() {
         },
 
         stop() {
-            this.player.stopVideo();
+            if (this.player && this.player.stopVideo) this.player.stopVideo();
             this.setState('stop');
         },
 
@@ -270,7 +272,8 @@ App.youtube = (function() {
                     Materialize.toast('Sorry, an error occured with the youtube player', 5000);
             }
 
-            if (this.config.onSongEnded) this.config.onSongEnded();
+            this.stop();
+            //if (this.config.onSongEnded) this.config.onSongEnded();
         },
 
         onPlayerStateChange(e) {

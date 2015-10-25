@@ -27,8 +27,7 @@ Template.PlaylistItem.events({
         App.youtube.play(res.id);
       }
       else {
-        Session.set('autoplay', true);
-        Session.set('currentlyPlaying', null);
+        App.youtube.stop();
       }
     });
   },

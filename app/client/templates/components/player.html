@@ -1,5 +1,5 @@
 <template name="Player">
-    <div class="video video-wrapper {{isHidden isAdmin}}" data-state="{{getSession "player-state"}}" data-items="{{radio.playlist.length}}">
+    <div class="video video-wrapper {{isHidden isAdmin}}">
         {{#if isState "loading"}}
             <div class="middle">
                 <div class="preloader-wrapper big active">
@@ -16,7 +16,12 @@
             </div>
         {{/if}}
         <div id="youtube-player"></div>
-        <div class="cover cover-play"><a class="valign-wrapper" href="#" data-action="play"><h4 class="center-align valign"><i class="material-icons large">play_arrow</i></h4></a></div>
-        <div class="cover cover-empty"><div class="valign-wrapper"><h4 class="center-align valign">The playlist is empty<br />Add songs to start the radio</h4></div></div>
+        {{#if isState "stop"}}
+            {{#if radio.playlist.length}}
+                <div class="cover cover-play"><a class="valign-wrapper" href="#" data-action="play"><h4 class="center-align valign"><i class="material-icons large">play_arrow</i></h4></a></div>
+            {{else}}
+                <div class="cover cover-empty"><div class="valign-wrapper"><h4 class="center-align valign">The playlist is empty<br />Add songs to start the radio</h4></div></div>
+            {{/if}}
+        {{/if}}
     </div>
 </template>

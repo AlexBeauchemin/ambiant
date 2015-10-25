@@ -3,6 +3,8 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
+* Meta tags
+* Mobile login/register
 * Handle automatic replay on hot reload
 * Handle restricted videos
 * Only subscribed users config

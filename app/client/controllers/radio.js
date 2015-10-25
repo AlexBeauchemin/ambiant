@@ -2,16 +2,16 @@ const showEndedMaxDefault = 2;
 
 RadioController = RouteController.extend({
     data() {
-        let radio = Radios.findOne({url:  this.params.url.toLowerCase() });
-        let myRadio = null;
-        let user = Meteor.user();
-        let radioId = null;
-        let currentlyPlaying = Session.get('currentlyPlaying');
-        let showEndedMax = Session.get('showEndedMax');
-        let showMore = {
-            isVisible: false,
-            text: 'Show More'
-        };
+        let radio = Radios.findOne({url:  this.params.url.toLowerCase() }),
+            myRadio = null,
+            user = Meteor.user(),
+            radioId = null,
+            currentlyPlaying = Session.get('currentlyPlaying'),
+            showEndedMax = Session.get('showEndedMax'),
+            showMore = {
+                isVisible: false,
+                text: 'Show More'
+            };
 
         if (showEndedMax > showEndedMaxDefault) showMore.text = "Show Less";
         if (radio && radio._id) radioId = radio._id;
@@ -32,7 +32,7 @@ RadioController = RouteController.extend({
                 App.youtube.play(radio.playlist[0].id);
                 Session.set('autoplay', false);
             }
-            else if (radio.playlist && currentlyPlaying !== radio.playlist[0].id) {
+            else if (currentlyPlaying && currentlyPlaying !== radio.playlist[0].id) {
                 App.youtube.play(radio.playlist[0].id);
             }
         }
@@ -53,7 +53,8 @@ RadioController = RouteController.extend({
 
     onAfterAction() {
         //TODO: Retrieve number of users from server
-        Meteor.call('updateUsers', this.data().radio._id, this.data().users.length);
+        if (this.data() && this.data().radio )
+            Meteor.call('updateUsers', this.data().radio._id, this.data().users.length);
     },
 
     onStop() {

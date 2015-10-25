@@ -14,6 +14,12 @@ Template.Player.rendered = function() {
         },
         onStateChange(state) {
             Session.set('player-state', state);
+
+            //An error occured
+            if (state === "stop") {
+                Session.set('autoplay', true);
+                Session.set('currentlyPlaying', null);
+            }
         }
     });
 };

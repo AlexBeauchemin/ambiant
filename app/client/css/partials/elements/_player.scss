@@ -20,20 +20,10 @@
         transform: translate3d(-50%,-50%,0);
     }
 
-    &[data-state="stop"] {
-        .cover-play { display: block; }
-
-        &[data-items="0"] {
-            .cover-play { display: none; }
-            .cover-empty { display: block; }
-        }
-    }
-
     .cover {
         background-color: $primary-color;
         bottom: 0;
         color: #fff;
-        display: none;
         left: 0;
         position: absolute;
         right: 0;

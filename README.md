@@ -3,8 +3,7 @@ Collaborative radio for streamers / partys
 
 ## TODO:
 
-* Page redirect on disconnect
-* Meta tags
+* Meta tags : https://atmospherejs.com/rainhaven/iron-seo
 * Mobile login/register
 * Handle automatic replay on hot reload
 * Logo

@@ -30,7 +30,6 @@ Template.Header.events({
     'click [data-action="logout"]': function() {
         Meteor.logout(function(error) {
             if (error) Materialize.toast(error.reason, 5000);
-            else Router.go('home');
         });
     }
 });

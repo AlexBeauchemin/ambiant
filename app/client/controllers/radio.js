@@ -51,6 +51,12 @@ RadioController = RouteController.extend({
         this.next();
     },
 
+    onRerun() {
+        //TODO: Find a way to restart radio on hot code push
+        //console.log('autoplay: '+Session.get('autoplay'));
+        this.next();
+    },
+
     onAfterAction() {
         //TODO: Retrieve number of users from server
         if (this.data() && this.data().radio )

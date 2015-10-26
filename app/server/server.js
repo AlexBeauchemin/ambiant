@@ -1,4 +1,6 @@
 Meteor.startup(function () {
+    Future = Npm.require('fibers/future');
+    
     Radios._ensureIndex({"users": 1, "dateCreated": 1, "dateLastAccess": 1, "url": 1, "public": 1, "live": 1, "nbUsers": 1});
 
     allowEnv({

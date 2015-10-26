@@ -64,6 +64,9 @@
                         </div>
                     {{/if}}
                     <div class="col s6">
+                        <input name="access" type="radio" id="access-users" value="users" {{isChecked "users" radio.access}} /><label for="access-users">Logged users</label>
+                    </div>
+                    <div class="col s6">
                         <input name="access" type="radio" id="access-whitelist" value="whitelist" disabled="disabled" {{isChecked "whitelist" radio.access}} /><label for="access-whitelist">White list <a href="#"><i class="material-icons">list</i></a></label>
                     </div>
                 </div>

@@ -150,15 +150,31 @@ if (Meteor.isServer) {
 
       Radios.update({ _id: radioId },{ $set: {
         playlist: radio.playlist,
-        playlistEnded: radio.playlistEnded,
-        dateLastAccess: new Date()
+        playlistEnded: radio.playlistEnded
       }});
 
-      if (!radio.playlist.length) return Helpers.findRelated(radio);
+      if (!radio.playlist.length) {
+
+        let fut = new Future(),
+          relatedSong = null;
+
+        let callback = Meteor.bindEnvironment(function (res) {
+          relatedSong = res;
+          fut.return(res);
+        });
+
+        Helpers.findRelated(radio, callback);
+
+        fut.wait();
+
+        if (!relatedSong) throw new Meteor.Error(500, 'Can\' find related songs, try with a higher threshold');
+        return relatedSong;
+      }
+
       return radio.playlist[0];
     },
     goLive: function(radioId) {
-      if (Helpers.isOwner(radioId)) Radios.update({_id: radioId}, {$set: {live: true}}) ;
+      if (Helpers.isOwner(radioId)) Radios.update({_id: radioId}, {$set: {live: true, dateLastAccess: new Date()}}) ;
     },
     goOffline: function(radioId) {
       if (Helpers.isOwner(radioId)) Radios.update({_id: radioId}, {$set: {live: false}}) ;

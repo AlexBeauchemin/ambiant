@@ -19,24 +19,38 @@ App.youtube = (function() {
       this.getMusicCategoryId();
     },
 
-    findRelated(songId, maxResult, callback) {
+    findRelated(songId, maxResult, blacklistedSongs, callback) {
       var _this = this;
 
       YoutubeApi.search.list({
         relatedToVideoId: songId,
         part: 'snippet',
         type: 'video',
-        maxResults: maxResult,  //0 to 50 , default -> 5
+        maxResults: maxResult,  //0 to 50
         videoCategoryId: _this.musicCategoryId
       }, function (err, data) {
-          if (err) throw new Meteor.Error(500, { message: 'can\'t find related', info: err});
+          if (err) {
+            callback(null);
+            throw new Meteor.Error(500, { message: 'can\'t find related', info: err});
+          }
           if (data && data.items) {
             data.items.push({id: {videoId: songId}}); // Put the reference song in the related list so it can play again
-            let randomSong = data.items[Math.floor(Math.random() * data.items.length)];
-            let id = randomSong.id.videoId;
+            let id = "",
+              foundRelated = false;
+
+            while(data.items && foundRelated === false) {
+              let index = Math.floor(Math.random() * data.items.length);
+              let randomSong = data.items[index];
+              id = randomSong.id.videoId;
+
+              if (blacklistedSongs.indexOf(id) !== -1) data.items.splice(index,1);
+              else foundRelated = true;
+            }
+
+            if (!id) return callback(null);
 
             _this.getSongInfo(id, function(songInfo) {
-              if (callback) callback({ id: id, type: 'related', data: songInfo });
+              callback({ id: id, type: 'related', data: songInfo });
             });
           }
       });

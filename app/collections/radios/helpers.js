@@ -1,6 +1,4 @@
 if (Meteor.isServer) {
-  let Future = Npm.require('fibers/future');
-
   App.collectionHelpers.radio = {
     canAdd(radioId) {
       let radio = Radios.findOne(radioId),
@@ -29,28 +27,30 @@ if (Meteor.isServer) {
           App.twitch.isSubscribed(radio.twitchChannel);
           hasAccess = true;
           break;
+        case "users":
+          if (user.profile && user.profile.guest) throw new Meteor.Error(700, 'You need to have an account to add songs to this playlist, please login or register');
+          break;
       }
 
       return hasAccess;
     },
 
-    findRelated(radio) {
+    findRelated(radio, callback) {
       let randomSong = null;
-
-      //TODO: Do not allow blocked songs
 
       if (radio && !radio.playlist.length && radio.songs) {
         randomSong = radio.songs[Math.floor(Math.random() * radio.songs.length)];
 
         let fut = new Future();
         let bound_callback = Meteor.bindEnvironment(function (res) {
+          if (callback) callback(res);
           if (res) {
             fut.return(Radios.update({_id: radio._id}, {$push: {playlist: res}}));
           } else {
-            fut.throw('error while finding related songs');
+            fut.return(null);
           }
         });
-        App.youtube.findRelated(randomSong, radio.threshold, bound_callback);
+        App.youtube.findRelated(randomSong, radio.threshold, radio.blacklistedSongs, bound_callback);
         fut.wait();
       }
     },

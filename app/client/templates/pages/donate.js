@@ -1,5 +1,13 @@
 Template.Donate.rendered = function () {
-  Stripe.setPublishableKey(App.config.stripeApiKey);
+  $.when(
+    $.getScript("https://js.stripe.com/v2/"),
+    $.getScript("https://checkout.stripe.com/checkout.js"),
+    $.Deferred(function( deferred ){
+      $( deferred.resolve );
+    })
+  ).done(() => {
+      Stripe.setPublishableKey(App.config.stripeApiKey);
+    });
 };
 
 Template.Donate.events({

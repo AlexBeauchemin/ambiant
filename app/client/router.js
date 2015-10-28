@@ -1,6 +1,7 @@
 Router.configure({
     layoutTemplate: 'Layout',
     loadingTemplate: 'Loading',
+    title: 'Ambiant - A collaborative web radio',
     data() {
         let radio = null;
         let user = Meteor.user();

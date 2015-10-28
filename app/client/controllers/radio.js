@@ -1,6 +1,10 @@
 const showEndedMaxDefault = 2;
 
 RadioController = RouteController.extend({
+    title: function() {
+        let radio = Radios.findOne({url:  this.params.url.toLowerCase() });
+        if (radio) return 'Ambiant radio - ' + radio.name;
+    },
     data() {
         let radio = Radios.findOne({url:  this.params.url.toLowerCase() }),
             myRadio = null,

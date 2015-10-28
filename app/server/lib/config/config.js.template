@@ -1,18 +1,22 @@
 var env = process.env.NODE_ENV;
 var config = {
   dev: {
+    kadiraId: '',
+    kadiraSecret: '',
     stripeApiKey: '',
-    youtubeApiKey: '',
     twitchClientId: '',
     twitchClientSecret: '',
+    youtubeApiKey: '',
     mailgunApiKey: ''
   },
   prod: {
+    mailgunApiKey: ''
+    kadiraId: '',
+    kadiraSecret: '',
     stripeApiKey: '',
-    youtubeApiKey: '',
     twitchClientId: '',
     twitchClientSecret: '',
-    mailgunApiKey: ''
+    youtubeApiKey: '',
   }
 };
 

@@ -1,12 +1,11 @@
 # Ambiant.io
-Collaborative radio for streamers / partys
+Create your own collaborative radio for your live streams, working spaces, partys or events
 
 ## TODO:
 
-* Meta tags : https://atmospherejs.com/rainhaven/iron-seo
 * Mobile login/register
 * Handle automatic replay on hot reload
-* Logo
+* Logo + OG tags
 * Delete guests user after some time + radio
 * Search radios
 * Vote system
@@ -17,4 +16,3 @@ Collaborative radio for streamers / partys
 * Handle restricted videos
 * Add whitelist option (to restrict who can add songs to the radio)
 * Option to limit music to the [Twitch Music Library](http://music.twitch.tv/) ?
-* Use kadira : https://kadira.io/mup

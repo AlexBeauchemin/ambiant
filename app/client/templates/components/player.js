@@ -1,25 +1,40 @@
 Template.Player.rendered = function() {
-    let _this = this;
+    let nbErrorsTimeout = 1000;
+    let errorDelayedPlay = null;
+    let playNextSong = () => {
+        Meteor.call('getNextSong', this.data.radio._id, function(error, res) {
+            if (error) Materialize.toast(error.reason, 5000);
+            else if (res && res.id) App.youtube.play(res.id);
+            else Session.set('autoplay', true);
+        });
+    };
+
+    //On error, the interval double to avoid an error loop to eat api limit
+    //The interval is reset every 10 minutes or on every succesfull play
+    Meteor.setInterval(() => {
+        nbErrorsTimeout = 1000;
+    }, 1000 * 60 * 10);
 
     Session.set('player-state', 'loading');
 
     App.youtube.init({
         apiKey: App.config.youtubeApiKey,
         onSongEnded() {
-            Meteor.call('getNextSong', _this.data.radio._id, function(error, res) {
-                if (error) Materialize.toast(error.reason, 5000);
-                else if (res && res.id) App.youtube.play(res.id);
-                else Session.set('autoplay', true);
-            });
+            nbErrorsTimeout = 1000;
+            playNextSong();
+        },
+        onSongError() {
+            if (errorDelayedPlay) Meteor.clearTimeout(errorDelayedPlay);
+
+            errorDelayedPlay = Meteor.setTimeout(() => {
+                playNextSong();
+            }, nbErrorsTimeout);
+
+            nbErrorsTimeout = nbErrorsTimeout * 2;
         },
         onStateChange(state) {
             Session.set('player-state', state);
-
-            //An error occured
-            if (state === "stop") {
-                Session.set('autoplay', true);
-                Session.set('currentlyPlaying', null);
-            }
+            if (state === "play" && errorDelayedPlay) Meteor.clearTimeout(errorDelayedPlay);
         }
     });
 };

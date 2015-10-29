@@ -3,6 +3,7 @@ Create your own collaborative radio for your live streams, working spaces, party
 
 ## TODO:
 
+* Add videos with error to a blacklist
 * Mobile login/register
 * Handle automatic replay on hot reload
 * Logo + OG tags

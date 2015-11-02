@@ -6,10 +6,15 @@
                     {{#if radio.twitchChannel}}
                         <a href="http://www.twitch.tv/{{radio.twitchChannel}}" class="left twitch" target="_blank"><img src="/twitch.png" alt="Twitch channel" /></a>
                     {{/if}}
-                    {{radio.name}}
+                    {{radio.name}} <span class="theatre-only">| collaborate on ambiant.io/radio/{{radio.url}}</span>
                 </h1>
             </div>
             <div class="col s12 m2 status left-align">
+                <div class="mode">
+                    <a href="#" data-action="switch-mode" class="tooltipped" data-position="left" data-tooltip="Theatre mode">
+                        <i class="material-icons">aspect_ratio</i>
+                    </a>
+                </div>
                 Users: {{users.length}}<br />
                 {{#if radio.live}}
                     Status: <span class="live">live</span>

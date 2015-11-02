@@ -50,6 +50,8 @@ RadioController = RouteController.extend({
     },
 
     onRun() {
+        $('body').removeAttr('data-mode');
+        Session.set('radio-mode', '');
         Session.set('autoplay', false);
         Session.set('showEndedMax', showEndedMaxDefault);
         this.next();

@@ -16,12 +16,12 @@ Meteor.methods({
 
         var options = {
             apiKey: App.config.mailgunApiKey,
-            domain: 'ambiant.xyz'
+            domain: 'ambiant.io'
         };
 
         var data = {
             to: 'alexbeauchemin01@gmail.com',
-            from: from || 'postman@ambiant.xyz',
+            from: from || 'postman@ambiant.io',
             subject: 'Ambiant: ' + subject,
             text: text + '\n\n' + '- ' + name
         };

@@ -20,7 +20,7 @@
 
                 &>.row {
                     display: flex;
-                    margin: 0;
+                    margin: 10px 0 0 0;
                     transition: all 0.3s;
                 }
             }
@@ -53,6 +53,7 @@
 
             .m5 {
                 flex: 1;
+                min-width: 275px;
                 padding-left: 0;
             }
 

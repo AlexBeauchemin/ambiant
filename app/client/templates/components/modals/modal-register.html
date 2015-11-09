@@ -1,5 +1,5 @@
-<template name="modalSignup">
-    <form id="modal-signup" class="modal {{getSession "signup-error"}}">
+<template name="modalRegister">
+    <form id="modal-register" class="modal {{getSession "register-error"}}">
         <div class="modal-content">
             <h4>Create account</h4>
             <div class="input-field {{getSession "error.email"}}">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn waves-effect waves-light">Sign up</button>
+            <button type="submit" class="btn waves-effect waves-light">Register</button>
             <button type="button" class="btn btn-twitch waves-effect waves-light" id="twitchLoginButton" data-action="login-twitch">Twitch Login</button>
         </div>
     </form>

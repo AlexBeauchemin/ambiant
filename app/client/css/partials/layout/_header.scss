@@ -1,9 +1,22 @@
 nav {
     .brand-logo {
-        font-size: 1.6rem;
+        font-family: 'Courgette', cursive;
+        font-size: 2rem;
+
+        span {
+            font-size: 1.4rem;
+        }
     }
 
     @media (min-width: $tablet) {
         font-size: 2.2rem;
+
+        .brand-logo {
+            font-size: 2.2rem;
+
+            span {
+                font-size: 1.1rem;
+            }
+        }
     }
 }

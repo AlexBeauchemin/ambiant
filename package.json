@@ -1,0 +1,14 @@
+{
+  "name": "ambiant",
+  "description": "Collaborative web radio",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^1.12.0",
+    "gulp-jsonlint": "^1.1.1",
+    "jshint-stylish": "^2.0.1",
+    "run-sequence": "^1.1.4"
+  }
+}

@@ -26,6 +26,8 @@ Router.configure({
 
 Router.route('/', {name: 'home', path: '/'});
 Router.route('/radio/:url', {name: 'radio'});
+Router.route('/login', {name: 'login'});
+Router.route('/register', {name: 'register'});
 Router.route('/contact', {name: 'contact'});
 Router.route('/donate', {name: 'donate'});
 

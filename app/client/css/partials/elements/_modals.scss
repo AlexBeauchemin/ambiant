@@ -1,5 +1,6 @@
 .modal {
     max-width: 400px;
+    max-height: 80%;
 
     h1, h2, h3, h4, h5 {
         text-align: center;
@@ -23,7 +24,7 @@
     }
 }
 
-#modal-login, #modal-signup {
+#modal-login, #modal-register {
     max-width: 400px;
     width: 90%;
 

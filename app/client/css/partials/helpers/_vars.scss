@@ -2,3 +2,21 @@ $colorTwitch: #6441a5;
 
 $tablet: 600px;
 $desktop: 1024px;
+
+// Materialize var overrides
+// Colors based on http://colorhunt.co/#222831393e4600adb5eeeeee
+$primary-color: #222831;
+$secondary-color: color("cyan", "base");
+$success-color: color("light-blue", "lighten-1");
+$link-color: color("blue-grey", "base");
+
+$roboto-font-path: "/fonts/roboto/";
+$icons-font-path: "/fonts/material-design-icons/";
+
+$h1-fontsize: 3rem;
+$h2-fontsize: 2.5rem;
+$h3-fontsize: 2rem;
+$h4-fontsize: 1.8rem;
+$h5-fontsize: 1.3rem;
+
+

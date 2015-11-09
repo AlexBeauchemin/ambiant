@@ -45,6 +45,7 @@ if (Meteor.isServer) {
         let bound_callback = Meteor.bindEnvironment(function (res) {
           if (callback) callback(res);
           if (res) {
+            res.uuid = uuid.v4();
             fut.return(Radios.update({_id: radio._id}, {$push: {playlist: res}}));
           } else {
             fut.return(null);
@@ -134,5 +135,5 @@ if (Meteor.isServer) {
 
       return false;
     }
-  }
+  };
 }

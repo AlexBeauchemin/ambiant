@@ -1,28 +1,20 @@
 Template.modalLogin.events({
-    "submit form": function (event) {
-        var email = event.target.email.value.trim(),
-            password = event.target.password.value.trim();
+  "submit form": function (e) {
+    e.preventDefault();
 
-        Meteor.loginWithPassword(email, password, function(error) {
-            if (error) {
-                Session.set('login-error', 'error shake');
-                Materialize.toast(error.reason, 5000);
-                return;
-            }
+    let email = event.target.email.value,
+      password = event.target.password.value;
 
-            $('#modal-login').closeModal();
-        });
+    App.helpers.login(email, password, (error) => {
+      if (error) Session.set('login-error', 'error shake');
+      else $('#modal-login').closeModal();
+    });
+  },
+  'click [data-action="login-twitch"]': function (e) {
+    e.preventDefault();
 
-        return false;
-    },
-    'click [data-action="login-twitch"]': function (e) {
-        e.preventDefault();
-
-        var scope = ['user_read', 'user_blocks_read', 'user_subscriptions'];
-
-        Meteor.loginWithTwitch({requestPermissions: scope}, function (err) {
-            if (err) Materialize.toast("Something wrong happened, can't login with Twitch", 5000);
-            else $('#modal-login').closeModal();
-        });
-    }
+    App.helpers.loginWithTwitch(() => {
+      $('#modal-login').closeModal();
+    });
+  }
 });

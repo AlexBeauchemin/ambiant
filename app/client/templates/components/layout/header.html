@@ -2,7 +2,7 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper container">
-                <a href="/" class="brand-logo">Ambiant.io</a>
+                <a href="/" class="brand-logo">Ambiant<span>.io</span></a>
                 <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     {{#if myRadio}}
@@ -14,7 +14,7 @@
                     {{/if}}
                     {{#if isGuest}}
                         <li><a href="#modal-login" data-action="open-login-modal">Log In</a></li>
-                        <li><a href="#modal-signup" data-action="open-signup-modal">Register</a></li>
+                        <li><a href="#modal-register" data-action="open-register-modal">Register</a></li>
                     {{else}}
                         <li><a href="#" data-action="logout">Log out</a></li>
                         <li class="username">({{currentUser.profile.name}})</li>
@@ -28,8 +28,8 @@
                         <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
                     {{/if}}
                     {{#if isGuest}}
-                        <li><a href="#modal-login" data-action="open-login-modal">Log In</a></li>
-                        <li><a href="#modal-signup" data-action="open-signup-modal">Register</a></li>
+                        <li><a href="/login">Log In</a></li>
+                        <li><a href="/register">Register</a></li>
                         <li><a href="/donate">Donate</a></li>
                         <li><a href="/contact">Contact</a></li>
                     {{else}}

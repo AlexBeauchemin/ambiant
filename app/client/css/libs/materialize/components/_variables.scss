@@ -1,14 +1,12 @@
-// Colors based on http://colorhunt.co/#222831393e4600adb5eeeeee
-
 /*** Colors ***/
-$primary-color: #222831 !default;
+$primary-color: color("materialize-red", "lighten-2") !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: color("cyan", "base") !default;
-$success-color: color("light-blue", "lighten-1") !default;
+$secondary-color: color("teal", "lighten-1") !default;
+$success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
-$link-color: color("blue-grey", "base") !default;
+$link-color: color("light-blue", "darken-1") !default;
 
 /*** Badges ***/
 $badge-bg-color: $secondary-color !default;
@@ -18,40 +16,43 @@ $button-bg-color-disabled: #DFDFDF !default;
 $button-color: $secondary-color !default;
 $button-color-disabled: #9F9F9F !default;
 $button-color-flat: #343434 !default;
-$button-color-raised: #FFF !default;
+$button-color-raised: #fff !default;
 $button-floating-size: 37px !default;
 $button-height: 36px !default;
 $button-font-size-shared: 1.3rem !default;
+$button-large-icon-font-size: 1.6rem !default;
 $button-line-height: 36px !default;
-
 
 /*** Cards ***/
 $card-padding: 20px !default;
 $card-bg-color: #fff !default;
+$card-link-color: color("orange", "accent-2") !default;
+$card-link-color-light: lighten($card-link-color, 20%) !default;
 
 /*** Collapsible ***/
 $collapsible-height: 3rem !default;
 $collapsible-header-color: #fff !default;
 $collapsible-border-color: #ddd !default;
 
-
 /*** Dropdown ***/
+$dropdown-bg-color: #fff !default;
+$dropdown-hover-bg-color: #eee !default;
 $dropdown-color: $secondary-color !default;
 
 /*** Fonts ***/
-$roboto-font-path: "/fonts/roboto/" !default;
-$icons-font-path: "/fonts/material-design-icons/" !default;
+$roboto-font-path: "../font/roboto/" !default;
+$icons-font-path: "../font/material-design-icons/" !default;
 
 /*** Forms ***/
 // Text Inputs + Textarea
 $input-border-color: color("grey", "base") !default;
+$input-bg-color: #fff !default;
 $input-error-color: $error-color !default;
 $input-success-color: $success-color !default;
 $input-focus-color: $secondary-color !default;
 $label-font-size: .8rem !default;
 $input-disabled-color: rgba(0,0,0, .26) !default;
 $input-disabled-solid-color: #BDBDBD !default;
-
 
 // Radio Buttons
 $radio-fill-color: $secondary-color !default;
@@ -96,11 +97,20 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
 /*** Navbar ***/
 $navbar-height: 64px !default;
 $navbar-height-mobile: 56px !default;
-
+$navbar-font-color: #fff !default;
+$navbar-brand-font-size: 2.1rem !default;
 
 /*** SideNav ***/
+$sidenav-bg-color: #fff !default;
+$sidenav-padding-right: 15px !default;
 
+/*** Photo Slider ***/
+$slider-bg-color: color('grey', 'base') !default;
+$slider-bg-color-light: color('grey', 'lighten-2') !default;
+$slider-indicator-color: color('green', 'base') !default;
 
+/*** Spinners | Loaders ***/
+$spinner-default-color: $secondary-color !default;
 
 /*** Tabs ***/
 $tabs-underline-color: $primary-color-light !default;
@@ -119,11 +129,11 @@ $toast-text-color: #fff !default;
 /*** Typography ***/
 $off-black: rgba(0, 0, 0, 0.87) !default;
 // Header Styles
-$h1-fontsize: 3rem !default;
-$h2-fontsize: 2.5rem !default;
-$h3-fontsize: 2rem !default;
-$h4-fontsize: 1.8rem !default;
-$h5-fontsize: 1.3rem !default;
+$h1-fontsize: 4.2rem !default;
+$h2-fontsize: 3.56rem !default;
+$h3-fontsize: 2.92rem !default;
+$h4-fontsize: 2.28rem !default;
+$h5-fontsize: 1.64rem !default;
 $h6-fontsize: 1rem !default;
 
 // Footer

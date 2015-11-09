@@ -1,13 +1,13 @@
 Meteor.methods({
   chargeCard: function(stripeToken, amount) {
-    let Stripe = StripeAPI(App.config.stripeApiKey);
+    let Stripe = new StripeAPI(App.config.stripeApiKey);
 
     //Taken from http://stackoverflow.com/questions/26226583/meteor-proper-use-of-meteor-wrapasync-on-server
     //TODO: Find a way to return the error, the catch->throw doesn't seems to work
 
     try {
-      var charge = Meteor.wrapAsync(Stripe.charges.create, Stripe.charges);
-      var result = charge({
+      let charge = Meteor.wrapAsync(Stripe.charges.create, Stripe.charges);
+      charge({
         amount: amount,
         currency: 'usd',
         source: stripeToken

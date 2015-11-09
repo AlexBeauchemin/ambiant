@@ -1,5 +1,12 @@
 <template name="PlaylistItem">
-    <div class="collection-item avatar {{hasMenu state}} {{hasSkip state}}" data-state="{{state}}">
+    <div class="collection-item avatar {{hasMenu}} {{hasSkip}} {{hasVote}}" data-state="{{state}}">
+        {{#if hasVote}}
+        <div class="vote">
+            <a href="#" data-action="upvote" class="{{hasUpvote currentUser}}"><i class="material-icons">thumb_up</i></a>
+            <div><span class="full-width center-align {{getVoteState}}">{{getVotes}}</span></div>
+            <a href="#" data-action="downvote" class="{{hasDownvote currentUser}}"><i class="material-icons">thumb_down</i></a>
+        </div>
+        {{/if}}
         <img src="{{song.data.thumbnails.default.url}}" alt="" class="circle">
         <div class="info">
             <p><a href="http://youtu.be/{{song.id}}" target="_blank">{{song.data.title}}</a></p>
@@ -10,14 +17,14 @@
             {{/if}}
         </div>
         <div class="smaller time">{{song.data.duration}}</div>
-        {{#if hasSkip state}}
+        {{#if hasSkip}}
             <button class="btn btn-flat btn-skip" title="Next Song" data-action="next"><i class="material-icons">skip_next</i></button>
         {{/if}}
         {{#if isAdmin}}
             {{#if notEqual state "ended"}}
-            <a class='dropdown-button' href='#' data-activates='dropdown-actions'><i class="material-icons">more_vert</i></a>
+            <a class='dropdown-button' href='#' data-activates='dropdown-{{song.uuid}}'><i class="material-icons">more_vert</i></a>
             {{/if}}
-            <ul id='dropdown-actions' class='dropdown-content actions'>
+            <ul id='dropdown-{{song.uuid}}' class='dropdown-content'>
                 <li><a href="#" data-action="remove-song">Remove</a></li>
                 <li><a href="#" data-action="block-song">Block song</a></li>
                 <li><a href="#" data-action="block-user">Block user</a></li>

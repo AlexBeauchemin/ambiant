@@ -56,12 +56,18 @@
             }
 
             &.avatar {
+                padding-left: 0;
+
                 .circle {
                     left: inherit;
                     margin: 10px 10px;
                     min-width: 42px;
                     position: inherit;
                 }
+            }
+
+            &.vote {
+                padding-left: 40px;
             }
 
             &[data-state="playing"] {
@@ -77,6 +83,50 @@
                 color: rgba(0,0,0,0.5);
                 opacity: 0.5;
                 transition: all 0.3s;
+            }
+
+            .vote {
+                height: 100%;
+                left: 0;
+                padding: 10px;
+                position: absolute;
+                top: 0;
+                width: 40px;
+
+                a {
+                    color: $primary-color;
+                    display: block;
+                    height: 33%;
+                    text-align: center;
+                    transform-style: preserve-3d;
+                    transition: color 0.2s;
+                    width: 100%;
+
+                    &.active,
+                    &:hover { color: $secondary-color; }
+                }
+
+                >div {
+                    height: 33%;
+
+                    .negative { @extend .red-text; }
+                    .positive { @extend .green-text; }
+
+                    span {
+                        display: block;
+                        font-size: 12px;
+                        position: relative;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+
+                i {
+                    font-size: 18px;
+                    position: relative;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
             }
 
             .info {
@@ -102,6 +152,8 @@
 
                 i { font-size: 32px; }
             }
+
+            .dropdown-content { right: 0!important; }
 
             .btn-skip {
                 color: #fff;

@@ -1,132 +1,132 @@
 App.search = (function () {
-    var Search = {
-        focusSong: -1,
-        searchTimeout: null,
-        selector: 'input[data-action="search"]',
+  var Search = {
+    focusSong: -1,
+    searchTimeout: null,
+    selector: 'input[data-action="search"]',
 
-        /**
-         * Public functions
-         */
-        init() {
-            Session.set('isSearching', false);
-            this.resetValues();
-        },
+    /**
+     * Public functions
+     */
+      init() {
+      Session.set('isSearching', false);
+      this.resetValues();
+    },
 
-        addSong(song, radioId) {
-            //Remove search results no matter what happens
-            Session.set('search-result', null);
-            this.focusSong = -1;
+    addSong(song, radioId) {
+      //Remove search results no matter what happens
+      Session.set('search-result', null);
+      this.focusSong = -1;
 
-            if (!song || !radioId) return;
+      if (!song || !radioId) return;
 
-            let songId = App.youtube.getSongIdFromUrl(song);
+      let songId = App.youtube.getSongIdFromUrl(song);
 
-            Session.set('isAddingSong', true);
+      Session.set('isAddingSong', true);
 
-            App.youtube.getSongInfo(songId, (songInfo) => {
-                if (!songInfo) Session.set('isAddingSong', false);
+      App.youtube.getSongInfo(songId, (songInfo) => {
+        if (!songInfo) Session.set('isAddingSong', false);
 
-                Meteor.call('addSongToPlaylist', {id: songId, type: 'user-added', data: songInfo}, radioId, (error, res) => {
-                    Session.set('isAddingSong', false);
-                    if (error) return Materialize.toast(error.reason, 5000);
+        Meteor.call('radio.add-song-to-playlist', {id: songId, type: 'user-added', data: songInfo}, radioId, (error, res) => {
+          Session.set('isAddingSong', false);
+          if (error) return Materialize.toast(error.reason, 5000);
 
-                    Materialize.toast(`Song "${songInfo.title}" added!`, 3000, 'normal');
-                    this.resetValues();
-                    $(this.selector).focus();
-                });
-            });
-        },
+          Materialize.toast(`Song "${songInfo.title}" added!`, 3000, 'normal');
+          this.resetValues();
+          $(this.selector).focus();
+        });
+      });
+    },
 
-        getValue() {
-            return Session.get('search-selected-song') || $(this.selector).val();
-        },
+    getValue() {
+      return Session.get('search-selected-song') || $(this.selector).val();
+    },
 
-        keyUp(e, radioId) {
-            let q = e.target.value;
-            let results = Session.get('search-result');
+    keyUp(e, radioId) {
+      let q = e.target.value;
+      let results = Session.get('search-result');
 
-            Session.set('isSearching', false);
-            if (this.searchTimeout) clearTimeout(this.searchTimeout);
+      Session.set('isSearching', false);
+      if (this.searchTimeout) clearTimeout(this.searchTimeout);
 
-            //Automatically handled by submit event
-            if (e.keyCode === 13) {
-                return false;
-            }
+      //Automatically handled by submit event
+      if (e.keyCode === 13) {
+        return false;
+      }
 
-            if (e.keyCode === 40) {
-                this.handleKeyDown(e, results);
-                return false;
-            }
+      if (e.keyCode === 40) {
+        this.handleKeyDown(e, results);
+        return false;
+      }
 
-            if (e.keyCode === 38) {
-                this.handleKeyUp(e, results);
-                return false;
-            }
+      if (e.keyCode === 38) {
+        this.handleKeyUp(e, results);
+        return false;
+      }
 
-            this.resetValues(true);
-            this.startSearch(q, radioId);
-        },
+      this.resetValues(true);
+      this.startSearch(q, radioId);
+    },
 
-        /**
-         * Private Functions
-         */
+    /**
+     * Private Functions
+     */
 
-        handleKeyDown(e, results) {
-            if (!results) return;
-            if (this.focusSong + 1 >= results.length) return;
+      handleKeyDown(e, results) {
+      if (!results) return;
+      if (this.focusSong + 1 >= results.length) return;
 
-            this.focusSong++;
+      this.focusSong++;
 
-            Session.set('search-selected-song', results[this.focusSong].id.videoId);
-            e.target.value = results[this.focusSong].snippet.title;
-        },
+      Session.set('search-selected-song', results[this.focusSong].id.videoId);
+      e.target.value = results[this.focusSong].snippet.title;
+    },
 
-        handleKeyUp(e, results) {
-            if (!results) return false;
-            if (this.focusSong < 0) return false;
+    handleKeyUp(e, results) {
+      if (!results) return false;
+      if (this.focusSong < 0) return false;
 
-            this.focusSong--;
+      this.focusSong--;
 
-            Session.set('search-selected-song', results[this.focusSong].id.videoId);
-            e.target.value = results[this.focusSong].snippet.title;
-        },
+      Session.set('search-selected-song', results[this.focusSong].id.videoId);
+      e.target.value = results[this.focusSong].snippet.title;
+    },
 
-        resetValues(keepField = false) {
-            Session.set('search-result', null);
-            Session.set('search-selected-song', null);
-            this.focusSong = -1;
+    resetValues(keepField = false) {
+      Session.set('search-result', null);
+      Session.set('search-selected-song', null);
+      this.focusSong = -1;
 
-            if (!keepField) $(this.selector).val('');
-        },
+      if (!keepField) $(this.selector).val('');
+    },
 
-        startSearch(q, radioId) {
-            if (q.length < 3
-                || q.indexOf('http://') === 0
-                || q.indexOf('https://') === 0
-                || q.indexOf('www.') === 0
-                || q.indexOf('youtube.') === 0
-                || q.indexOf('youtu.be/') === 0) {
-                Session.set('search-result', []);
-                return;
-            }
+    startSearch(q, radioId) {
+      if (q.length < 3 ||
+        q.indexOf('http://') === 0 ||
+        q.indexOf('https://') === 0 ||
+        q.indexOf('www.') === 0 ||
+        q.indexOf('youtube.') === 0 ||
+        q.indexOf('youtu.be/') === 0) {
+        Session.set('search-result', []);
+        return;
+      }
 
-            if (!radioId) return;
+      if (!radioId) return;
 
-            Session.set('isSearching', true);
+      Session.set('isSearching', true);
 
-            this.searchTimeout = setTimeout(function () {
-                App.youtube.search(q, function (res) {
-                    Session.set('isSearching', false);
-                    if (res && res.items && res.items.length) Session.set('search-result', res.items);
-                });
-            }, 1000);
-        }
-    };
+      this.searchTimeout = setTimeout(function () {
+        App.youtube.search(q, function (res) {
+          Session.set('isSearching', false);
+          if (res && res.items && res.items.length) Session.set('search-result', res.items);
+        });
+      }, 1000);
+    }
+  };
 
-    return {
-        init: Search.init.bind(Search),
-        addSong: Search.addSong.bind(Search),
-        getValue: Search.getValue.bind(Search),
-        keyUp: Search.keyUp.bind(Search)
-    };
+  return {
+    init: Search.init.bind(Search),
+    addSong: Search.addSong.bind(Search),
+    getValue: Search.getValue.bind(Search),
+    keyUp: Search.keyUp.bind(Search)
+  };
 })();

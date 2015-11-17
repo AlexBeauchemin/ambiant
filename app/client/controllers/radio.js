@@ -40,15 +40,25 @@ RadioController = RouteController.extend({
         App.youtube.play(radio.playlist[0].id);
       }
 
+      //Remove first song (currently playing)
+      let tmp = radio.playlist[0];
+      radio.playlist.shift();
+
+      //Sort by date or votes
       if (radio.allowVote) {
-        let tmp = radio.playlist[0];
-        radio.playlist.shift();
         radio.playlist = _.sortBy(radio.playlist, function(o) {
           if (typeof o.upvotes === 'undefined') return 0;
           return (o.upvotes.length - o.downvotes.length) * -1;
         });
-        radio.playlist.unshift(tmp);
       }
+      else {
+        radio.playlist = _.sortBy(radio.playlist, function (o) {
+          return o.dateAdded;
+        });
+      }
+
+      //Reinject current playing song as the first song in the list
+      radio.playlist.unshift(tmp);
     }
 
     return {

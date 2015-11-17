@@ -157,6 +157,18 @@ if (Meteor.isServer) {
 
       radio.playlist.shift();
 
+      if (radio.allowVote) {
+        radio.playlist = _.sortBy(radio.playlist, function (o) {
+          if (typeof o.upvotes === 'undefined') return 0;
+          return (o.upvotes.length - o.downvotes.length) * -1;
+        });
+      }
+      else {
+        radio.playlist = _.sortBy(radio.playlist, function (o) {
+          return o.dateAdded;
+        });
+      }
+
       Radios.update({ _id: radioId },{ $set: {
         playlist: radio.playlist,
         playlistEnded: radio.playlistEnded

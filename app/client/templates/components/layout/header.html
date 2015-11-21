@@ -7,7 +7,7 @@
                 <ul class="right hide-on-med-and-down">
                     {{#if myRadio}}
                         {{#unless isAdmin}}
-                            <li><a href="/radio/{{myRadio.url}}">My radio</a></li>
+                            <li><a href="/{{myRadio.url}}">My radio</a></li>
                         {{/unless}}
                     {{else}}
                         <li><a href="#modal-create-radio" data-action="open-create-radio">New radio</a></li>
@@ -23,18 +23,18 @@
                 <ul class="side-nav" id="mobile-menu">
                     <li><a href="/">Home</a></li>
                     {{#if myRadio}}
-                        <li><a href="/radio/{{myRadio.url}}">My radio</a></li>
+                        <li><a href="/{{myRadio.url}}">My radio</a></li>
                     {{else}}
                         <li><a href="#modal-create-radio" class="modal-trigger">New radio</a></li>
                     {{/if}}
                     {{#if isGuest}}
-                        <li><a href="/login">Log In</a></li>
-                        <li><a href="/register">Register</a></li>
-                        <li><a href="/donate">Donate</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="{{pathFor route='login'}}">Log In</a></li>
+                        <li><a href="{{pathFor route='register'}}">Register</a></li>
+                        <li><a href="{{pathFor route='donate'}}">Donate</a></li>
+                        <li><a href="{{pathFor route='contact'}}">Contact</a></li>
                     {{else}}
-                        <li><a href="/donate">Donate</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="{{pathFor route='donate'}}">Donate</a></li>
+                        <li><a href="{{pathFor route='contact'}}">Contact</a></li>
                         <li><a href="#" data-action="logout">Log out</a></li>
                         <li class="username">({{currentUser.profile.name}})</li>
                     {{/if}}

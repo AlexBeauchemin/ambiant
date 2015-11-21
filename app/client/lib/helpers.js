@@ -12,6 +12,12 @@ App.helpers = (function () {
       email = email.trim();
       password = password.trim();
 
+      if (!email || !password) {
+        Materialize.toast('Please enter your email address and a password', 5000);
+        if (callback) return callback(true);
+        else return;
+      }
+
       Meteor.loginWithPassword(email, password, function (error) {
         if (error) Materialize.toast(error.reason, 5000);
         if (callback) callback(error);
@@ -29,11 +35,22 @@ App.helpers = (function () {
 
     register(email, password, name, callback) {
       let options = {
-        email: email.trim(),
-        password: password.trim()
+        email: email.trim().substring(0, 255),
+        password: password.trim().substring(0, 255),
+        profile: {name: name.trim().substring(0, 50)}
       };
 
-      if (name) options.profile = {name: name.trim()};
+      if (!options.email || !options.password) {
+        Materialize.toast('Please enter a valid email address and a password', 5000);
+        if (callback) return callback(true);
+        else return;
+      }
+
+      if (options.name) {
+        Materialize.toast('Please enter a name', 5000);
+        if (callback) return callback(true);
+        else return;
+      }
 
       options = App.helpers.validateAccountCreation(options);
 

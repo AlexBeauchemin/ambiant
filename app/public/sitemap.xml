@@ -10,9 +10,15 @@
   <loc>http://ambiant.io/</loc>
 </url>
 <url>
-  <loc>http://ambiant.io/contact</loc>
+  <loc>http://ambiant.io/page/contact</loc>
 </url>
 <url>
-  <loc>http://ambiant.io/donate</loc>
+  <loc>http://ambiant.io/page/donate</loc>
+</url>
+<url>
+    <loc>http://ambiant.io/page/login</loc>
+</url>
+<url>
+    <loc>http://ambiant.io/page/register</loc>
 </url>
 </urlset>

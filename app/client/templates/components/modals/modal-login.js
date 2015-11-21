@@ -6,7 +6,12 @@ Template.modalLogin.events({
       password = event.target.password.value;
 
     App.helpers.login(email, password, (error) => {
-      if (error) Session.set('login-error', 'error shake');
+      if (error) {
+        Session.set('login-error', 'error shake');
+        setTimeout(() => {
+          Session.set('login-error', '');
+        }, 1000);
+      }
       else $('#modal-login').closeModal();
     });
   },

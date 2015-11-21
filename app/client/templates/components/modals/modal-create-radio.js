@@ -25,7 +25,7 @@ Template.modalCreateRadio.events({
 
       if (res && res.url) {
         $('#modal-create-radio').closeModal();
-        Router.go('/radio/' + res.url);
+        Router.go('/' + res.url);
       }
     });
   }

@@ -17,13 +17,17 @@ Meteor.startup(function () {
 
   App.youtube.init();
 
-  //todo: remove this
-  Radios.update({allowVote: {$exists: false}}, {$set: {allowVote: true}});
-
   Meteor.setInterval(function () {
     Radios.find({live: true}).forEach(function (radio) {
       let isLive = Presences.findOne({'state.currentRadioId': radio._id, userId: radio.users[0]});
       if (!isLive) Radios.update({_id: radio._id}, {$set: {live: false}});
     });
   }, 1000 * 60 * 1);
+
+  Meteor.call('radio.clean-guest-radios');
+
+  Meteor.setInterval(function() {
+    Accounts.removeOldGuests();
+    Meteor.call('radio.clean-guest-radios');
+  }, 1000 * 60 * 60 * 24);
 });

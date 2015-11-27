@@ -272,7 +272,7 @@ App.youtube = (function () {
       }
 
       message += 'The song will be skipped';
-      Materialize.toast(`${message} (code ${e.data})`);
+      Materialize.toast(`${message} (code ${e.data})`, 10000);
 
       if (this.config.onSongError) this.config.onSongError();
       this.stop();

@@ -39,15 +39,16 @@ if (Meteor.isServer) {
       let twitchChannel = null;
       name = name.trim().substr(0,50);
       let url = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      let isGuest = false;
 
       if (!name) throw new Meteor.Error(500, 'Name invalid');
       if (!Meteor.user() || !Meteor.user()._id) throw new Meteor.Error(500, 'No user');
 
-      if (Meteor.user()) {
-        users = [Meteor.user()._id];
-        if (Meteor.user().services && Meteor.user().services.twitch) {
-          twitchChannel = Meteor.user().services.twitch.name;
-        }
+      users = [Meteor.user()._id];
+      isGuest = Meteor.user().profile && Meteor.user().profile.guest;
+
+      if (Meteor.user().services && Meteor.user().services.twitch) {
+        twitchChannel = Meteor.user().services.twitch.name;
       }
 
       if (Radios.findOne({url: url})) throw new Meteor.Error(500, 'This name is already taken');
@@ -60,6 +61,7 @@ if (Meteor.isServer) {
           blacklistedUsers: [],
           dateCreated: new Date(),
           dateLastAccess: new Date(),
+          isGuest: isGuest,
           limitType: 'number', //number or time
           limitValue: 5,
           live: false,
@@ -125,6 +127,28 @@ if (Meteor.isServer) {
 
       Radios.update({ _id: radioId },{$push: {blacklistedUsers: user}});
       return true;
+    },
+
+    'radio.clean-guest-radios'() {
+      let guestRadios = [];
+      let guestUsers = [];
+      let toDelete;
+
+      Radios.find({isGuest: true}).forEach(function(radio) {
+        guestRadios.push({id: radio._id, user: radio.users[0]});
+      });
+
+      Meteor.users.find({'profile.guest': true}).forEach(function (user) {
+        guestUsers.push(user._id);
+      });
+
+      toDelete = _.reject(guestRadios, function(radio) {
+        return guestUsers.indexOf(radio.user) !== -1;
+      });
+
+      if (!_.isEmpty(toDelete)) {
+        Radios.remove({'_id': {'$in': _.pluck(toDelete, 'id')}});
+      }
     },
 
     'radio.clear'(radioId) {

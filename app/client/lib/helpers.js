@@ -3,7 +3,7 @@ App.helpers = (function () {
     /**
      * Public functions
      */
-      canSkip(radio) {
+    canSkip(radio) {
       if (Session.get('currentRadioOwner') === true) return true;
       return (radio.skip === "all");
     },

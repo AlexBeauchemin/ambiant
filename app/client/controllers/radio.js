@@ -74,7 +74,6 @@ RadioController = RouteController.extend({
     Session.set('radio-mode', '');
     Session.set('autoplay', false);
     Session.set('showEndedMax', showEndedMaxDefault);
-    Meteor.call('user.guest-last-access');
     this.next();
   },
 

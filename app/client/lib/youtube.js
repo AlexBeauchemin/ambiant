@@ -181,7 +181,9 @@ App.youtube = (function () {
         info.duration = Math.floor(duration.asMinutes()) + ':' + this.formatTime(duration.seconds());
       }
 
-      return info;
+      if (info.thumbnails && info.thumbnails.default) info.thumbnails = _.pick(info.thumbnails, ['default', 'high']);
+
+      return _.pick(info, ['title', 'thumbnails', 'duration', 'licensedContent', 'regionRestriction']);
     },
 
     initAPI() {

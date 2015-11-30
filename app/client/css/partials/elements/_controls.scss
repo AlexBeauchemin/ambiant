@@ -11,8 +11,24 @@
     .search {
         position: relative;
 
-        input:focus {
-            box-shadow: none;
+        input,
+        label {
+            padding-left: 25px;
+        }
+
+        i {
+            left: 10px;
+            position: absolute;
+            top: calc(50% - 6px);
+            transform: translateY(-50%);
+        }
+
+        input {
+            box-sizing: border-box;
+
+            &:focus {
+                box-shadow: none;
+            }
         }
 
         label {
@@ -42,17 +58,17 @@
                     background-color: $secondary-color !important;
                     color: #fff;
 
-                    .btn { background-color: #fff; }
+                    //.btn { background-color: #fff; }
                 }
 
                 .btn {
                     align-items: center;
-                    background-color: transparent;
+                    background-color: $secondary-color;
                     border: none;
                     border-left: 1px solid #e0e0e0;
                     border-radius: 0;
                     bottom: 0;
-                    color: $primary-color;
+                    color: #fff;
                     display: flex;
                     height: 100%;
                     justify-content: center;

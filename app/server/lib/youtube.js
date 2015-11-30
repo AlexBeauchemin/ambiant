@@ -20,7 +20,7 @@ App.youtube = (function() {
     },
 
     findRelated(songId, maxResult, blacklistedSongs, callback) {
-      var _this = this;
+      let _this = this;
 
       YoutubeApi.search.list({
         relatedToVideoId: songId,
@@ -28,7 +28,7 @@ App.youtube = (function() {
         type: 'video',
         maxResults: maxResult,  //0 to 50
         videoCategoryId: _this.musicCategoryId
-      }, function (err, data) {
+      }, (err, data) => {
           if (err) {
             callback(null);
             throw new Meteor.Error(500, { message: 'can\'t find related', info: err});
@@ -57,7 +57,7 @@ App.youtube = (function() {
     },
 
     getSongInfo(id, callback) {
-      var _this = this;
+      let _this = this;
 
       YoutubeApi.videos.list({
         id: id,
@@ -86,16 +86,16 @@ App.youtube = (function() {
     },
 
     getMusicCategoryId() {
-      var _this = this;
+      let _this = this;
 
       YoutubeApi.videoCategories.list({
         regionCode: 'us',
         part: 'snippet'
       }, function(err,data) {
         if (err) return console.log(err);
-        var categories = data.items;
+        let categories = data.items;
 
-        for (var i = 0; i < categories.length; i++) {
+        for (let i = 0; i < categories.length; i++) {
           if (categories[i].snippet.title.toLowerCase().indexOf('music') > -1) {
             _this.musicCategoryId = categories[i].id;
             break;
@@ -105,15 +105,17 @@ App.youtube = (function() {
     },
 
     getSongDetails(data) {
-      var info = _.extend(data.snippet, data.contentDetails);
-      var duration = null;
+      let info = _.extend(data.snippet, data.contentDetails);
+      let duration = null;
 
       if (info.duration) {
         duration = moment.duration(info.duration);
         info.duration = Math.floor(duration.asMinutes()) + ':' + this.formatTime(duration.seconds());
       }
 
-      return info;
+      if (info.thumbnails && info.thumbnails.default) info.thumbnails = _.pick(info.thumbnails, ['default', 'high']);
+
+      return _.pick(info, ['title', 'thumbnails', 'duration', 'licensedContent', 'regionRestriction']);
     }
   };
 

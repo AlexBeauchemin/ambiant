@@ -17,17 +17,22 @@ Meteor.startup(function () {
 
   App.youtube.init();
 
-  Meteor.setInterval(function () {
-    Radios.find({live: true}).forEach(function (radio) {
-      let isLive = Presences.findOne({'state.currentRadioId': radio._id, userId: radio.users[0]});
-      if (!isLive) Radios.update({_id: radio._id}, {$set: {live: false}});
-    });
-  }, 1000 * 60 * 1);
+  //Task running only on main server
+  if (process.env.RUN_BACKGROUND_TASKS === "true") {
 
-  Meteor.call('radio.clean-guest-radios');
+    Meteor.setInterval(function () {
+      Radios.find({live: true}).forEach(function (radio) {
+        let isLive = Presences.findOne({'state.currentRadioId': radio._id, userId: radio.users[0]});
+        if (!isLive) Radios.update({_id: radio._id}, {$set: {live: false}});
+      });
+    }, 1000 * 60 * 1);
 
-  Meteor.setInterval(function() {
-    Accounts.removeOldGuests();
     Meteor.call('radio.clean-guest-radios');
-  }, 1000 * 60 * 60 * 24);
+
+    Meteor.setInterval(function () {
+      Accounts.removeOldGuests();
+      Meteor.call('radio.clean-guest-radios');
+    }, 1000 * 60 * 60 * 24);
+
+  }
 });

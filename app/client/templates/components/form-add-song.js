@@ -9,6 +9,12 @@ Template.FormAddSong.events({
     if (Session.get('isAddingSong')) return;
 
     let song = App.search.getValue();
+
+    if (!song) {
+      Materialize.toast('You need to select a song first', 5000);
+      $('#add-song').trigger('click').focus();
+    }
+
     App.search.addSong(song, this.radio._id);
   },
   'keyup input[name="add-song"]': function (e) {

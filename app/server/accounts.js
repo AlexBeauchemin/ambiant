@@ -26,7 +26,7 @@ ServiceConfiguration.configurations.insert({
 
 ServiceConfiguration.configurations.insert({
   service: "facebook",
-  clientId: App.config.facebookAppId,
+  appId: App.config.facebookAppId,
   redirectUri: Meteor.absoluteUrl() + '/_oauth/facebook?close',
   secret: App.config.facebookSecret
 });

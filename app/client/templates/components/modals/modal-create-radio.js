@@ -25,6 +25,11 @@ Template.modalCreateRadio.events({
 
       if (res && res.url) {
         $('#modal-create-radio').closeModal();
+
+        // overlay seems to stay after modal is closed (only live)
+        // https://github.com/Dogfalo/materialize/issues/1647
+        $('.lean-overlay').remove();
+
         Router.go('/' + res.url);
       }
     });

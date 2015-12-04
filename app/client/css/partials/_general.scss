@@ -24,6 +24,9 @@ ul {
     li {
         margin-bottom: 0.5rem;
     }
+
+    // fix materialize tabs when scrollbar appears
+    &.tabs { overflow: hidden; }
 }
 
 p a:hover {

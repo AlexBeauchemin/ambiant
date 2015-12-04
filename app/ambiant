@@ -1,0 +1,35 @@
+server_tokens off; # for security-by-obscurity: stop displaying nginx version
+
+# this section is needed to proxy web-socket connections
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+upstream ambiant {
+  ip_hash;               # for sticky sessions, more below
+  server 159.203.9.123:3000;  # server 1
+  server 104.131.158.14:3000;  # server 2
+}
+
+# HTTP
+server {
+  listen 80;
+  server_name ambiant.io;
+  add_header X-Server-Number Ambiant1;
+
+  log_format upstreamlog '[$time_local] $remote_addr - $remote_user - $server_name  to: $upstream_addr: $request upstream_response_time $upstream_response_time msec $msec request_time $request_time';
+  access_log /etc/nginx/logs/ambiant.access upstreamlog;
+  error_log /etc/nginx/logs/ambiant.error error;
+
+  location / {
+    proxy_pass http://ambiant/;
+    proxy_set_header X-Real-IP $remote_addr;  # http://wiki.nginx.org/HttpProxyModule
+    proxy_set_header Host $host;  # pass the host header - http://wiki.nginx.org/HttpProxyModule#proxy_pass
+    proxy_http_version 1.1;  # recommended with keepalive connections - http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_http_version
+    # WebSocket proxying - from http://nginx.org/en/docs/http/websocket.html
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+  }
+
+}

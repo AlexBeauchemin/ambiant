@@ -24,7 +24,7 @@ Template.Reset.events({
     e.preventDefault();
 
     App.helpers.loginWithTwitch(() => {
-      $('#modal-registrer').closeModal();
+      $('#modal-register').closeModal();
     });
   }
 });

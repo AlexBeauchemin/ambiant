@@ -2,11 +2,33 @@ ServiceConfiguration.configurations.remove({
   service: "twitch"
 });
 
+ServiceConfiguration.configurations.remove({
+  service: "google"
+});
+
+ServiceConfiguration.configurations.remove({
+  service: "facebook"
+});
+
 ServiceConfiguration.configurations.insert({
   service: "twitch",
   clientId: App.config.twitchClientId,
   redirectUri: Meteor.absoluteUrl() + '_oauth/twitch?close',
   secret: App.config.twitchClientSecret
+});
+
+ServiceConfiguration.configurations.insert({
+  service: "google",
+  clientId: App.config.googleClientId,
+  redirectUri: Meteor.absoluteUrl() + '/_oauth/google?close',
+  secret: App.config.googleSecret
+});
+
+ServiceConfiguration.configurations.insert({
+  service: "facebook",
+  clientId: App.config.facebookAppId,
+  redirectUri: Meteor.absoluteUrl() + '/_oauth/facebook?close',
+  secret: App.config.facebookSecret
 });
 
 Meteor.publish("user-data", function () {

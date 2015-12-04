@@ -1,4 +1,5 @@
 RegisterController = RouteController.extend({
+  title: 'Ambiant | register',
   onBeforeAction: function () {
     let user = Meteor.user();
     let isGuest = false;

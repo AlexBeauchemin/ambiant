@@ -3,7 +3,17 @@ const showEndedMaxDefault = 2;
 RadioController = RouteController.extend({
   title: function () {
     let radio = Radios.findOne({url: this.params.url.toLowerCase()});
-    if (radio) return 'Ambiant radio - ' + radio.name;
+    if (radio) return 'Ambiant | ' + radio.name;
+  },
+  metaProperties: {
+    'og:title': function () {
+      let radio = Radios.findOne({url: this.params.url.toLowerCase()});
+      if (radio) return 'Ambiant | ' + radio.name;
+    },
+    'og:url': function () {
+      let radio = Radios.findOne({url: this.params.url.toLowerCase()});
+      if (radio) return 'http://ambiant.io/' + radio.url;
+    }
   },
   data() {
     let radio = Radios.findOne({url: this.params.url.toLowerCase()}),

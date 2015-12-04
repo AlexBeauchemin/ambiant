@@ -1,4 +1,5 @@
 LoginController = RouteController.extend({
+  title: 'Ambiant | login',
   onBeforeAction: function () {
     let user = Meteor.user();
     let isGuest = false;

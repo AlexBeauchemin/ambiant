@@ -67,6 +67,8 @@ if (Meteor.isServer) {
       if (!user.name) user.name = "Guest";
 
       if (Meteor.user().services && Meteor.user().services.twitch) user.email = Meteor.user().services.twitch.email;
+      if (Meteor.user().services && Meteor.user().services.google) user.email = Meteor.user().services.google.email;
+      if (Meteor.user().services && Meteor.user().services.facebook) user.email = Meteor.user().services.facebook.email;
       if (!user.email && Meteor.user().profile && !Meteor.user().profile.guest) user.email = Meteor.user().emails[0].address;
 
       return user;

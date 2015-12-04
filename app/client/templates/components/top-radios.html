@@ -8,7 +8,7 @@
             </ul>
         </div>
         <div id="top-radios" class="radios-list">
-            {{#unless ../topRadios}}
+            {{#unless ../topRadios.fetch.length}}
                 <div class="col s12">
                     <h2 class="center-align empty">There is no live radios</h2>
                 </div>
@@ -18,9 +18,9 @@
             {{/each}}
         </div>
         <div id="recent-radios" class="radios-list">
-            {{#unless ../recentRadios}}
+            {{#unless ../recentRadios.fetch.length}}
                 <div class="col s12">
-                    <h2 class="center-align empty">There is no live recent radios</h2>
+                    <h2 class="center-align empty">There is no live radios</h2>
                 </div>
             {{/unless}}
             {{#each ../recentRadios}}
@@ -28,7 +28,7 @@
             {{/each}}
         </div>
         <div id="twitch-radios" class="radios-list">
-            {{#unless ../twitchRadios}}
+            {{#unless ../twitchRadios.fetch.length}}
                 <div class="col s12">
                     <h2 class="center-align empty">There is no live twitch radios</h2>
                 </div>

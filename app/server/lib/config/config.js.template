@@ -1,15 +1,23 @@
 var env = process.env.NODE_ENV;
 var config = {
   dev: {
+    facebookAppId: '',
+    facebookSecret: '',
+    googleClientId: '',
+    googleSecret: '',
     kadiraId: '',
     kadiraSecret: '',
+    mailgunApiKey: ''
     stripeApiKey: '',
     twitchClientId: '',
     twitchClientSecret: '',
-    youtubeApiKey: '',
-    mailgunApiKey: ''
+    youtubeApiKey: ''
   },
   prod: {
+    facebookAppId: '',
+    facebookSecret: '',
+    googleClientId: '',
+    googleSecret: '',
     mailgunApiKey: ''
     kadiraId: '',
     kadiraSecret: '',

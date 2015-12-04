@@ -15,7 +15,19 @@ Template.modalRegister.events({
     e.preventDefault();
 
     App.helpers.loginWithTwitch(() => {
-      $('#modal-registrer').closeModal();
+      $('#modal-register').closeModal();
+    });
+  },
+  'click [data-action="login-google"]': function(e) {
+    Meteor.loginWithGoogle({}, function(err) {
+      if (err) return Materialize.toast(err.message, 5000);
+      $('#modal-register').closeModal();
+    });
+  },
+  'click [data-action="login-facebook"]': function(e) {
+    Meteor.loginWithFacebook({}, function(err) {
+      if (err) return Materialize.toast(err.message, 5000);
+      $('#modal-register').closeModal();
     });
   }
 });

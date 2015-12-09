@@ -2,7 +2,7 @@ Template.modalCreateRadio.events({
   'submit [data-action="create-radio"]': function (e) {
     e.preventDefault();
 
-    let name = event.target['radio-name'].value;
+    let name = e.target['radio-name'].value;
 
     if (!name.trim()) {
       Session.set('create-error', 'error shake');

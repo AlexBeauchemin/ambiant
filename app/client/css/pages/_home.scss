@@ -1,7 +1,4 @@
 [data-route="home"] {
-    background: url('/bg.jpg') no-repeat top center;
-    background-size: cover;
-
     main {
         align-items: center;
         display: flex;
@@ -14,10 +11,15 @@
             font-size: 0.9rem;
         }
 
+        .tabs {
+            border-top: 2px solid $primary-color;
+        }
+
         .card {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
-            border-top: 10px solid $primary-color;
+            border-top: 5px solid $primary-color;
+            margin-top: 30px;
             padding: 20px;
 
             ul {
@@ -33,9 +35,17 @@
 
         .radios-list {
             color: $primary-color;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+
+            .radio-container {
+                display: flex;
+                margin-left: 0;
+                width: 25%;
+            }
 
             .empty { margin-top: 30px; }
-
             a { color: $primary-color; }
             p { margin: 10px 0 0 0; }
 
@@ -45,16 +55,18 @@
             }
 
             h2 {
-                font-size: 24px;
+                font-size: 20px;
                 font-weight: bold;
                 line-height: 26px;
                 margin: 0 0 10px 0;
 
                 .twitch {
                     background-color: $colorTwitch;
-                    border-radius: 3px;
                     display: inline-block;
                     padding: 3px 5px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
 
                     img {
                         height: 20px;
@@ -69,11 +81,11 @@
                 border-top: 5px solid #222831;
                 margin-top: 30px;
                 padding: 10px 20px 10px 20px;
-            }
-
-            .song {
                 position: relative;
             }
+
+            .song { position: relative; }
+            .song-title { font-size: 12px; }
 
             .subtitle {
                 background: rgba(0,0,0,0.6);
@@ -88,6 +100,10 @@
     }
 
     @media (min-width: $tablet) {
+        background: url('/bg.jpg') no-repeat top center;
+        background-position: 0 60px;
+        background-size: 100% auto;
+
         main {
             font-size: 20px;
 

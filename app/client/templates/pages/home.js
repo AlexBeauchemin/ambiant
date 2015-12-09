@@ -1,3 +1,7 @@
+Template.Home.rendered = function () {
+  this.$('ul.tabs').tabs();
+};
+
 Template.Home.events({
   'click [data-action="open-create-radio"]': function () {
     var $modal = $('#modal-create-radio');

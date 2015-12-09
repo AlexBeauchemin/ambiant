@@ -13,6 +13,18 @@ HomeController = RouteController.extend({
     };
   },
 
+  onBeforeAction() {
+    if (!localStorage.getItem('returning')) {
+      Session.set('defaultTopRadios', '');
+      localStorage.setItem('returning', true);
+    }
+    else {
+      Session.set('defaultTopRadios', 'active');
+    }
+
+    this.next();
+  },
+
   waitOn() {
     return [
       Meteor.subscribe('my-radio'),

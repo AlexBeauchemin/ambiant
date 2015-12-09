@@ -1,23 +1,36 @@
 <template name="Home">
     <h1 class="center-align">A simple collaborative music radio for live streams, working space, partys or events</h1>
 
-    <div class="card space-top-big z-depth-1">
-        <ul>
-            <li>Start a radio by choosing a name and hit the "create" button</li>
-            <li>Add songs that you like to the playlist</li>
-            <li>Invite people to add their favorite songs by sharing your unique url</li>
-            <li>That's it, your radio is now ready!</li>
-        </ul>
-        <p class="space-top">The radio will continue playing related songs when your playlist ends. If you are a <a href="http://www.twitch.com">Twitch</a> streamer, login in with Twitch and let your viewers, followers or subscribers decide what will play next.</p>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs z-depth-1">
+                <li class="tab col s3"><a href="#info">Info</a></li>
+                <li class="tab col s3"><a href="#top-radios" class="{{getSession "defaultTopRadios"}}">Popular</a></li>
+                <li class="tab col s3"><a href="#recent-radios">Recent</a></li>
+                <li class="tab col s3"><a href="#twitch-radios">Twitch</a></li>
+            </ul>
+        </div>
+        <div id="info" class="col s12">
+            <div class="card space-top z-depth-1">
+                <ul>
+                    <li>Start a radio by choosing a name and hit the "create" button</li>
+                    <li>Add songs that you like to the playlist</li>
+                    <li>Invite people to add their favorite songs by sharing your unique url</li>
+                    <li>That's it, your radio is now ready!</li>
+                </ul>
+                <p class="space-top">The radio will continue playing related songs when your playlist ends. If you are a <a href="http://www.twitch.com">Twitch</a> streamer, login in with Twitch and let your viewers, followers or subscribers decide what will play next.</p>
+            </div>
+
+            <p class="space-top-big center-align">
+                {{#if myRadio}}
+                    <a href="/{{myRadio.url}}" class="btn btn-large waves-effect waves-light">Go to my radio</a>
+                {{else}}
+                    <a href="#modal-create-radio" class="btn btn-large waves-effect waves-light" data-action="open-create-radio">Create your radio</a>
+                {{/if}}
+            </p>
+        </div>
+
+        {{> TopRadios}}
+
     </div>
-
-    <p class="space-top-big center-align">
-        {{#if myRadio}}
-            <a href="/{{myRadio.url}}" class="btn btn-large waves-effect waves-light">Go to my radio</a>
-        {{else}}
-            <a href="#modal-create-radio" class="btn btn-large waves-effect waves-light" data-action="open-create-radio">Create your radio</a>
-        {{/if}}
-    </p>
-
-    {{> TopRadios}}
 </template>

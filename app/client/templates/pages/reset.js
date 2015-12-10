@@ -1,9 +1,9 @@
 Template.Reset.events({
-  "submit form": function (event) {
-    event.preventDefault();
+  "submit form": function (e) {
+    e.preventDefault();
 
     let token = Router.current().params.token,
-      password = event.target.password.value.trim().substr(0,255);
+      password = e.target.password.value.trim().substr(0,255);
 
     if (!token) {
       Materialize.toast('This token is invalid', 5000);

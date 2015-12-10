@@ -2,8 +2,8 @@ Template.Login.events({
   "submit form": function (e) {
     e.preventDefault();
 
-    let email = event.target.email.value,
-      password = event.target.password.value;
+    let email = e.target.email.value,
+      password = e.target.password.value;
 
     App.helpers.login(email, password, (error) => {
       if (!error) Router.go('home');

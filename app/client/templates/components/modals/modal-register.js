@@ -1,10 +1,10 @@
 Template.modalRegister.events({
-  "submit form": function (event) {
-    event.preventDefault();
+  "submit form": function (e) {
+    e.preventDefault();
 
-    let email = event.target.email.value,
-      password = event.target.password.value,
-      name = event.target.name.value;
+    let email = e.target.email.value,
+      password = e.target.password.value,
+      name = e.target.name.value;
 
     App.helpers.register(email, password, name, (error) => {
       if (error) Session.set('register-error', 'error shake');

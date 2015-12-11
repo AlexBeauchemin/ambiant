@@ -146,11 +146,20 @@
                 align-items: center;
                 display: flex;
                 height: 100%;
-                padding: 0;
+                padding: 2px 0 0 0;
                 position: absolute;
                 right: 0;
+                top: 0;
 
-                i { font-size: 32px; }
+                i {
+                    font-size: 32px;
+                    padding-bottom: 5px;
+                }
+            }
+
+            .btn-skip i {
+                padding-bottom: 0;
+                padding-top: 2px;
             }
 
             .dropdown-content { right: 0!important; }

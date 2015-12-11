@@ -42,7 +42,7 @@
             .radio-container {
                 display: flex;
                 margin-left: 0;
-                width: 25%;
+                width: 100%;
             }
 
             .empty { margin-top: 30px; }
@@ -116,8 +116,22 @@
             }
 
             .radios-list {
+                .radio-container {
+                    width: 33.33333333%;
+                }
+
                 .empty {
                     margin-top: 70px;
+                }
+            }
+        }
+    }
+
+    @media (min-width: $desktop) {
+        main {
+            .radios-list {
+                .radio-container {
+                    width: 25%;
                 }
             }
         }

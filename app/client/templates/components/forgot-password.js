@@ -19,6 +19,10 @@ Template.ForgotPassword.events({
         setTimeout(() => {
           Session.set('login-error', '');
         }, 1000);
+
+        //TODO remove log
+        console.log(error);
+
         Materialize.toast(error.reason, 5000);
       }
       else {

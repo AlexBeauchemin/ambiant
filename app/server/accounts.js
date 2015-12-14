@@ -48,7 +48,7 @@ Meteor.methods({
 
     if (!user) throw new Meteor.Error(500, 'Sorry, there is no user with this email address');
 
-    Accounts.sendResetPasswordEmail(user._id);
+    Accounts.sendResetPasswordEmail(user._id, email);
   }
 });
 

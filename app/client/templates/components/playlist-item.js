@@ -45,7 +45,7 @@ Template.PlaylistItem.helpers({
   },
 
   hasUpvote: function(user) {
-    if (!this.song.upvotes) return;
+    if (!this.song.upvotes || !user) return;
     if (this.song.upvotes.indexOf(user._id) === -1) return;
     return 'active';
   },

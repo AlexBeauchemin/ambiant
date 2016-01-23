@@ -10,25 +10,30 @@ if (Meteor.isServer) {
       if (user.services && user.services.twitch) userTwitch = user.services.twitch;
 
       switch (radio.access) {
-        case "all":
+        case 'all':
           hasAccess = true;
           break;
-        case "twitch":
+        case 'twitch':
           if (!userTwitch) throw new Meteor.Error(700, 'You need to be connected to a Twitch account to add songs to this playlist, please login with your Twitch account');
           hasAccess = true;
           break;
-        case "follow":
+        case 'follow':
           if (!userTwitch) throw new Meteor.Error(700, 'You need to be connected to a Twitch account to add songs to this playlist, please login with your Twitch account');
           App.twitch.isFollowing(radio.twitchChannel);
           hasAccess = true;
           break;
-        case "subscribe":
+        case 'subscribe':
           if (!userTwitch) throw new Meteor.Error(700, 'You need to be connected to a Twitch account to add songs to this playlist, please login with your Twitch account');
           App.twitch.isSubscribed(radio.twitchChannel);
           hasAccess = true;
           break;
-        case "users":
+        case 'users':
           if (user.profile && user.profile.guest) throw new Meteor.Error(700, 'You need to have an account to add songs to this playlist, please login or register');
+          hasAccess = true;
+          break;
+        case 'moderators':
+          if (!this.isModerator(radioId)) throw new Meteor.Error(700, 'You need to be a moderator to add songs to this playlist');
+          hasAccess = true;
           break;
       }
 
@@ -79,6 +84,19 @@ if (Meteor.isServer) {
       if (!Meteor.user()) return false;
 
       return !!Radios.findOne({_id: radioId, users: Meteor.user()._id});
+    },
+
+    isModerator(radioId) {
+      if (!radioId) return false;
+      if (!Meteor.user()) return false;
+
+      let name = App.twitch.getUserTwitchName();
+      let email = this.getUser().email;
+
+      if (name) name = name.toLowerCase();
+
+      if (name) return !!Radios.findOne({_id: radioId, moderators: name});
+      return !!Radios.findOne({_id: radioId, moderators: email});
     },
 
     isSongBlocked(radioId, songId) {

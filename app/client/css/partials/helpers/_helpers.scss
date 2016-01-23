@@ -4,6 +4,7 @@
 .space-top-big { margin-top: 2em; }
 .space-bottom { margin-bottom: 1em; }
 .break-word { word-break: break-all; }
+.no-margin { margin: 0!important; }
 
 @media (min-width: $tablet) {
     .space-top { margin-top: 2em; }

@@ -45,6 +45,7 @@
         "WebFont": true,
         "YoutubeApi": true,
         "YT": true,
+        "uuid": true,
 
         "App": true,
         "console": true,

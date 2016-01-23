@@ -6,7 +6,7 @@ Template.PlaylistItem.rendered = function() {
 };
 
 Template.PlaylistItem.helpers({
-  getVotes: function() {
+  getVotes() {
     if (!this.song.upvotes && !this.song.downvotes) return;
 
     let total = this.song.upvotes.length - this.song.downvotes.length;
@@ -17,7 +17,7 @@ Template.PlaylistItem.helpers({
     return total;
   },
 
-  getVoteState: function() {
+  getVoteState() {
     if (!this.song.upvotes && !this.song.downvotes) return;
 
     let total = this.song.upvotes.length - this.song.downvotes.length;
@@ -27,30 +27,35 @@ Template.PlaylistItem.helpers({
     return '';
   },
 
-  hasDownvote: function(user) {
+  isModerator() {
+    return App.helpers.isModerator(Template.parentData(2).radio);
+  },
+
+  hasDownvote(user) {
     if (!this.song.downvotes) return;
     if (this.song.downvotes.indexOf(user._id) === -1) return;
     return 'active';
   },
 
-  hasMenu: function () {
-    if (Session.get('currentRadioOwner') && this.state !== "ended") return "has-menu";
+  hasMenu() {
+    const isModerator = App.helpers.isModerator(Template.parentData(2).radio);
+    if ((Session.get('currentRadioOwner') || isModerator) && this.state !== "ended") return "has-menu";
     return "";
   },
 
-  hasSkip: function() {
-    let data = Template.parentData(2);
+  hasSkip() {
+    const data = Template.parentData(2);
     if (this.state === "playing" && App.helpers.canSkip(data.radio)) return "has-skip";
     return "";
   },
 
-  hasUpvote: function(user) {
+  hasUpvote(user) {
     if (!this.song.upvotes || !user) return;
     if (this.song.upvotes.indexOf(user._id) === -1) return;
     return 'active';
   },
 
-  hasVote: function() {
+  hasVote() {
     if (this.state === 'playing' || this.state === 'ended') return false;
     if (!Template.parentData(2).radio.allowVote) return false;
     return "vote";

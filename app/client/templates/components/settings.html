@@ -41,33 +41,19 @@
                 <div class="row">
                     <div class="col s6">
                         <input name="access" type="radio" id="access-all" value="all" {{isChecked "all" radio.access}} /><label for="access-all">Everyone</label>
-                    </div>
-                    {{#if isTwitchUser}}
-                        <div class="col s6">
-                            <input name="access" type="radio" id="access-twitch" value="twitch" {{isChecked "twitch" radio.access}} /><label for="access-twitch">Twitch users</label>
-                        </div>
-                        <div class="col s6">
-                            <input name="access" type="radio" id="access-follow" value="follow" {{isChecked "follow" radio.access}} /><label for="access-follow">Twitch followers</label>
-                        </div>
-                        <div class="col s6">
-                            <input name="access" type="radio" id="access-subscribe" value="subscribe" {{isChecked "subscribe" radio.access}} /><label for="access-subscribe">Twitch subscribers</label>
-                        </div>
-                    {{else}}
-                        <div class="col s6">
-                            <input name="access" type="radio" id="access-twitch" value="twitch" disabled="disabled" /><label for="access-twitch">Twitch users</label>
-                        </div>
-                        <div class="col s6">
-                            <input name="access" type="radio" id="access-follow" value="follow" disabled="disabled" /><label for="access-follow">Twitch followers</label>
-                        </div>
-                        <div class="col s6">
-                            <input name="access" type="radio" id="access-subscribe" value="subscribe" disabled="disabled" /><label for="access-subscribe">Twitch subscribers</label>
-                        </div>
-                    {{/if}}
-                    <div class="col s6">
                         <input name="access" type="radio" id="access-users" value="users" {{isChecked "users" radio.access}} /><label for="access-users">Logged users</label>
+                        <input name="access" type="radio" id="access-moderators" value="moderators" {{isChecked "moderators" radio.access}} /><label for="access-moderators">Moderators</label>
                     </div>
                     <div class="col s6">
-                        <input name="access" type="radio" id="access-whitelist" value="whitelist" disabled="disabled" {{isChecked "whitelist" radio.access}} /><label for="access-whitelist">White list <a href="#"><i class="material-icons">list</i></a></label>
+                        {{#if isTwitchUser}}
+                            <input name="access" type="radio" id="access-twitch" value="twitch" {{isChecked "twitch" radio.access}} /><label for="access-twitch">Twitch users</label>
+                            <input name="access" type="radio" id="access-follow" value="follow" {{isChecked "follow" radio.access}} /><label for="access-follow">Twitch followers</label>
+                            <input name="access" type="radio" id="access-subscribe" value="subscribe" {{isChecked "subscribe" radio.access}} /><label for="access-subscribe">Twitch subscribers</label>
+                        {{else}}
+                            <input name="access" type="radio" id="access-twitch" value="twitch" disabled="disabled" /><label for="access-twitch">Twitch users</label>
+                            <input name="access" type="radio" id="access-follow" value="follow" disabled="disabled" /><label for="access-follow">Twitch followers</label>
+                            <input name="access" type="radio" id="access-subscribe" value="subscribe" disabled="disabled" /><label for="access-subscribe">Twitch subscribers</label>
+                        {{/if}}
                     </div>
                 </div>
 
@@ -75,7 +61,7 @@
                 <div class="divider"></div>
                 <div class="row">
                     <div class="col s6">
-                        <input name="skip" type="radio" id="skip-admin" value="admin" {{isChecked "admin" radio.skip}} /><label for="skip-admin">Only Me</label>
+                        <input name="skip" type="radio" id="skip-admin" value="admin" {{isChecked "admin" radio.skip}} /><label for="skip-admin">Moderators</label>
                     </div>
                     <div class="col s6">
                         <input name="skip" type="radio" id="skip-all" value="all" {{isChecked "all" radio.skip}} /><label for="skip-all">Everyone</label>
@@ -91,6 +77,28 @@
                         <span class="lever"></span>
                         Yes
                     </label>
+                </div>
+
+                <div class="title">Moderators</div>
+                <div class="divider no-margin"></div>
+                <div class="row moderators">
+                    <div class="input-field col s12 m8">
+                        <input name="moderator" id="moderator" type="text" data-action="moderator-text-change" />
+                        <label for="moderator">Enter twitch username or email</label>
+                    </div>
+                    <div class="col s12 m4">
+                        <button type="button" class="btn waves-effect waves-light full-width" data-action="add-moderator">Add</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="s12">
+                        {{#each radio.moderators}}
+                            <div class="chip">
+                                {{this}}
+                                <i class="material-icons" data-action="remove-moderator">close</i>
+                            </div>
+                        {{/each}}
+                    </div>
                 </div>
 
                 <!--<div class="title">Blacklist</div>

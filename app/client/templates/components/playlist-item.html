@@ -20,7 +20,7 @@
         {{#if hasSkip}}
             <button class="btn btn-flat btn-skip" title="Next Song" data-action="next"><i class="material-icons">skip_next</i></button>
         {{/if}}
-        {{#if isAdmin}}
+        {{#if isModerator}}
             {{#if notEqual state "ended"}}
             <a class='dropdown-button' href='#' data-activates='dropdown-{{song.uuid}}'><i class="material-icons">more_vert</i></a>
             {{/if}}

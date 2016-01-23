@@ -18,6 +18,10 @@
         font-size: 0.9rem;
     }
 
+    .input-field label {
+        color: #9e9e9e;
+    }
+
     .tooltipped {
         position: absolute;
         right: 0;
@@ -27,4 +31,11 @@
     .collapsible-body { padding: 5px 20px 25px 20px; }
     .divider { margin-bottom: 10px; }
     .row { margin-bottom: 0; }
+    .chip { margin: 0 0 5px 0; }
+
+    @media (min-width: $tablet) {
+        .moderators {
+            .btn { margin-top: 20px; }
+        }
+    }
 }

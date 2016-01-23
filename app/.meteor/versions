@@ -15,7 +15,7 @@ blaze-html-templates@1.0.1
 blaze-tools@1.0.4
 boilerplate-generator@1.0.4
 brettle:accounts-login-state@0.0.4
-brettle:accounts-patch-ui@0.1.5
+brettle:accounts-patch-ui@0.1.6
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
@@ -33,6 +33,7 @@ ecmascript@0.1.6
 ecmascript-runtime@0.2.6
 ejson@1.0.7
 email@1.0.8
+erasaur:meteor-lodash@4.0.0
 facebook@1.2.2
 fastclick@1.0.7
 fourseven:scss@3.4.1
@@ -62,7 +63,7 @@ localstorage@1.0.5
 logging@1.0.8
 meteor@1.1.10
 meteor-base@1.0.1
-meteorhacks:kadira@2.26.3
+meteorhacks:kadira@2.27.2
 meteorhacks:kadira-binary-deps@1.4.0
 meteorhacks:kadira-profiler@1.2.1
 meteorhacks:meteorx@1.4.1
@@ -70,7 +71,7 @@ minifiers@1.1.7
 minimongo@1.0.10
 mobile-experience@1.0.1
 mobile-status-bar@1.0.6
-momentjs:moment@2.10.6
+momentjs:moment@2.11.1
 mongo@1.1.3
 mongo-id@1.0.1
 mongo-livedata@1.0.9
@@ -103,7 +104,6 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 spiderable@1.0.9
 srp@1.0.4
-stevezhu:lodash@3.10.1
 templating@1.1.5
 templating-tools@1.0.0
 tmeasday:presence@1.0.6

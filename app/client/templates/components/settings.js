@@ -32,15 +32,23 @@ Template.Settings.events({
     var value = parseInt(e.target.value, 10);
     Meteor.call('radio.update-config', this.radio._id, {limitValue: value});
   },
-  'click [data-action="update-twitch-info"]': function () {
-    Meteor.call('isSubscribedChannel', 'summit1g', function (error, res) {
-      if (error) Materialize.toast(error.reason, 5000);
-      console.log(error, res);
-    });
-  },
   'click [data-action="delete-radio"]': function () {
     Meteor.call('radio.delete', this.radio._id);
     Router.go('home');
+  },
+  'click [data-action="add-moderator"]': function (e) {
+    e.preventDefault();
+    let $moderators = $('#moderator');
+    let moderators = $moderators.val();
+
+    if (!moderators) return;
+    Meteor.call('radio.add-moderators', this.radio._id, moderators);
+    $moderators.val('');
+  },
+  'click [data-action="remove-moderator"]': function (e, t) {
+    let mod = this.valueOf();
+
+    Meteor.call('radio.remove-moderator', t.data.radio._id, mod);
   }
 });
 

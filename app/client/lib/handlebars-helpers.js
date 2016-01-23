@@ -7,6 +7,10 @@ if (Meteor.isClient) {
     return Session.get('currentRadioOwner');
   });
 
+  Template.registerHelper('isModerator', function (radio) {
+    return App.helpers.isModerator(radio);
+  });
+
   Template.registerHelper('isEqual', function (data1, data2) {
     return data1 === data2;
   });

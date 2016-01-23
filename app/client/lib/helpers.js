@@ -1,11 +1,29 @@
 App.helpers = (function () {
-  var Helpers = {
+  let Helpers = {
     /**
      * Public functions
      */
     canSkip(radio) {
       if (Session.get('currentRadioOwner') === true) return true;
+      if (radio.access === 'moderators' && this.isModerator(radio)) return true;
+
       return (radio.skip === "all");
+    },
+
+    isModerator(radio) {
+      let user = Meteor.user();
+      
+      if (!radio) return false;
+      if (Session.get('currentRadioOwner') === true) return true;
+
+      let username = _.get(user, 'services.twitch.name') ||
+                     _.get(user, 'profile.name');
+      let email = _.get(user, 'services.twitch.email') ||
+                  _.get(user, 'services.facebook.email') ||
+                  _.get(user, 'services.google.email') ||
+                  _.get(user, 'emails[0].address');
+
+      return _.includes(radio.moderators, username) || _.includes(radio.moderators, email);
     },
 
     login(email, password, callback) {
@@ -127,6 +145,7 @@ App.helpers = (function () {
 
   return {
     canSkip: Helpers.canSkip.bind(Helpers),
+    isModerator: Helpers.isModerator.bind(Helpers),
     login: Helpers.login.bind(Helpers),
     loginWithTwitch: Helpers.loginWithTwitch.bind(Helpers),
     register: Helpers.register.bind(Helpers),

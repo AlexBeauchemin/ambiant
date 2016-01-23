@@ -26,7 +26,7 @@ Router.configure({
 
 Router.route('/', {name: 'home', path: '/'});
 Router.route('/:url', {name: 'radio'});
-Router.route('/radio/:url', { onBeforeAction: function() { this.redirect('/' + this.params.url) } });
+Router.route('/radio/:url', { onBeforeAction: function() { this.redirect('/' + this.params.url); } });
 Router.route('/page/login', {name: 'login'});
 Router.route('/page/register', {name: 'register'});
 Router.route('/page/contact', {name: 'contact'});

@@ -5,31 +5,35 @@ Template.Settings.rendered = function () {
 
 Template.Settings.events({
   'click [name="access"]': function (e) {
-    var value = e.target.value;
+    const value = e.target.value;
     if (value) Meteor.call('radio.update-config', this.radio._id, {access: value});
   },
   'click [name="skip"]': function (e) {
-    var value = e.target.value;
+    const value = e.target.value;
     if (value) Meteor.call('radio.update-config', this.radio._id, {skip: value});
   },
   'click [name="limit-type"]': function (e) {
-    var value = e.target.value;
+    const value = e.target.value;
     if (value) Meteor.call('radio.update-config', this.radio._id, {limitType: value});
   },
   'change #allowVote': function (e) {
-    var value = !!e.currentTarget.checked;
+    const value = !!e.currentTarget.checked;
     Meteor.call('radio.update-config', this.radio._id, {allowVote: value});
   },
   'change #public': function (e) {
-    var value = !!e.currentTarget.checked;
+    const value = !!e.currentTarget.checked;
     Meteor.call('radio.update-config', this.radio._id, {public: value});
   },
+  'change #discovery': function (e) {
+    const value = !!e.currentTarget.checked;
+    Meteor.call('radio.update-config', this.radio._id, {discovery: value});
+  },
   'change #threshold': function (e) {
-    var value = parseInt(e.target.value, 10);
+    const value = parseInt(e.target.value, 10);
     Meteor.call('radio.update-config', this.radio._id, {threshold: value});
   },
   'change #limit-value': function (e) {
-    var value = parseInt(e.target.value, 10);
+    const value = parseInt(e.target.value, 10);
     Meteor.call('radio.update-config', this.radio._id, {limitValue: value});
   },
   'click [data-action="delete-radio"]': function () {
@@ -38,23 +42,27 @@ Template.Settings.events({
   },
   'click [data-action="add-moderator"]': function (e) {
     e.preventDefault();
-    let $moderators = $('#moderator');
-    let moderators = $moderators.val();
+    const $moderators = $('#moderator');
+    const moderators = $moderators.val();
 
     if (!moderators) return;
     Meteor.call('radio.add-moderators', this.radio._id, moderators);
     $moderators.val('');
   },
   'click [data-action="remove-moderator"]': function (e, t) {
-    let mod = this.valueOf();
+    const mod = this.valueOf();
 
     Meteor.call('radio.remove-moderator', t.data.radio._id, mod);
   }
 });
 
 Template.Settings.helpers({
-  isChecked: function (param1, param2) {
-    if (param1 === param2) return "checked";
-    return "";
+  isChecked(param1, param2) {
+    if (param1 === param2) return 'checked';
+  },
+
+  isDiscovery(value) {
+    if (value === false) return;
+    return 'checked'
   }
 });

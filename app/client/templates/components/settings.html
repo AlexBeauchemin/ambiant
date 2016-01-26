@@ -14,7 +14,18 @@
                     </label>
                 </div>
 
-                <div class="title">Radio Threshold <span class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Set the relative songs range, a smaller value will make the same songs play more often, a higher value will provide a wider range of relative songs"><i class="material-icons">info_outline</i></span></div>
+                <div class="title">Discovery <span class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="If discovery is on, the radio will continue playing similar songs at the end of the playlist. If discovery is off, the radio will loop through songs previously played in a random order."><i class="material-icons">info_outline</i></span></div>
+                <div class="divider"></div>
+                <div class="switch">
+                    <label>
+                        Off
+                        <input type="checkbox" name="discovery" id="discovery" {{isDiscovery radio.discovery}} />
+                        <span class="lever"></span>
+                        On
+                    </label>
+                </div>
+
+                <div class="title">Discovery Threshold <span class="right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Set the relative songs range, a smaller value will make the same songs play more often, a higher value will provide a wider range of relative songs"><i class="material-icons">info_outline</i></span></div>
                 <div class="divider"></div>
                 <div class="range-field">
                     <input type="range" id="threshold" min="5" max="25" value="{{radio.threshold}}" />

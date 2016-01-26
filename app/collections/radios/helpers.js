@@ -56,7 +56,14 @@ if (Meteor.isServer) {
             fut.return(null);
           }
         });
-        App.youtube.findRelated(randomSong, radio.threshold, radio.blacklistedSongs, bound_callback);
+
+        if (radio.discovery) App.youtube.findRelated(randomSong, radio.threshold, radio.blacklistedSongs, bound_callback);
+        else {
+          App.youtube.getSongInfo(randomSong, function(songInfo) {
+            bound_callback({ id: randomSong, type: 'related', data: songInfo });
+          });
+        }
+
         fut.wait();
       }
     },

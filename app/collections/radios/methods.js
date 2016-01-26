@@ -61,6 +61,7 @@ if (Meteor.isServer) {
           blacklistedUsers: [],
           dateCreated: new Date(),
           dateLastAccess: new Date(),
+          discovery: true,
           isGuest: isGuest,
           limitType: 'number', //number or time
           limitValue: 5,
@@ -345,6 +346,7 @@ if (Meteor.isServer) {
         data.threshold = parseInt(data.threshold,10);
         if (data.threshold >=5 && data.threshold <= 25) config.threshold = data.threshold;
       }
+      if (data.discovery || data.discovery === false) config.discovery = !!data.discovery;
 
       if (Object.keys(config).length > 0) Radios.update({ _id: radioId },{ $set: config });
     },

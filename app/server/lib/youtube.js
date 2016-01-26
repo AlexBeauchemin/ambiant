@@ -22,6 +22,11 @@ App.youtube = (function() {
     findRelated(songId, maxResult, blacklistedSongs, callback) {
       let _this = this;
 
+      if (!songId) {
+        callback(null);
+        throw new Meteor.Error(500, {message: 'can\'t find related, no id provided'});
+      }
+
       YoutubeApi.search.list({
         relatedToVideoId: songId,
         part: 'snippet',
@@ -31,12 +36,12 @@ App.youtube = (function() {
       }, (err, data) => {
           if (err) {
             callback(null);
-            throw new Meteor.Error(500, { message: 'can\'t find related', info: err});
+            throw new Meteor.Error(500, {message: 'can\'t find related', info: err});
           }
           if (data && data.items) {
             data.items.push({id: {videoId: songId}}); // Put the reference song in the related list so it can play again
-            let id = "",
-              foundRelated = false;
+            let id = "";
+            let foundRelated = false;
 
             while(data.items && foundRelated === false) {
               let index = Math.floor(Math.random() * data.items.length);
@@ -57,7 +62,7 @@ App.youtube = (function() {
     },
 
     getSongInfo(id, callback) {
-      let _this = this;
+      const _this = this;
 
       YoutubeApi.videos.list({
         id: id,
@@ -65,10 +70,10 @@ App.youtube = (function() {
         type: 'video',
         maxResults: 1
       }, function(err, response) {
-        if (err) return console.log("Can't fin related", err);
+        if (err) return console.log("Can't find related", err);
         if (!response || !response.items) return;
 
-        var info = _this.getSongDetails(response.items[0]);
+        const info = _this.getSongDetails(response.items[0]);
 
         if (callback) callback(info);
       });

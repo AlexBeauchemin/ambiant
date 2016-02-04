@@ -20,6 +20,14 @@
         transform: translate3d(-50%,-50%,0);
     }
 
+    .youtube {
+        #soundcloud-player { display: none; }
+    }
+
+    .soundcloud-player {
+        #youtube-player { display: none; }
+    }
+
     .cover {
         background-color: $primary-color;
         bottom: 0;

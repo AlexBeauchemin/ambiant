@@ -84,7 +84,7 @@ App.youtube = (function () {
 
         let info = this.getSongDetails(response.items[0]);
 
-        if (callback) callback(info);
+        if (callback) callback([info]);
       });
     },
 

@@ -1,10 +1,12 @@
 var env = process.env.NODE_ENV;
 var config = {
   dev: {
+    soundCloudApiKey: '',
     stripeApiKey: '',
     youtubeApiKey: ''
   },
   prod: {
+    soundCloudApiKey: '',
     stripeApiKey: '',
     youtubeApiKey: ''
   }

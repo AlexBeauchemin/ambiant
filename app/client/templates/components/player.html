@@ -1,5 +1,5 @@
 <template name="Player">
-    <div class="video video-wrapper {{isHidden isAdmin}}">
+    <div class="video video-wrapper {{isHidden isAdmin}} {{songDomain radio.playlist}}">
         {{#if isState "loading"}}
             <div class="middle">
                 <div class="preloader-wrapper big active">
@@ -16,6 +16,7 @@
             </div>
         {{/if}}
         <div id="youtube-player"></div>
+        <iframe id="soundcloud-player" src="https://w.soundcloud.com/player/?url=http://api.soundcloud.com" width="100%" height="465" scrolling="no" frameborder="no"></iframe>
         {{#if isState "stop"}}
             {{#if radio.playlist.length}}
                 <div class="cover cover-play"><a class="valign-wrapper" href="#" data-action="play"><h4 class="center-align valign"><i class="material-icons large">play_arrow</i></h4></a></div>

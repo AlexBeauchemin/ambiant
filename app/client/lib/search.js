@@ -12,27 +12,42 @@ App.search = (function () {
       this.resetValues();
     },
 
-    addSong(song, radioId) {
+    addSong(ref, radioId) {
       //Remove search results no matter what happens
       Session.set('search-result', null);
       this.focusSong = -1;
 
-      if (!song || !radioId) return;
+      if (!ref || !radioId) return;
 
-      let songId = App.youtube.getSongIdFromUrl(song);
+      let domain = this.getDomainFromUrl(ref);
+
+      if (domain === 'youtube') {
+        ref = App.youtube.getSongIdFromUrl(song);
+      }
 
       Session.set('isAddingSong', true);
 
-      App.youtube.getSongInfo(songId, (songInfo) => {
-        if (!songInfo) Session.set('isAddingSong', false);
+      App[domain].getSongInfo(ref, (tracks) => {
+        _.forEach(tracks, (track,index) => {
+          const id = track.id || ref;
+          const trackInfo = {
+            id,
+            type: 'user-added',
+            data: track,
+            domain: domain
+          };
 
-        Meteor.call('radio.add-song-to-playlist', {id: songId, type: 'user-added', data: songInfo}, radioId, (error, res) => {
-          Session.set('isAddingSong', false);
-          if (error) return Materialize.toast(error.reason, 5000);
+          //TODO: Bundle servers call in a single add-songs call
+          Meteor.call('radio.add-song-to-playlist', trackInfo, radioId, (error, res) => {
+            if (error) Materialize.toast(error.reason, 5000);
+            else Materialize.toast(`Song "${track.title}" added!`, 3000, 'normal');
 
-          Materialize.toast(`Song "${songInfo.title}" added!`, 3000, 'normal');
-          this.resetValues();
-          $(this.selector).focus();
+            if (index === tracks.length - 1) {
+              Session.set('isAddingSong', false);
+              this.resetValues();
+              $(this.selector).focus();
+            }
+          });
         });
       });
     },
@@ -71,7 +86,12 @@ App.search = (function () {
      * Private Functions
      */
 
-      handleKeyDown(e, results) {
+    getDomainFromUrl(url) {
+      if (url.includes('soundcloud.com')) return 'soundcloud';
+      return 'youtube'
+    },
+
+    handleKeyDown(e, results) {
       if (!results) return;
       if (this.focusSong + 1 >= results.length) return;
 
@@ -119,6 +139,9 @@ App.search = (function () {
           Session.set('isSearching', false);
           if (res && res.items && res.items.length) Session.set('search-result', res.items);
         });
+        /*App.soundcloud.search(q, function (res) {
+          console.log(res);
+        });*/
       }, 1000);
     }
   };

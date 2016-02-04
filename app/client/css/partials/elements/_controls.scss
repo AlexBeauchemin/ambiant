@@ -8,6 +8,16 @@
 
     .input-field { margin-top: 0; }
 
+    .domain-select {
+        position: absolute;
+        right: 0;
+        width: 40px;
+
+        img {
+            width: 40px;
+        }
+    }
+
     .search {
         position: relative;
 

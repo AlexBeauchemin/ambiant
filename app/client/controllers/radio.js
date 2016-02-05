@@ -22,6 +22,7 @@ RadioController = RouteController.extend({
       radioId = null,
       currentlyPlaying = Session.get('currentlyPlaying'),
       showEndedMax = Session.get('showEndedMax'),
+      domain = 'youtube',
       showMore = {
         isVisible: false,
         text: 'Show More'
@@ -41,13 +42,14 @@ RadioController = RouteController.extend({
 
     if (radio && radio.playlist.length) {
       radio.playlist[0] = _.extend(radio.playlist[0], {state: "playing"});
+      domain = radio.playlist[0].domain || 'youtube';
 
       if (Session.get('autoplay')) {
-        App.youtube.play(radio.playlist[0].id);
+        App[domain].play(radio.playlist[0].id);
         Session.set('autoplay', false);
       }
       else if (currentlyPlaying && currentlyPlaying !== radio.playlist[0].id) {
-        App.youtube.play(radio.playlist[0].id);
+        App[domain].play(radio.playlist[0].id);
       }
 
       //Remove first song (currently playing)

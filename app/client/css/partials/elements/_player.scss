@@ -5,6 +5,18 @@
     padding-top: 25px;
     position: relative;
 
+    &.youtube {
+        #soundcloud-player { display: none; }
+    }
+
+    &.soundcloud {
+        #youtube-player { display: none; }
+    }
+
+    #soundcloud-player {
+        height: auto;
+    }
+
     iframe {
         height: 100%;
         left: 0;
@@ -18,14 +30,6 @@
         top: 50%;
         left: 50%;
         transform: translate3d(-50%,-50%,0);
-    }
-
-    .youtube {
-        #soundcloud-player { display: none; }
-    }
-
-    .soundcloud-player {
-        #youtube-player { display: none; }
     }
 
     .cover {

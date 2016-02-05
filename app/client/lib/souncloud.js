@@ -6,6 +6,7 @@ App.soundcloud = (function () {
     config: {
       apiKey: '',
       element: 'soundcloud-player', //ID of the dom element,
+      onProgress: null,
       onReady: null,
       onSongError: null,
       onSongEnded: null,
@@ -198,36 +199,17 @@ App.soundcloud = (function () {
     loadPlayer() {
       const iframeElement = document.getElementById(this.config.element);
       this.player = SC.Widget(iframeElement);
+
+      if (this.config.onSongEnded) this.player.bind(SC.Widget.Events.FINISH, this.config.onSongEnded);
+      if (this.config.onProgress) this.player.bind(SC.Widget.Events.PLAY_PROGRESS, this.config.onProgress);
     },
 
     onPlayerError(e) {
-      let message = 'Sorry, an error occured with the youtube player. ';
-      switch (e.data) {
-        case 2:
-          message += 'The video id is invalid. ';
-          break;
-        case 5:
-          message += 'The requested content cannot be played in an HTML5 player. ';
-          break;
-        case 100:
-          message += 'The video requested was not found, it may have been removed or made private. ';
-          break;
-        case 101:
-        case 105:
-          message += 'The owner of the requested video does not allow it to be played in embedded players. ';
-      }
-
-      message += 'The song will be skipped';
+      let message = 'Sorry, an error occured with the soundcloud player. The song will be skipped';
       Materialize.toast(`${message} (code ${e.data})`, 10000);
 
       if (this.config.onSongError) this.config.onSongError();
       this.stop();
-    },
-
-    onPlayerStateChange(e) {
-      if (e.data === YT.PlayerState.ENDED) {
-        if (this.config.onSongEnded) this.config.onSongEnded();
-      }
     },
 
     setState(state) {

@@ -65,9 +65,15 @@ Template.PlaylistItem.helpers({
 Template.PlaylistItem.events({
   'click [data-action="next"]': function() {
     Meteor.call('radio.get-next-song', Session.get('currentRadioId'), function(error, res) {
-      if (error) Materialize.toast(error.reason, 5000);
-      else if (res && res.id) App.youtube.play(res.id);
-      else App.youtube.stop();
+      if (error) return Materialize.toast(error.reason, 5000);
+
+      let domain = res.domain || 'youtube';
+
+      if (res && res.id) App['domain'].play(res.id);
+      else {
+        App.youtube.stop();
+        App.soundcloud.stop();
+      }
     });
   },
 
@@ -92,9 +98,15 @@ Template.PlaylistItem.events({
 
     if (Session.get('currentlyPlaying') === songId) {
       Meteor.call('radio.get-next-song', Session.get('currentRadioId'), function(error, res) {
-        if (error) Materialize.toast(error.reason, 5000);
-        else if (res && res.id) App.youtube.play(res.id);
-        else App.youtube.stop();
+        if (error) return Materialize.toast(error.reason, 5000);
+
+        let domain = res.domain || 'youtube';
+
+        if (res && res.id) App['domain'].play(res.id);
+        else {
+          App.youtube.stop();
+          App.soundcloud.stop();
+        }
       });
     }
 

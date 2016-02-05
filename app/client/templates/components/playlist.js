@@ -12,6 +12,7 @@ Template.Playlist.events({
       if (error) Materialize.toast(error.reason, 5000);
       else {
         App.youtube.stop();
+        App.soundcloud.stop();
       }
     });
   },

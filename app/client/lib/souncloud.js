@@ -80,15 +80,16 @@ App.soundcloud = (function () {
       }
     },
 
-    play(id) {
-      if (!$('#' + this.config.element).is(':visible')) return;
-      if (!this.player) return;
+    play(song) {
+      if (!Session.get('currentRadioOwner')) return;
+      if (!this.player || !song || !song.id) return;
 
-      this.player.load(`http://api.soundcloud.com/tracks/${id}`, { auto_play: true });
+      this.player.load(`http://api.soundcloud.com/tracks/${song.id}`, { auto_play: true });
 
       this.setState('play');
-      Session.set('currentlyPlaying', id);
+      Session.set('currentlyPlaying', song.id);
       Meteor.call('radio.go-live', Session.get('currentRadioId'));
+      Meteor.call('radio.add-song-to-discover', song, Session.get('currentRadioId'));
     },
 
     search(q, callback) {

@@ -17,12 +17,14 @@ RadioController = RouteController.extend({
   },
   data() {
     let radio = Radios.findOne({url: this.params.url.toLowerCase()}),
+      alerts = Session.get('static-alerts') || {},
       myRadio = null,
       user = Meteor.user(),
       radioId = null,
       currentlyPlaying = Session.get('currentlyPlaying'),
       showEndedMax = Session.get('showEndedMax'),
       domain = 'youtube',
+      songDomains = [],
       showMore = {
         isVisible: false,
         text: 'Show More'
@@ -45,11 +47,11 @@ RadioController = RouteController.extend({
       domain = radio.playlist[0].domain || 'youtube';
 
       if (Session.get('autoplay')) {
-        App[domain].play(radio.playlist[0].id);
+        App[domain].play(radio.playlist[0]);
         Session.set('autoplay', false);
       }
       else if (currentlyPlaying && currentlyPlaying !== radio.playlist[0].id) {
-        App[domain].play(radio.playlist[0].id);
+        App[domain].play(radio.playlist[0]);
       }
 
       //Remove first song (currently playing)
@@ -71,7 +73,21 @@ RadioController = RouteController.extend({
 
       //Reinject current playing song as the first song in the list
       radio.playlist.unshift(tmp);
+
+      songDomains = _.chain(radio.songs)
+        .map((song) => { return _.get(song, 'domain'); })
+        .uniq()
+        .value();
     }
+
+    if (songDomains.length === 1 && songDomains[0] === 'soundcloud') {
+      alerts.soundcloudDiscover = 'Discovering with soundcloud is not working right now';
+    }
+    else {
+      delete alerts.soundcloudDiscover;
+    }
+
+    Session.set('static-alerts', alerts);
 
     return {
       myRadio,

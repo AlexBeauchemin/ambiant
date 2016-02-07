@@ -1,3 +1,5 @@
+_ = lodash;
+
 App = {
     config: null,
     helpers: null,

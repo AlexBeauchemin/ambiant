@@ -1,4 +1,6 @@
+_ = lodash;
+
 App = {
-    config: null,
-    youtube: null
+  config: null,
+  youtube: null
 };

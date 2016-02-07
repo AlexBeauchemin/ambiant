@@ -6,7 +6,7 @@ Template.Player.rendered = function () {
     Meteor.call('radio.get-next-song', data.radio._id, function (error, res) {
       let domain = res.domain || 'youtube';
       if (error) Materialize.toast(error.reason, 5000);
-      else if (res && res.id) App[domain].play(res.id);
+      else if (res && res.id) App[domain].play(res);
       else Session.set('autoplay', true);
     });
   };
@@ -74,12 +74,12 @@ Template.Player.events({
 
     if (!this.radio || !this.radio.playlist || !this.radio.playlist.length) return;
 
-    let songId = this.radio.playlist[0].id;
+    let song = this.radio.playlist[0];
     let domain = this.radio.playlist[0].domain || 'youtube';
 
-    if (!songId) return;
+    if (!song || !song.id) return;
 
-    App[domain].play(songId);
+    App[domain].play(song);
     Meteor.call('radio.go-live', this.radio._id);
   }
 });

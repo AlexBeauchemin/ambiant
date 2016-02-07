@@ -64,16 +64,15 @@ Template.PlaylistItem.helpers({
 
 Template.PlaylistItem.events({
   'click [data-action="next"]': function() {
+    App.youtube.stop();
+    App.soundcloud.stop();
+
     Meteor.call('radio.get-next-song', Session.get('currentRadioId'), function(error, res) {
       if (error) return Materialize.toast(error.reason, 5000);
 
       let domain = res.domain || 'youtube';
 
-      if (res && res.id) App['domain'].play(res.id);
-      else {
-        App.youtube.stop();
-        App.soundcloud.stop();
-      }
+      if (res && res.id) App[domain].play(res.id);
     });
   },
 
@@ -102,7 +101,7 @@ Template.PlaylistItem.events({
 
         let domain = res.domain || 'youtube';
 
-        if (res && res.id) App['domain'].play(res.id);
+        if (res && res.id) App[domain].play(res.id);
         else {
           App.youtube.stop();
           App.soundcloud.stop();

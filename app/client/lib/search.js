@@ -22,7 +22,7 @@ App.search = (function () {
       let domain = this.getDomainFromUrl(ref);
 
       if (domain === 'youtube') {
-        ref = App.youtube.getSongIdFromUrl(song);
+        ref = App.youtube.getSongIdFromUrl(ref);
       }
 
       Session.set('isAddingSong', true);

@@ -1,5 +1,5 @@
 App.youtube = (function() {
-  var Youtube = {
+  const Youtube = {
     // -------------------------
     // Variables
     // -------------------------

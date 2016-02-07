@@ -99,25 +99,27 @@ App.youtube = (function () {
       }
     },
 
-    play(id) {
-      if (!$('#' + this.config.element).is(':visible')) return;
+    play(song) {
+      if (!Session.get('currentRadioOwner')) return;
       if (!this.player || !this.player.loadVideoById) return;
+      if (!song || !song.id) return;
 
-      this.player.loadVideoById(id);
+      this.player.loadVideoById(song.id);
       this.setState('play');
-      Session.set('currentlyPlaying', id);
+      Session.set('currentlyPlaying', song.id);
       Meteor.call('radio.go-live', Session.get('currentRadioId'));
+      Meteor.call('radio.add-song-to-discover', song, Session.get('currentRadioId'));
     },
 
     search(q, callback) {
-      var _this = this;
+      const _this = this;
 
       if (!window.gapi || !window.gapi.client.youtube) {
         Materialize.toast("Google api is not accessible", 5000);
         return;
       }
 
-      var request = gapi.client.youtube.search.list({
+      const request = gapi.client.youtube.search.list({
         q: q,
         part: 'snippet',
         type: 'video',

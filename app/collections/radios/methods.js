@@ -103,6 +103,29 @@ if (Meteor.isServer) {
       }
     },
 
+    'radio.add-song-to-discover'(song, radioId) {
+      if (!radioId) return;
+      if (!Helpers.isOwner(radioId)) return;
+      if (!song) return;
+
+      let songsIds;
+      const radio = Radios.findOne(radioId);
+      const songObj = {
+        id: song.id,
+        domain: song.domain,
+        title: _.get(song, 'data.title')
+      };
+
+      songsIds = _.map(radio.songs, (s) => {
+        if (s.id) return s.id;
+        return s;
+      });
+
+      if (!_.includes(songsIds, song.id)) {
+        Radios.update({ _id: radioId },{ $push: {songs: songObj}});
+      }
+    },
+
     'radio.add-song-to-playlist'(song, radioId) {
       let radio = Radios.findOne(radioId);
       let isGuest = false;
@@ -129,14 +152,14 @@ if (Meteor.isServer) {
         if (Helpers.hasUserReachedLimit(radio)) throw new Meteor.Error(500, 'You have reached your limit for this radio. Please try again later');
       }
 
-      if (Helpers.isOwner(radioId) || Helpers.canAdd(radioId)) Radios.update({ _id: radioId },{ $push: { playlist: song, songs: song.id }});
+      if (Helpers.isOwner(radioId) || Helpers.canAdd(radioId)) Radios.update({ _id: radioId },{ $push: {playlist: song}});
     },
 
     'radio.block-song'(radioId, songId) {
       if (!radioId) throw new Meteor.Error(500, 'Cannot access this radio');
       if (!Helpers.isOwner(radioId) && !Helpers.isModerator(radioId)) throw new Meteor.Error(500, 'Cannot use blacklist functions on this radio');
 
-      Radios.update({ _id: radioId },{$pull: {songs: songId, playlist: {id: songId}}});
+      Radios.update({ _id: radioId },{$pull: {songs: {id: songId}, playlist: {id: songId}}});
       Radios.update({ _id: radioId },{$push: {blacklistedSongs: songId}});
       return true;
     },
@@ -220,7 +243,6 @@ if (Meteor.isServer) {
       }});
 
       if (!radio.playlist.length) {
-
         let fut = new Future(),
           relatedSong = null;
 
@@ -263,7 +285,7 @@ if (Meteor.isServer) {
       if (!radioId || !song) throw new Meteor.Error(500, 'Cannot access this radio');
       if (!Helpers.isOwner(radioId) && !Helpers.isModerator(radioId)) throw new Meteor.Error(500, 'Cannot delete songs on this radio');
 
-      Radios.update({ _id: radioId },{$pull: {songs: song.id, playlist: {uuid: song.uuid}}});
+      Radios.update({ _id: radioId },{$pull: {playlist: {uuid: song.uuid}}});
     },
 
     'radio.song-downvote'(radioId, song) {

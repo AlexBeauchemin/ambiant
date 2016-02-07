@@ -41,11 +41,22 @@ if (Meteor.isServer) {
     },
 
     findRelated(radio, callback) {
+      if (!radio) return;
+
       let randomSong = null;
+      let songs = _.filter(radio.songs, (item) => {
+        return _.get(item, 'domain') !== 'soundcloud';
+      });
 
-      if (radio && !radio.playlist.length && radio.songs) {
-        randomSong = radio.songs[Math.floor(Math.random() * radio.songs.length)];
+      if (!radio.playlist.length && _.isEmpty(songs) && radio.songs.length) {
+        throw new Meteor.Error(500, 'Sorry, song discovery is not available for soundcloud playlists for the moment');
+      }
 
+      if (!radio.playlist.length && radio.songs) {
+        randomSong = songs[Math.floor(Math.random() * radio.songs.length)];
+
+        const domain = _.get(randomSong, 'domain') || 'youtube';
+        const songId = _.get(randomSong, 'id') || randomSong;
         let fut = new Future();
         let bound_callback = Meteor.bindEnvironment(function (res) {
           if (callback) callback(res);
@@ -57,10 +68,10 @@ if (Meteor.isServer) {
           }
         });
 
-        if (radio.discovery) App.youtube.findRelated(randomSong, radio.threshold, radio.blacklistedSongs, bound_callback);
+        if (radio.discovery) App.youtube.findRelated(songId, radio.threshold, radio.blacklistedSongs, bound_callback);
         else {
-          App.youtube.getSongInfo(randomSong, function(songInfo) {
-            bound_callback({ id: randomSong, type: 'related', data: songInfo });
+          App.youtube.getSongInfo(songId, function(songInfo) {
+            bound_callback({ id: songId, type: 'related', data: songInfo });
           });
         }
 

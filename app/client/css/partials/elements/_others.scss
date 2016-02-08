@@ -45,15 +45,12 @@ main>.container>.loading {
 
   li {
     background-color: $secondary-color;
-    border-top: 1px solid $secondary-color;
     float: none;
-    font-size: 12px;
-    line-height: 12px;
     margin: 0;
-    padding: 10px 55px;
+    padding: 10px 55px 10px 0;
     position: relative;
-    text-align: center;
-    transition: none;
+    text-align: left;
+    transition: all 0.3s;
     width: 100%;
 
     &:hover {
@@ -61,7 +58,21 @@ main>.container>.loading {
       cursor: pointer;
     }
 
+    &.hide {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+
     a {
+      font-size: 11px;
+      line-height: 14px;
+    }
+
+    i {
+      font-size: 20px;
+    }
+
+    span {
       align-items: center;
       background-color: $primary-color;
       display: flex;
@@ -72,6 +83,13 @@ main>.container>.loading {
       right: 0;
       top: 0;
       bottom: 0;
+    }
+  }
+
+  @media (min-width: $tablet) {
+    li {
+      padding: 10px 55px;
+      text-align: center;
     }
   }
 }

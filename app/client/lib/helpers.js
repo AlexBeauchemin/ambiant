@@ -3,6 +3,30 @@ App.helpers = (function () {
     /**
      * Public functions
      */
+
+    addStaticAlert(key, msg) {
+      let alerts = Session.get('static-alerts') || {};
+
+      if (!key || !msg) return;
+      if (localStorage.getItem(`static-alert-${key}`)) return;
+
+      alerts[key] = msg;
+
+      Session.set('static-alerts', alerts);
+    },
+
+    ignoreStaticAlert(key) {
+      localStorage.setItem(`static-alert-${key}`, true);
+    },
+
+    removeStaticAlert(key) {
+      let alerts = Session.get('static-alerts') || {};
+
+      if (key && alerts.hasOwnProperty(key)) delete alerts[key];
+
+      Session.set('static-alerts', alerts);
+    },
+
     canSkip(radio) {
       if (Session.get('currentRadioOwner') === true) return true;
       if (radio.access === 'moderators' && this.isModerator(radio)) return true;
@@ -144,6 +168,9 @@ App.helpers = (function () {
   };
 
   return {
+    addStaticAlert: Helpers.addStaticAlert.bind(Helpers),
+    ignoreStaticAlert: Helpers.ignoreStaticAlert.bind(Helpers),
+    removeStaticAlert: Helpers.removeStaticAlert.bind(Helpers),
     canSkip: Helpers.canSkip.bind(Helpers),
     isModerator: Helpers.isModerator.bind(Helpers),
     login: Helpers.login.bind(Helpers),

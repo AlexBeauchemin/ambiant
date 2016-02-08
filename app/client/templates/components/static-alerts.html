@@ -1,7 +1,7 @@
 <template name="StaticAlerts">
     <ul class="static-alerts">
         {{#each getAlerts}}
-            <li>{{this}}<a href="#">Got it!</a></li>
+            <li data-key="{{key}}"><a href="#">{{msg}} <span><i class="material-icons">done</i></span></a></li>
         {{/each}}
     </ul>
 </template>

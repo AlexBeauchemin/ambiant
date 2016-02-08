@@ -6,6 +6,13 @@ Template.PlaylistItem.rendered = function() {
 };
 
 Template.PlaylistItem.helpers({
+  getLink() {
+    const id = _.get(this, 'song.id');
+    const link = _.get(this, 'song.data.link');
+
+    return link || `http://youtu.be/${id}`
+  },
+
   getVotes() {
     if (!this.song.upvotes && !this.song.downvotes) return;
 

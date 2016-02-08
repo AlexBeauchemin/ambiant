@@ -9,7 +9,7 @@
         {{/if}}
         <img src="{{song.data.thumbnails.default.url}}" alt="" class="circle">
         <div class="info">
-            <p><a href="http://youtu.be/{{song.id}}" target="_blank">{{song.data.title}}</a></p>
+            <p><a href="{{getLink}}" target="_blank">{{song.data.title}}</a></p>
             {{#if song.user}}
                 <p class="smaller">
                     Added by : {{song.user.name}}

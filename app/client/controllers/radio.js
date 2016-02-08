@@ -17,7 +17,6 @@ RadioController = RouteController.extend({
   },
   data() {
     let radio = Radios.findOne({url: this.params.url.toLowerCase()}),
-      alerts = Session.get('static-alerts') || {},
       myRadio = null,
       user = Meteor.user(),
       radioId = null,
@@ -80,14 +79,12 @@ RadioController = RouteController.extend({
         .value();
     }
 
-    if (songDomains.length === 1 && songDomains[0] === 'soundcloud') {
-      alerts.soundcloudDiscover = 'Discovering with soundcloud is not working right now';
+    if (songDomains.length === 1 && songDomains[0] === 'soundcloud' && Session.get('currentRadioOwner')) {
+      App.helpers.addStaticAlert('soundcloudDiscover', 'Discovering with soundcloud is not working yet, but coming soon. Your playlist will stop once the end is reached');
     }
     else {
-      delete alerts.soundcloudDiscover;
+      App.helpers.removeStaticAlert('soundcloudDiscover');
     }
-
-    Session.set('static-alerts', alerts);
 
     return {
       myRadio,

@@ -134,8 +134,10 @@ App.soundcloud = (function () {
 
       return {
         id: track.id,
-        title: _.get(track, 'user.username') + ' - ' + track.title,
         duration: track.duration,
+        license: track.license,
+        link: track.permalink_url,
+        title: _.get(track, 'user.username') + ' - ' + track.title,
         thumbnails: { default: { url: track.artwork_url }}
       };
     },

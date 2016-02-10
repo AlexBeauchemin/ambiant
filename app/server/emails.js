@@ -18,7 +18,7 @@ Meteor.methods({
     };
 
     var data = {
-      to: 'alexbeauchemin01@gmail.com',
+      to: 'alex@ambiant.io',
       from: from || 'postman@ambiant.io',
       subject: 'Ambiant: ' + subject,
       text: text + '\n\n' + '- ' + name

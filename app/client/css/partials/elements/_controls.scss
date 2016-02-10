@@ -13,15 +13,15 @@
 
         .search-domain {
             line-height: 18px;
-            position: absolute;
-            right: 0;
-            top: -10px;
+            margin-bottom: 12px;
+            width: 100%;
 
             label {
                 height: 20px;
                 line-height: 20px;
                 padding-right: 15px;
 
+                &:first-of-type { margin-left: -15px; }
                 &:last-of-type { padding-left: 30px; }
             }
 
@@ -112,6 +112,26 @@
             position: absolute;
             right: 10px;
             top: 10px;
+        }
+    }
+
+    @media (min-width: 350px) {
+        .search {
+            .search-domain {
+                margin-bottom: 0;
+                position: absolute;
+                right: 0;
+                top: -10px;
+                width: auto;
+
+                label {
+                    display: block;
+                    height: 22px;
+                    line-height: 22px;
+
+                    &:first-of-type { margin-left: 0; }
+                }
+            }
         }
     }
 }

@@ -8,28 +8,37 @@
 
     .input-field { margin-top: 0; }
 
-    .domain-select {
-        position: absolute;
-        right: 0;
-        width: 40px;
-
-        img {
-            width: 40px;
-        }
-    }
-
     .search {
         position: relative;
 
-        input,
-        label {
-            padding-left: 25px;
+        .search-domain {
+            line-height: 18px;
+            position: absolute;
+            right: 0;
+            top: -10px;
+
+            label {
+                height: 20px;
+                line-height: 20px;
+                padding-right: 15px;
+
+                &:last-of-type { padding-left: 30px; }
+            }
+
+            img { height: 20px; }
+        }
+
+        label { padding-left: 25px; }
+        input[type="text"] {
+            margin-bottom: 0;
+            padding-left: 30px;
+            padding-right: 70px;
         }
 
         i {
-            left: 10px;
+            left: 0;
             position: absolute;
-            top: calc(50% - 6px);
+            top: 50%;
             transform: translateY(-50%);
         }
 

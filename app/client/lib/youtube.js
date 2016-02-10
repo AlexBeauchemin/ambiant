@@ -66,6 +66,7 @@ App.youtube = (function () {
     getSongInfo(id, callback) {
       if (!window.gapi || !window.gapi.client.youtube) {
         Materialize.toast("Google api is not accessible", 5000);
+        Session.set('isAddingSong', false);
         return callback(null);
       }
 
@@ -79,6 +80,7 @@ App.youtube = (function () {
       request.execute((response) => {
         if (!response || !response.items || !response.items.length) {
           Materialize.toast("Cannot retrieve song information", 5000);
+          Session.set('isAddingSong', false);
           return callback(null);
         }
 
@@ -113,6 +115,7 @@ App.youtube = (function () {
 
     search(q, callback) {
       const _this = this;
+      let res;
 
       if (!window.gapi || !window.gapi.client.youtube) {
         Materialize.toast("Google api is not accessible", 5000);
@@ -128,7 +131,14 @@ App.youtube = (function () {
       });
 
       request.execute((response) => {
-        if (callback) callback(response.result);
+        res = _.map(response.items, (song) => {
+          return {
+            id: _.get(song, 'id.videoId'),
+            title: _.get(song, 'snippet.title')
+          };
+        });
+
+        if (callback) callback(res);
       });
     },
 

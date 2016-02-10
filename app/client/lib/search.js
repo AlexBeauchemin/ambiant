@@ -120,10 +120,13 @@ App.search = (function () {
     },
 
     startSearch(q, radioId) {
+      let domain = Session.get('search-domain') || 'youtube';
+
       if (q.length < 3 ||
         q.indexOf('http://') === 0 ||
         q.indexOf('https://') === 0 ||
         q.indexOf('www.') === 0 ||
+        q.indexOf('soundcloud.') === 0 ||
         q.indexOf('youtube.') === 0 ||
         q.indexOf('youtu.be/') === 0) {
         Session.set('search-result', []);
@@ -134,14 +137,11 @@ App.search = (function () {
 
       Session.set('isSearching', true);
 
-      this.searchTimeout = setTimeout(function () {
-        App.youtube.search(q, function (res) {
+      this.searchTimeout = setTimeout(() => {
+        App[domain].search(q, (res) => {
           Session.set('isSearching', false);
-          if (res && res.items && res.items.length) Session.set('search-result', res.items);
+          if (!_.isEmpty(res)) Session.set('search-result', res);
         });
-        /*App.soundcloud.search(q, function (res) {
-          console.log(res);
-        });*/
       }, 1000);
     }
   };

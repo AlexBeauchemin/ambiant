@@ -47,12 +47,14 @@ App.soundcloud = (function () {
 
       if (!window.SC || !window.SC.get) {
         Materialize.toast("Google api is not accessible", 5000);
+        Session.set('isAddingSong', false);
         return callback(null);
       }
 
       SC.resolve(id).then((response) => {
         if (_.isEmpty(response)) {
           Materialize.toast("Cannot retrieve song information", 5000);
+          Session.set('isAddingSong', false);
           return callback(null);
         }
 
@@ -93,6 +95,8 @@ App.soundcloud = (function () {
     },
 
     search(q, callback) {
+      let res;
+
       if (!window.SC || !window.SC.get) {
         Materialize.toast("Soundcloud api is not accessible", 5000);
         return;
@@ -102,8 +106,13 @@ App.soundcloud = (function () {
         q: q
         //license: 'cc-by-sa'
       }).then((tracks) => {
-        console.log(tracks);
-        if (callback) callback(response.result);
+        res = _.map(tracks, (track) => {
+          return {
+            id: track.permalink_url,
+            title: _.get(track, 'user.username') + ' - ' + track.title
+          };
+        });
+        if (callback) callback(res);
       });
     },
 

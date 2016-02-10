@@ -79,7 +79,7 @@ RadioController = RouteController.extend({
         .value();
     }
 
-    if (songDomains.length === 1 && songDomains[0] === 'soundcloud' && Session.get('currentRadioOwner')) {
+    if (songDomains.length === 1 && songDomains[0] === 'soundcloud' && Session.get('currentRadioOwner') && radio.discovery !== false) {
       App.helpers.addStaticAlert('soundcloudDiscover', 'Discovering with soundcloud is not working yet, but coming soon. Your playlist will stop once the end is reached');
     }
     else {

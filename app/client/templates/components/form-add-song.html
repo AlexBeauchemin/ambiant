@@ -1,32 +1,38 @@
 <template name="FormAddSong">
     <form class="row control-add" data-action="add-song">
-        <div class="input-field col s12 m8 search">
-            <input type="text" name="add-song" id="add-song" autocomplete="off" data-action="search" />
-            <label for="add-song">Search song or enter url</label>
-            <i class="material-icons">search</i>
+        <div class="col s12 m8 search">
+            <div class="input-field">
+                <input type="text" name="add-song" id="add-song" autocomplete="off" data-action="search" />
+                <label for="add-song">Search song or enter url</label>
+                <i class="material-icons">search</i>
 
-            <!--<div class="domain-select">
-                <a href="#"><img src="/youtube.png" alt="Youtube" /></a>
-                <a href="#"><img src="/soundcloud.png" alt="Youtube" /></a>
-            </div>-->
+                {{#if getSession "isSearching"}}
+                    <div class="center-align loading">
+                        <div class="preloader-wrapper tiny active">
+                            <div class="spinner-layer spinner-blue-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
 
-            {{#if getSession "isSearching"}}
-            <div class="center-align loading">
-                <div class="preloader-wrapper tiny active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
-                        <div class="circle"></div>
-                    </div><div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                    </div>
-                </div>
+                {{> searchResult radioId=radio._id}}
             </div>
-            {{/if}}
-
-            {{> searchResult radioId=radio._id}}
+            {{#unless getSession "isSearching"}}
+            <div class="input-field search-domain">
+                <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" {{isDomain "youtube"}} />
+                <label for="search-domain-youtube"><img src="/youtube.png" alt="Youtube" /></label>
+                <br />
+                <input name="search-domain" type="radio" id="search-domain-soundcloud" value="soundcloud" {{isDomain "soundcloud"}} />
+                <label for="search-domain-soundcloud"><img src="/soundcloud.png" alt="Soundcloud" /></label>
+            </div>
+            {{/unless}}
         </div>
         <div class="col s12 m4 align-right">
             {{#if canAdd}}

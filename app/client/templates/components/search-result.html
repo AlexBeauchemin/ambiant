@@ -2,7 +2,7 @@
     {{#with getSession "search-result"}}
         <div id="search-result" class="collection">
             {{#each this}}
-                <a href="#" class="collection-item {{isSelected this}}" data-action="select">{{snippet.title}} <span class="btn btn-flat" data-action="add">+</span></a>
+                <a href="#" class="collection-item {{isSelected this}}" data-action="select">{{title}} <span class="btn btn-flat" data-action="add">+</span></a>
             {{/each}}
         </div>
     {{/with}}

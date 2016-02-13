@@ -7,7 +7,7 @@
             <a href="#" data-action="downvote" class="{{hasDownvote currentUser}}"><i class="material-icons">thumb_down</i></a>
         </div>
         {{/if}}
-        <img src="{{song.data.thumbnails.default.url}}" alt="" class="circle">
+        <img src="{{getImage song.data.thumbnails.default.url}}" alt="" class="circle">
         <div class="info">
             <p><a href="{{getLink}}" target="_blank">{{song.data.title}}</a></p>
             {{#if song.user}}

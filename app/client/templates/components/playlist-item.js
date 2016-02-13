@@ -6,6 +6,11 @@ Template.PlaylistItem.rendered = function() {
 };
 
 Template.PlaylistItem.helpers({
+  getImage(img) {
+    if (img) return img;
+    return '/album-default.jpg';
+  },
+
   getLink() {
     const id = _.get(this, 'song.id');
     const link = _.get(this, 'song.data.link');

@@ -31,6 +31,7 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  const PLAYLIST_SONG_LIMIT = 300;
   let Helpers = App.collectionHelpers.radio;
 
   Meteor.methods({
@@ -146,7 +147,7 @@ if (Meteor.isServer) {
       if (Helpers.isSongBlocked(radioId, song.id)) throw new Meteor.Error(500, 'This song is blocked');
       if (Helpers.isUserBlocked(radioId, song.user)) throw new Meteor.Error(500, 'Sorry, you cannot add songs to this radio');
 
-      if (radio.playlist.length >= 100) throw new Meteor.Error(500, 'Sorry, the playlist is full');
+      if (radio.playlist.length >= PLAYLIST_SONG_LIMIT) throw new Meteor.Error(500, 'Sorry, the playlist is full');
 
       if (!Helpers.isOwner(radioId)) {
         if (Helpers.hasUserReachedLimit(radio)) throw new Meteor.Error(500, 'You have reached your limit for this radio. Please try again later');
@@ -177,6 +178,7 @@ if (Meteor.isServer) {
       let guestRadios = [];
       let guestUsers = [];
       let toDelete;
+      let toDeleteArr = [];
 
       Radios.find({isGuest: true}).forEach(function(radio) {
         guestRadios.push({id: radio._id, user: radio.users[0]});
@@ -190,8 +192,14 @@ if (Meteor.isServer) {
         return guestUsers.indexOf(radio.user) !== -1;
       });
 
+      _.map(toDelete, (item) => {
+        toDeleteArr.push(item.id);
+      });
+
+      //TODO: test this and clean up the toDeleteArr (pluck not working anymore)
+
       if (!_.isEmpty(toDelete)) {
-        Radios.remove({'_id': {'$in': _.pluck(toDelete, 'id')}});
+        Radios.remove({'_id': {'$in': toDeleteArr}});
       }
     },
 

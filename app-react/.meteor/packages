@@ -17,5 +17,3 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 kadira:flow-router
-cosmos:browserify
-react

@@ -1,11 +1,13 @@
-createRadio = (name) => {
+const create = (name) => {
   return () => {
     Meteor.call('radio.create', name);
   };
 };
 
-deleteRadio = (id) => {
+const remove = (id) => {
   return () => {
-    Meteor.call('radio.delete', id);
+    Meteor.call('radio.remove', id);
   };
 };
+
+export { create, remove };

@@ -1,0 +1,56 @@
+h1 {
+    text-shadow: 0 1px 1px #fefefe;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.8rem;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+}
+
+strong { font-weight: 700; }
+
+ul {
+    list-style-type: none;
+
+    li {
+        margin-bottom: 0.5rem;
+    }
+
+    // fix materialize tabs when scrollbar appears
+    &.tabs { overflow: hidden; }
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+.input-field.error {
+    label { color: $error-color; }
+    input { border-bottom: 1px solid $error-color; }
+}
+
+@media (min-width: $tablet) {
+    h1 {
+        font-size: 3rem;
+        line-height: 3.3rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        line-height: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+    }
+}

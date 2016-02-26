@@ -1,0 +1,53 @@
+header {
+  nav {
+    background-color: $primary-color;
+
+    h2 {
+      display: inline-block;
+      font-size: 26px;
+      font-size: 1.8rem;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    &>ul,
+    .logo,
+    .right li {
+      height: 100%;
+    }
+
+    .right {
+      li:hover,
+      a:hover {
+        background-color: transparent;
+        color: $secondary-color;
+        transition: all 0.3s;
+      }
+
+      li.username {
+        font-size: 12px;
+        opacity: 0.5;
+
+        &:hover { color: #fff; }
+      }
+    }
+
+    .logo {
+      &:hover {
+        background-color: transparent;
+      }
+
+      .brand-logo {
+        display: inline-block;
+        padding: 0 10px;
+        position: relative;
+        width: auto;
+      }
+    }
+  }
+}

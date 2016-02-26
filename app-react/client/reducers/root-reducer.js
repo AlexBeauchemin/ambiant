@@ -1,11 +1,13 @@
 import * as Redux from 'redux';
 
-import visibilityFilter from './visibility-reducer.js';
+import modal from './modal-reducer.js';
 import pageSkip from './page-skip-reducer.js';
+import radiosFilter from './radios-filter-reducer.js';
 
 const { combineReducers } = Redux;
 
 export default combineReducers({
-  visibilityFilter,
-  pageSkip
+  modal,
+  pageSkip,
+  radiosFilter
 });

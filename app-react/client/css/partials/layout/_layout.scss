@@ -1,0 +1,41 @@
+html {
+    background-color: rgb(245, 245, 245);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
+    // display: flex;
+    // min-height: 100vh;
+    // flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    padding: 20px 0;
+}
+
+.container {
+    padding: 0;
+}
+
+@media #{$medium-and-up} {
+    .container {
+        width: 90%;
+    }
+}
+@media #{$large-and-up} {
+    .container {
+        width: 90%;
+    }
+}
+
+@media (min-width: $tablet) {
+    main {
+        padding: 30px 0;
+    }
+}

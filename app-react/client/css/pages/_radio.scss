@@ -1,0 +1,154 @@
+[data-route="radio"] {
+    &[data-mode="theatre"] {
+        height: 100vh;
+        overflow-y: hidden;
+
+        header {
+            transform: translateY(-70px);
+            transition: all 0.3s;
+        }
+
+        main {
+            transform: translateY(-90px);
+            transition: all 0.3s;
+
+            &>.container {
+                margin: 0;
+                max-width: none;
+                transition: all 0.3s;
+                width: 100%;
+
+                &>.row {
+                    display: flex;
+                    margin: 10px 0 0 0;
+                    transition: all 0.3s;
+                }
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 0;
+                transition: all 0.3s;
+
+                a {
+                    margin-top: 13px;
+                    height: 25px;
+
+                    img { height: 20px; }
+                }
+
+                .theatre-only {
+                    display: inline-block;
+                }
+            }
+
+            .mode a { color: $secondary-color; }
+
+            .m7 {
+                height: calc(100vh - 55px);
+                padding-right: 0;
+                transition: all 0.3s;
+                width: calc((100vh - 55px) * 1.77778);
+            }
+
+            .m5 {
+                flex: 1;
+                min-width: 275px;
+                padding-left: 0;
+            }
+
+            .options,
+            .control-add,
+            .collection-header,
+            .collection-show-more {
+                display: none;
+            }
+
+            .collection-item {
+                padding-right: 10px !important;
+                transition: all 0.3s;
+
+                .btn,
+                .dropdown-button {
+                    display: none;
+                }
+            }
+        }
+    }
+    main {
+        h1 {
+            .twitch {
+                background-color: $colorTwitch;
+                border-radius: 3px;
+                display: inline-block;
+                height: 35px;
+                margin-right: 10px;
+                padding: 0 10px;
+
+                img {
+                    height: 30px;
+                    margin-top: 3px;
+                    vertical-align: top;
+                    width: auto;
+                }
+            }
+
+            .theatre-only {
+                display: none;
+                font-weight: normal;
+            }
+        }
+
+        .status {
+            color: rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 16px;
+
+            span { color: $success-color; }
+            span.offline { color: $error-color; }
+            .mode { display: none; }
+        }
+
+        .controls {
+            button {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: $tablet) {
+            h1 {
+                font-size: 2.4rem;
+                line-height: 3rem;
+
+                .twitch {
+                    margin-top: 9px;
+                }
+            }
+
+            .status {
+                text-align: right;
+
+                .mode {
+                    display: block;
+                }
+            }
+
+            .info {
+                text-align: left;
+            }
+
+            .controls {
+                button {
+                    width: auto;
+                }
+            }
+
+            .settings-container,
+            .playlist-container {
+                float: right;
+            }
+        }
+    }
+}

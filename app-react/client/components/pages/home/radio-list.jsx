@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import reactMixin from 'react-mixin';
-import { remove } from '../../../actions/radio-actions';
+import { removeRadio } from '../../../actions/radio-actions';
 import RadioItem from './radio-item.jsx';
 
 const RadioList = class RadioList extends React.Component {
+  //TODO: Create a container instead
   getMeteorData() {
     const { pageSkip, visibilityFilter } = this.props;
     const radioSub = Meteor.subscribe('getRadios', visibilityFilter, pageSkip);
@@ -24,7 +25,7 @@ const RadioList = class RadioList extends React.Component {
               <RadioItem
                 key={radio._id}
                 {...radio}
-                onClick={() => dispatch(remove(radio._id))}
+                onClick={() => dispatch(removeRadio(radio._id))}
                 />
           )}
         </ul>

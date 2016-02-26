@@ -9,7 +9,7 @@ const defaultOptions = {
   limit: 12
 };
 
-const getRadioPublication = (filter, url, pageSkip = 0) => {
+const getRadioPublication = function (filter, url, pageSkip = 0) {
   let query = {};
   let options = { skip: pageSkip };
 
@@ -40,4 +40,7 @@ const getRadioPublication = (filter, url, pageSkip = 0) => {
   return Radios.find(query, options);
 };
 
-Meteor.publish('getRadios', getRadioPublication);
+//Need to put this in an autorun so this.userId is accessible
+Deps.autorun(() => {
+  Meteor.publish('getRadios', getRadioPublication);
+});

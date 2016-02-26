@@ -1,0 +1,68 @@
+.modal {
+    max-width: 400px;
+    max-height: 80%;
+
+    h1, h2, h3, h4, h5 {
+        text-align: center;
+    }
+
+    .modal-content {
+        h2, h3, h4 {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+    }
+
+    .input-field {
+        margin-top: 2rem;
+    }
+}
+
+#modal-login {
+    .input-field:first-child {
+        margin-top: 0;
+    }
+}
+
+#modal-login, #modal-register {
+    max-width: 450px;
+    width: 90%;
+
+    .row {
+        align-items: center;
+        display: flex;
+        margin-top: 20px;
+    }
+
+    h5 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .modal-footer {
+        height: auto;
+        margin-top: 20px;
+        padding: 0;
+
+        button {
+            box-shadow: inset 0 6px 9px -8px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            width: 100%;
+
+            &.btn-flat:hover { background-color: rgba(0,0,0,0.05); }
+            &.btn { border-radius: 0; }
+        }
+    }
+
+    @media (min-width: $tablet) {
+        .modal-footer {
+            button {
+                width: 33.33333333%;
+
+                &:first-of-type {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

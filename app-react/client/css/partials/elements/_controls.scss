@@ -1,0 +1,137 @@
+.control-add {
+    margin-bottom: 10px;
+
+    .btn {
+        margin-top: 5px;
+        width: 100%;
+    }
+
+    .input-field { margin-top: 0; }
+
+    .search {
+        position: relative;
+
+        .search-domain {
+            line-height: 18px;
+            margin-bottom: 12px;
+            width: 100%;
+
+            label {
+                height: 20px;
+                line-height: 20px;
+                padding-right: 15px;
+
+                &:first-of-type { margin-left: -15px; }
+                &:last-of-type { padding-left: 30px; }
+            }
+
+            img { height: 20px; }
+        }
+
+        label { padding-left: 25px; }
+        input[type="text"] {
+            margin-bottom: 0;
+            padding-left: 30px;
+            padding-right: 70px;
+        }
+
+        i {
+            left: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        input {
+            box-sizing: border-box;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        label {
+            max-width: 100%;
+            overflow: hidden;
+            padding-right: 30px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .collection {
+            background-color: #e0e0e0;
+            border-right: none;
+            left: 10px;
+            //opacity: 0.95;
+            position: absolute;
+            top: 37px;
+            width: calc(100% - 20px);
+            z-index: 2;
+
+            a {
+                color: $primary-color;
+                padding-right: 45px;
+                position: relative;
+
+                &:hover, &:active, &:focus, &.active {
+                    background-color: $secondary-color !important;
+                    color: #fff;
+
+                    //.btn { background-color: #fff; }
+                }
+
+                .btn {
+                    align-items: center;
+                    background-color: $secondary-color;
+                    border: none;
+                    border-left: 1px solid #e0e0e0;
+                    border-radius: 0;
+                    bottom: 0;
+                    color: #fff;
+                    display: flex;
+                    height: 100%;
+                    justify-content: center;
+                    margin: 0;
+                    padding: 0 15px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    transition: all 0.2s;
+                    width: auto;
+
+                    &:hover, &:active, &:focus {
+                        background-color: $primary-color;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .loading {
+            margin: 0;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    }
+
+    @media (min-width: 350px) {
+        .search {
+            .search-domain {
+                margin-bottom: 0;
+                position: absolute;
+                right: 0;
+                top: -10px;
+                width: auto;
+
+                label {
+                    display: block;
+                    height: 22px;
+                    line-height: 22px;
+
+                    &:first-of-type { margin-left: 0; }
+                }
+            }
+        }
+    }
+}

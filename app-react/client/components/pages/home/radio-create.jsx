@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { create } from '../../../actions/radio-actions';
+import { createRadio } from '../../../actions/radio-actions';
 
 const RadioCreate = ({dispatch}) => {
   let input;
@@ -11,7 +11,7 @@ const RadioCreate = ({dispatch}) => {
         input = node;
       }}/>
       <button onClick={() => {
-            dispatch(create(input.value));
+            dispatch(createRadio(input.value));
             input.value = '';
           }}>
         Create radio!

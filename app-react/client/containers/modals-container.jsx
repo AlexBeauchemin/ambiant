@@ -12,7 +12,7 @@ class Modals extends React.Component {
     if (props.modal) {
       const $modal = $(modal);
 
-      if (!$modal) return;
+      if (!$modal.length) return;
 
       $modal.openModal({
         complete() {

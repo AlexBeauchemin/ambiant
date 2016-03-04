@@ -1,0 +1,13 @@
+{
+  "public": {
+
+  },
+  "private": {
+    "facebookAppId": "",
+    "facebookSecret": "",
+    "googleClientId": "",
+    "googleSecret": "",
+    "twitchClientId": "",
+    "twitchSecret": ""
+  }
+}

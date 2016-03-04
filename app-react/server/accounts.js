@@ -1,3 +1,16 @@
+import _ from 'lodash';
+
+const twitchClientId = _.get(Meteor.settings, 'private.twitchClientId');
+const twitchSecret = _.get(Meteor.settings, 'private.twitchClientSecret');
+const googleClientId = _.get(Meteor.settings, 'private.twitchClientSecret');
+const googleSecret = _.get(Meteor.settings, 'private.twitchClientSecret');
+const facebookAppId = _.get(Meteor.settings, 'private.twitchClientSecret');
+const facebookSecret = _.get(Meteor.settings, 'private.twitchClientSecret');
+
+if (!twitchClientId || !twitchSecret) console.warn('Please provide a twitch client id and secret in settings.json');
+if (!googleClientId || !googleSecret) console.warn('Please provide a google client id and secret in settings.json');
+if (!facebookAppId || !facebookSecret) console.warn('Please provide a facebook app id and secret in settings.json');
+
 ServiceConfiguration.configurations.remove({
   service: "twitch"
 });
@@ -12,23 +25,23 @@ ServiceConfiguration.configurations.remove({
 
 ServiceConfiguration.configurations.insert({
   service: "twitch",
-  clientId: Meteor.settings.private.twitchClientId,
+  clientId: twitchClientId,
   redirectUri: Meteor.absoluteUrl() + '_oauth/twitch?close',
-  secret: Meteor.settings.private.twitchClientSecret
+  secret: twitchSecret
 });
 
 ServiceConfiguration.configurations.insert({
   service: "google",
-  clientId: Meteor.settings.private.googleClientId,
+  clientId: googleClientId,
   redirectUri: Meteor.absoluteUrl() + '/_oauth/google?close',
-  secret: Meteor.settings.private.googleSecret
+  secret: googleSecret
 });
 
 ServiceConfiguration.configurations.insert({
   service: "facebook",
-  appId: Meteor.settings.private.facebookAppId,
+  appId: facebookAppId,
   redirectUri: Meteor.absoluteUrl() + '/_oauth/facebook?close',
-  secret: Meteor.settings.private.facebookSecret
+  secret: facebookSecret
 });
 
 Meteor.publish("user-data", function () {

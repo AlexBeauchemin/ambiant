@@ -1,18 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions/modal-actions';
-
 import ModalRadioCreate from '../components/modals/radio-create.jsx';
+import ModalLogin from '../components/modals/login.jsx';
 
 class Modals extends React.Component {
   componentWillReceiveProps(props) {
     const { dispatch } = this.props;
     const modal = `.modal[data-name="${props.modal}"]`;
 
-    if (props.modal) $(modal).openModal({complete: () => {
-      dispatch(closeModal());
-    }});
-    else {
+    if (props.modal) {
+      const $modal = $(modal);
+
+      if (!$modal) return;
+
+      $modal.openModal({
+        complete() {
+          dispatch(closeModal());
+        },
+        ready() {
+          $modal.find('input').first().trigger('click').trigger('focus');
+        }
+      });
+    } else {
       $('.modal').closeModal();
     }
   }
@@ -21,6 +31,7 @@ class Modals extends React.Component {
     return (
       <div>
         <ModalRadioCreate />
+        <ModalLogin />
       </div>
     );
   }

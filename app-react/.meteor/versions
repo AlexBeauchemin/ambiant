@@ -1,5 +1,6 @@
 accounts-base@1.2.3-modules.8
 accounts-facebook@1.0.6
+accounts-google@1.0.6
 accounts-oauth@1.1.9-modules.8
 accounts-password@1.1.5-modules.8
 alexbeauchemin:accounts-twitch@1.0.3
@@ -36,6 +37,7 @@ facebook@1.2.3-modules.8
 fastclick@1.0.8-modules.8
 fourseven:scss@3.4.1
 geojson-utils@1.0.5-modules.8
+google@1.1.8-modules.8
 hot-code-push@1.0.1-modules.8
 html-tools@1.0.6-modules.8
 htmljs@1.0.6-modules.8

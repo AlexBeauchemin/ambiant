@@ -7,7 +7,7 @@ import PageHome from './components/pages/home.jsx';
 FlowRouter.route("/", {
   action() {
     mount(Layout, {
-      content: (<PageHome name="arunoda"/>)
+      content: (<PageHome />)
     });
   }
 });

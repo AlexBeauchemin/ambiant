@@ -28,7 +28,7 @@ class CreateModal extends React.Component {
 
   render() {
     return (
-      <form className="modal create-error" data-name="new-radio" onSubmit={ this._addRadio }>
+      <form onSubmit={ this._addRadio }>
         <div className="modal-content">
           <h4>New radio</h4>
 

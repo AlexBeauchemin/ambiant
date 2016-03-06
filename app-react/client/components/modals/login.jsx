@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal-actions';
-import configs from '../../../lib/configs';
 
 class LoginModal extends React.Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class LoginModal extends React.Component {
 
     this.inputEmail = null;
     this.inputPassword = null;
-    _.bindAll(this, ['loginWithPassword', 'loginFacebook', 'loginTwitch', 'loginGoogle']);
+    _.bindAll(this, ['loginWithPassword', 'setInputEmail', 'setInputPassword']);
   }
 
   loginWithPassword(e) {
@@ -22,33 +21,6 @@ class LoginModal extends React.Component {
     this.inputPassword.value = '';
   }
 
-  loginFacebook() {
-    const { dispatch } = this.props;
-
-    Meteor.loginWithFacebook({}, (err) => {
-      if (err) return Materialize.toast(err.message, 5000);
-      dispatch(closeModal());
-    });
-  }
-
-  loginGoogle() {
-    const { dispatch } = this.props;
-
-    Meteor.loginWithGoogle({}, (err) => {
-      if (err) return Materialize.toast(err.message, 5000);
-      dispatch(closeModal());
-    });
-  }
-
-  loginTwitch() {
-    const { dispatch } = this.props;
-
-    Meteor.loginWithTwitch({ requestPermissions: configs.TWITCH_SCOPE }, (error) => {
-      if (error) return Materialize.toast("Something wrong happened, can't login with Twitch", 5000);
-      dispatch(closeModal());
-    });
-  }
-
   setInputEmail(node) {
     this.inputEmail = node;
   }
@@ -59,7 +31,7 @@ class LoginModal extends React.Component {
 
   render() {
     return (
-      <form id="modal-login" className="modal login" data-name="login" onSubmit={ this.loginWithPassword }>
+      <form onSubmit={ this.loginWithPassword }>
         <div className="modal-content">
           <h4>Log In</h4>
 
@@ -77,10 +49,10 @@ class LoginModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button type="submit" className="btn waves-effect waves-light">Login</button>
-          <button type="button" onClick={ this.loginTwitch } className="btn btn-twitch waves-effect waves-light" id="twitchLoginButton">Twitch</button>
-          <button type="button" onClick={ this.loginGoogle } className="btn btn-google waves-effect waves-light">Google
+          <button type="button" onClick={ this.props.loginTwitch } className="btn btn-twitch waves-effect waves-light" id="twitchLoginButton">Twitch</button>
+          <button type="button" onClick={ this.props.loginGoogle } className="btn btn-google waves-effect waves-light">Google
           </button>
-          <button type="button" onClick={ this.loginFacebook } className="btn btn-facebook waves-effect waves-light">
+          <button type="button" onClick={ this.props.loginFacebook } className="btn btn-facebook waves-effect waves-light">
             Facebook
           </button>
         </div>
@@ -90,7 +62,10 @@ class LoginModal extends React.Component {
 }
 
 LoginModal.propTypes = {
-  dispatch: React.PropTypes.func
+  dispatch: React.PropTypes.func,
+  loginFacebook: React.PropTypes.func,
+  loginGoogle: React.PropTypes.func,
+  loginTwitch: React.PropTypes.func
 };
 
 export default connect()(LoginModal);

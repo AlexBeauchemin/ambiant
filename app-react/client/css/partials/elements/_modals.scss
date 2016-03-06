@@ -18,15 +18,18 @@
     }
 }
 
-#modal-login {
+.modal[data-name="login"] {
     .input-field:first-child {
         margin-top: 0;
     }
 }
 
-#modal-login, #modal-register {
+.modal[data-name="login"],
+.modal[data-name="register"] {
     max-width: 450px;
     width: 90%;
+
+    #twitchLoginButton { border-radius: 0; }
 
     .row {
         align-items: center;

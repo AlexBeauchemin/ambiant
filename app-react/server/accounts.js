@@ -8,13 +8,13 @@ const facebookAppId = _.get(Meteor.settings, 'private.facebookAppId');
 const facebookSecret = _.get(Meteor.settings, 'private.facebookSecret');
 
 if (!twitchClientId || !twitchSecret) {
-  console.warn('Please provide a twitch client id and secret in settings.json');
+  console.warn('Please provide a twitch client id and secret in settings.json or start meteor with "meteor --settings settings.json"');
 }
 if (!googleClientId || !googleSecret) {
-  console.warn('Please provide a google client id and secret in settings.json');
+  console.warn('Please provide a google client id and secret in settings.json or start meteor with "meteor --settings settings.json"');
 }
 if (!facebookAppId || !facebookSecret) {
-  console.warn('Please provide a facebook app id and secret in settings.json');
+  console.warn('Please provide a facebook app id and secret in settings.json or start meteor with "meteor --settings settings.json"');
 }
 
 ServiceConfiguration.configurations.remove({

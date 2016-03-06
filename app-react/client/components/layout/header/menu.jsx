@@ -11,9 +11,11 @@ class Menu extends React.Component {
   }
 
   _open(e) {
-    e.preventDefault();
+    const { dispatch } = this.props;
     const item = e.currentTarget.dataset.target;
-    this.props.dispatch(openModal(item));
+
+    e.preventDefault();
+    dispatch(openModal(item));
   }
 
   _logout(e) {
@@ -24,7 +26,7 @@ class Menu extends React.Component {
   }
 
   render() {
-    const { dispatch, radio, user } = this.props;
+    const { radio, user } = this.props;
     const activeMenuItems = [];
     const isGuest = _.get(user, 'profile.guest');
     const radioUrl = radio ? `/${radio.url}` : '#';

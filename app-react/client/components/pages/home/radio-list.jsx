@@ -12,7 +12,7 @@ const RadioList = class RadioList extends React.Component {
     return {
       radioSubReady: radioSub.ready(),
       radioList: Radios.find({}, {limit: 10}).fetch() || []
-    }
+    };
   }
 
   render() {

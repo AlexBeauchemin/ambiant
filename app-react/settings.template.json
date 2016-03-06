@@ -1,13 +1,22 @@
 {
   "public": {
-
+    "soundCloudApiKey": "",
+    "stripeApiKey": "",
+    "youtubeApiKey": ""
   },
   "private": {
     "facebookAppId": "",
     "facebookSecret": "",
     "googleClientId": "",
     "googleSecret": "",
+    "mailgunApiKey": "",
+    "kadiraId": "",
+    "kadiraSecret": "",
+    "soundcloudClientId": "",
+    "soundcloudClientSecret": "",
+    "stripeApiKey": "",
     "twitchClientId": "",
-    "twitchSecret": ""
+    "twitchSecret": "",
+    "youtubeApiKey": ""
   }
 }

@@ -1,15 +1,14 @@
-import {composeWithTracker} from 'react-komposer';
+import { composeWithTracker } from 'react-komposer';
 import Header from '../components/layout/header.jsx';
 
 const composer = (props, onData) => {
   const isReady = Meteor.subscribe('getRadios', 'SHOW_OWN').ready();
   const user = Meteor.user();
   const userId = user ? user._id : null;
-  let radio;
 
   if (isReady && userId) {
-    radio = Radios.findOne({users: userId});
-    onData(null, {radio, user});
+    const radio = Radios.findOne({ users: userId });
+    onData(null, { radio, user });
   }
 };
 

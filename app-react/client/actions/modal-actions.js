@@ -2,8 +2,8 @@ import * as types from '../constants/action-types';
 
 const openModal = (modal) => {
   return {
-    type: types.OPEN_MODAL,
-    modal
+    modal,
+    type: types.OPEN_MODAL
   };
 };
 

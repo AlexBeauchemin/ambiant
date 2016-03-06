@@ -38,6 +38,7 @@ class Modals extends React.Component {
 }
 
 Modals.propTypes = {
+  dispatch: React.PropTypes.func,
   modal: React.PropTypes.string
 };
 

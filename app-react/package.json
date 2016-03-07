@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "classnames": "^2.2.3",
     "hammerjs": "^2.0.6",
     "jquery": "^2.2.1",
     "lodash": "^4.5.0",
@@ -21,6 +22,7 @@
     "react-mounter": "^1.0.0",
     "react-paginate": "^0.5.4",
     "react-redux": "^4.4.0",
+    "react-transform-hmr": "^1.0.4",
     "redux": "^3.3.1",
     "redux-logger": "^2.5.2",
     "redux-thunk": "^1.0.3"

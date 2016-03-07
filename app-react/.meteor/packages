@@ -12,7 +12,9 @@ session                 # Client-side reactive dictionary for your app
 tracker                 # Meteor's client-side reactive programming library
 
 es5-shim                # ECMAScript 5 compatibility for older browsers.
-ecmascript              # Enable ECMAScript2015+ syntax in app code
+# ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+gadicc:ecmascript-hot@0.0.5-beta.12 # Hot reload, REMOVE before pushing to prod, use ecmascript instead
 
 kadira:flow-router
 react-meteor-data

@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal-actions';
+import Loader from '../shared/loader-inline.jsx';
 
 class LoginModal extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loading: false
+    };
 
     this.inputEmail = null;
     this.inputPassword = null;
@@ -13,12 +18,27 @@ class LoginModal extends React.Component {
 
   loginWithPassword(e) {
     const { dispatch } = this.props;
+    const email = this.inputEmail.value.trim();
+    const password = this.inputPassword.value.trim();
 
     e.preventDefault();
 
-    dispatch(closeModal());
-    this.inputEmail.value = '';
-    this.inputPassword.value = '';
+    if (!email || !password) {
+      return Materialize.toast('Please enter your email address and a password', 5000);
+    }
+
+    this.setState({ loading: true });
+
+    Meteor.loginWithPassword(email, password, (error) => {
+      this.setState({ loading: false });
+      if (error) {
+        Materialize.toast(error.reason, 5000);
+      } else {
+        dispatch(closeModal());
+        this.inputEmail.value = '';
+        this.inputPassword.value = '';
+      }
+    });
   }
 
   setInputEmail(node) {
@@ -49,6 +69,7 @@ class LoginModal extends React.Component {
         </div>
         <div className="modal-footer">
           <button type="submit" className="btn waves-effect waves-light">Login</button>
+          <Loader noMargin hidden={ !this.state.loading } />
           <button type="button" onClick={ this.props.loginTwitch } className="btn btn-twitch waves-effect waves-light" id="twitchLoginButton">Twitch</button>
           <button type="button" onClick={ this.props.loginGoogle } className="btn btn-google waves-effect waves-light">Google
           </button>

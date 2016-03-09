@@ -11,8 +11,8 @@ class LoginModal extends React.Component {
       loading: false
     };
 
-    this.inputEmail = null;
-    this.inputPassword = null;
+    this.inputEmail = { value: '' };
+    this.inputPassword = { value: '' };
     _.bindAll(this, ['loginWithPassword', 'setInputEmail', 'setInputPassword']);
   }
 
@@ -41,6 +41,21 @@ class LoginModal extends React.Component {
     });
   }
 
+  resetPassword(e) {
+    const email = this.inputEmail.value.trim();
+
+    e.preventDefault();
+
+    if (!email) {
+      return Materialize.toast('Enter your email address', 5000);
+    }
+
+    Meteor.call('forgot-password', email, (error) => {
+      if (error) return Materialize.toast(error.reason, 5000);
+      Materialize.toast('You should receive an email with a link to reset your password shortly', 5000, 'success');
+    });
+  }
+
   setInputEmail(node) {
     this.inputEmail = node;
   }
@@ -64,7 +79,7 @@ class LoginModal extends React.Component {
             <label htmlFor="password">Password</label>
           </div>
           <p className="center-align">
-            <a href="#">Forgot password</a>
+            <a href="#" onClick={ this.resetPassword }>Forgot password</a>
           </p>
         </div>
         <div className="modal-footer">

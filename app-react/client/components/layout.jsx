@@ -11,11 +11,13 @@ const initialState = {};
 class Layout extends React.Component {
   render() {
     const { content } = this.props;
+    const routeName = FlowRouter.current().route.name;
+
     return (
       <Provider store={ store(initialState) }>
-        <div>
+        <div data-route={ routeName }>
           <HeaderContainer />
-          {content}
+          <main>{content}</main>
           <ModalsContainer />
           <DevTools />
         </div>

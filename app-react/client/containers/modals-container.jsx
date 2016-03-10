@@ -23,8 +23,6 @@ class Modals extends React.Component {
 
   open($modal) {
     const { dispatch } = this.props;
-    
-    console.log($modal);
 
     if (!$modal.length) return;
 

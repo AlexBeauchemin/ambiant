@@ -1,6 +1,5 @@
 import React from 'react';
-import RadioCreate from './home/radio-create.jsx';
-import RadioList from './home/radio-list.jsx';
+import RadiosContainer from '../../containers/radios-container.jsx';
 
 class Home extends React.Component {
   render() {
@@ -41,8 +40,7 @@ class Home extends React.Component {
             </p>
           </div>
 
-          <RadioCreate />
-          <RadioList />
+          <RadiosContainer />
 
         </div>
       </div>

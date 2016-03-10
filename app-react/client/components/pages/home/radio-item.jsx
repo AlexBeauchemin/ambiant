@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default ({onClick, name}) => (
-  <li>
-    {name}
-    <button onClick={onClick}>Delete</button>
-  </li>
+export default ({ radios, modal }) => (
+  <ul>
+    { radios.map(radio =>
+        <li>{radio.name}</li>
+    )}
+  </ul>
 );

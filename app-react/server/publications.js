@@ -1,7 +1,9 @@
+import { SHOW_OWN, SHOW_SINGLE, SHOW_NEW, SHOW_TOP, SHOW_TWITCH } from '../lib/shared/constants/radios-filters';
+
 const defaultSelectors = {
-  public: { $eq: true },
-  live: { $eq: true },
-  playlist: { $not: { $size: 0 } }
+  public: { $eq: true }
+  /*live: { $eq: true },
+  playlist: { $not: { $size: 0 } }*/
 };
 const defaultOptions = {
   fields: { name: 1, playlist: 1, twitchChannel: 1, url: 1, nbUsers: 1, live: 1 },
@@ -14,23 +16,23 @@ const getRadioPublication = (filter, url, pageSkip = 0) => {
   let options = { skip: pageSkip };
 
   switch (filter) {
-    case 'SHOW_SINGLE':
+    case SHOW_SINGLE:
       query.url = url;
       options.limit = 1;
       break;
-    case 'SHOW_OWN':
+    case SHOW_OWN:
       query.users = this.userId;
       options.limit = 1;
       break;
-    case 'SHOW_NEW':
+    case SHOW_NEW:
       query = defaultSelectors;
       options = defaultOptions;
       break;
-    case 'SHOW_TWITCH':
+    case SHOW_TWITCH:
       query = Object.assign({}, defaultSelectors, { twitchChannel: { $ne: null } });
       options = Object.assign({}, defaultOptions, { sort: { nbUsers: -1 } });
       break;
-    case 'SHOW_TOP':
+    case SHOW_TOP:
       query = defaultSelectors;
       options = Object.assign({}, defaultOptions, { sort: { nbUsers: -1 } });
       break;

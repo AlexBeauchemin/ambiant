@@ -1,10 +1,10 @@
-import { connect } from 'react-redux';
 import { composeWithTracker } from 'react-komposer';
-import Radios from '../components/pages/home/radio-item.jsx';
+import { connect } from 'react-redux';
+import RadioList from '../components/pages/home/radio-item.jsx';
+import { SHOW_NEW } from '../../lib/shared/constants/radios-filters';
 
 const composer = (props, onData) => {
-  console.log('props', props);
-  const isReady = Meteor.subscribe('getRadios', 'SHOW_NEW').ready();
+  const isReady = Meteor.subscribe('getRadios', props.radiosFilter).ready();
 
   if (isReady) {
     const radios = Radios.find({}).fetch() || [];
@@ -12,13 +12,12 @@ const composer = (props, onData) => {
   }
 };
 
+const radios = composeWithTracker(composer)(RadioList);
+
 const mapStateToProps = (state) => {
   return {
-    modal: state.modal
+    radiosFilter: state.radiosFilter
   };
 };
 
-
-// const radiosContainer = connect(mapStateToProps)(Radios);
-
-export default composeWithTracker(composer)(Radios);
+export default connect(mapStateToProps)(radios);

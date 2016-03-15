@@ -8,7 +8,7 @@ const composer = (props, onData) => {
   const userId = user ? user._id : null;
 
   if (isReady && userId) {
-    const radio = Radios.findOne({ users: userId });
+    const radio = Radios.findOne();
     onData(null, { radio, user });
   }
 };

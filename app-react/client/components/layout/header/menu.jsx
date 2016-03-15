@@ -41,7 +41,7 @@ class Menu extends React.Component {
       profile: <li className="username">({name})</li>
     };
 
-    if (radio) activeMenuItems.push(menuItems.newRadio);
+    if (radio) activeMenuItems.push(menuItems.myRadio);
     else activeMenuItems.push(menuItems.newRadio);
 
     if (isGuest) {

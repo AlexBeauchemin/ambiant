@@ -11,7 +11,8 @@ const defaultOptions = {
   limit: 12
 };
 
-const getRadioPublication = (filter, url, pageSkip = 0) => {
+// Keep function instead of arrow function to acces meteor user with 'this.userId' inside publications
+const getRadioPublication = function (filter, url, pageSkip = 0) {
   let query = {};
   let options = { skip: pageSkip };
 
@@ -39,6 +40,7 @@ const getRadioPublication = (filter, url, pageSkip = 0) => {
     default:
       break;
   }
+  
   return Radios.find(query, options);
 };
 

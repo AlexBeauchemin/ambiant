@@ -1,45 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import RadioItem from './radio-item.jsx';
 
 class RadioList extends React.Component {
-  // TODO: Create a container instead
-  /* getMeteorData() {
-    const { pageSkip, visibilityFilter } = this.props;
-    const radioSub = Meteor.subscribe('getRadios', visibilityFilter, pageSkip);
-    return {
-      radioSubReady: radioSub.ready(),
-      radioList: Radios.find({}, {limit: 10}).fetch() || []
-    };
-  }*/
-
   render() {
-    return ( <p>LIst</p> );
-    /* const { dispatch } = this.props;
-    const radios = this.data.radioList;
+    const { radios } = this.props;
+
     return (
-      <div>
-        <ul>
-          {radios.map(radio =>
-              <RadioItem
-                key={radio._id}
-                {...radio}
-                onClick={() => dispatch(removeRadio(radio._id))}
-                />
-          )}
-        </ul>
+      <div className="radios-list col s12">
+        {radios.map(radio => <RadioItem key={ radio._id } {...radio} />)}
       </div>
-    )*/
+    );
   }
 }
 
-//reactMixin(RadioList.prototype, ReactMeteorData);
-
-const mapStateToProps = (state) => {
-  return {
-    visibilityFilter: state.visibilityFilter,
-    pageSkip: state.pageSkip
-  };
+RadioList.propTypes = {
+  radios: React.PropTypes.array
 };
 
-export default connect(mapStateToProps)(RadioList);
+export default RadioList;

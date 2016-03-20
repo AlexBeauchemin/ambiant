@@ -19,7 +19,7 @@ Meteor.methods({
 
     var data = {
       to: 'alex@ambiant.io',
-      from: from || 'postman@ambiant.io',
+      from: from || 'alex@ambiant.io',
       subject: 'Ambiant: ' + subject,
       text: text + '\n\n' + '- ' + name
     };

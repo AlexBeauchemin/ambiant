@@ -30,7 +30,7 @@ Template.Contact.events({
           Materialize.toast(error, 5000);
         }
         else {
-          Materialize.toast("Your message has been sent. Thank you for contacting me!", 5000, 'success');
+          Materialize.toast("Your message has been sent. Thank you!", 5000, 'success');
           template.find("form").reset();
         }
       });

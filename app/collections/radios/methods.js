@@ -220,6 +220,8 @@ if (Meteor.isServer) {
     'radio.get-next-song'(radioId) {
       if (!radioId) throw new Meteor.Error(500, 'Cannot access this radio');
 
+      this.unblock();
+
       let radio = Radios.findOne(radioId);
 
       if (!radio) throw new Meteor.Error(500, 'Cannot access this radio');

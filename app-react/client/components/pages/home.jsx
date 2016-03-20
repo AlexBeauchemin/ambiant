@@ -14,14 +14,6 @@ class Home extends React.Component {
           events</h1>
 
         <div className="row">
-          <div className="col s12">
-            <ul className="tabs z-depth-1">
-              <li className="tab col s3"><a href="#info">Info</a></li>
-              <li className="tab col s3"><a href="#top-radios">Popular</a></li>
-              <li className="tab col s3"><a href="#recent-radios">Recent</a></li>
-              <li className="tab col s3"><a href="#twitch-radios">Twitch</a></li>
-            </ul>
-          </div>
           <div id="info" className="col s12">
             <div className="card space-top z-depth-1">
               <ul>

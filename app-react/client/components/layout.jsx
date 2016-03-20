@@ -9,6 +9,14 @@ const { Provider } = ReactRedux;
 const initialState = {};
 
 class Layout extends React.Component {
+  componentWillMount() {
+    WebFont.load({
+      google: {
+        families: ['Open+Sans:400,300,700:latin', 'Courgette::latin', 'Material+Icons']
+      }
+    });
+  }
+  
   render() {
     const { content } = this.props;
     const routeName = FlowRouter.current().route.name;

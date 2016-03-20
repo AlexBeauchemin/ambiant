@@ -16,8 +16,10 @@
   },
   "globals": {
     "__DEV__": true,
+    "Deps": true,
     "Materialize": true,
     "Radios": true,
-    "ServiceConfiguration": true
+    "ServiceConfiguration": true,
+    "WebFont": true
   }
 }

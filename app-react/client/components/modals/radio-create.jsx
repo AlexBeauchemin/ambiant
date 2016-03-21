@@ -14,10 +14,18 @@ class CreateModal extends React.Component {
 
   _addRadio(e) {
     const { dispatch } = this.props;
+    const name = this._input.value;
+    const callback = (res) => {
+      FlowRouter.go(`/${res.url}`);
+    };
 
     e.preventDefault();
 
-    dispatch(createRadio(this._input.value));
+    if (!name.trim()) {
+      return Materialize.toast('Name invalid', 5000);
+    }
+
+    dispatch(createRadio(this._input.value, callback));
     dispatch(closeModal());
     this._input.value = '';
   }

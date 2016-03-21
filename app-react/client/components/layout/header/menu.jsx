@@ -20,6 +20,7 @@ class Menu extends React.Component {
 
   _logout(e) {
     e.preventDefault();
+
     Meteor.logout((error) => {
       if (error) Materialize.toast(error.reason, 5000);
     });

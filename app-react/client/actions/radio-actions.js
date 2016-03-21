@@ -1,8 +1,11 @@
 import * as types from '../constants/action-types';
 
-const createRadio = (name) => {
+const createRadio = (name, callback) => {
   return () => {
-    Meteor.call('radio.create', name);
+    Meteor.call('radio.create', name, (error, res) => {
+      if (error) Materialize.toast(error.reason, 5000);
+      else if (callback) callback(res);
+    });
   };
 };
 

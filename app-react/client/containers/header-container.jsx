@@ -11,8 +11,11 @@ const composer = (props, onData) => {
   const userId = user ? user._id : null;
 
   if (isReady && userId) {
-    const radio = Radios.findOne();
+    const radio = Radios.findOne({ users: userId });
+
     if (radio) dispatch(setOwnRadio(radio));
+    else dispatch(setOwnRadio(null));
+    
     onData(null, { radio, user });
   }
 };

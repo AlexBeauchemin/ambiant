@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { setRadio } from '../../actions/radio-actions';
 import Loader from '../shared/loader.jsx';
 import RadioHeader from './radio/header.jsx';
+import Player from './radio/player.jsx';
+import Playlist from './radio/playlist.jsx';
+import Settings from './radio/settings.jsx';
+import SearchBar from './radio/search-bar.jsx';
 import { get as _get } from 'lodash';
 
 class Radio extends React.Component {
@@ -21,7 +25,9 @@ class Radio extends React.Component {
   render() {
     const { radio } = this.props;
     const isAdmin = _get(radio, 'own._id') === _get(radio, 'data._id');
+    let settings = <Settings />;
 
+    if (!isAdmin) settings = null;
     if (radio.data === null) return <Loader />;
     if (radio.data === undefined) {
       return (
@@ -34,6 +40,16 @@ class Radio extends React.Component {
     return (
       <div className="container">
         <RadioHeader isAdmin={isAdmin} radio={radio.data} />
+        <div className="row">
+          <div className={ isAdmin ? 'col s12 m7' : 'col s12' }>
+            <SearchBar />
+            <Player />
+          </div>
+          <div className={ isAdmin ? 'col s12 m5' : 'col s12' }>
+            {settings}
+            <Playlist />
+          </div>
+        </div>
       </div>
     );
   }
@@ -41,7 +57,6 @@ class Radio extends React.Component {
 
 Radio.propTypes = {
   dispatch: React.PropTypes.func,
-  isAdmin: React.PropTypes.bool,
   radio: React.PropTypes.object,
   subRadio: React.PropTypes.object
 };

@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import { get as _get } from 'lodash';
 
 Meteor.methods({
   ['radio.create'](name) {
     const user = Meteor.user() || {};
     const userId = user._id;
-    const isGuest = _.get(user, 'profile.guest');
-    const twitchChannel = _.get(user, 'services.twitch.name');
+    const isGuest = _get(user, 'profile.guest');
+    const twitchChannel = _get(user, 'services.twitch.name');
     const currentRadio = Radios.findOne({ users: userId });
     const url = name.trim()
       .substr(0, 50)

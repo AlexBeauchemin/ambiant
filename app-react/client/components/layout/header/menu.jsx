@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { openModal } from '../../../actions/modal-actions';
-import _ from 'lodash';
+import { bindAll, get as _get } from 'lodash';
 
 class Menu extends React.Component {
   constructor(props) {
     super(props);
 
-    _.bindAll(this, ['_open', '_logout']);
+    bindAll(this, ['_open', '_logout']);
   }
 
   _open(e) {
@@ -29,9 +29,9 @@ class Menu extends React.Component {
   render() {
     const { radio, user } = this.props;
     const activeMenuItems = [];
-    const isGuest = _.get(user, 'profile.guest');
+    const isGuest = _get(user, 'profile.guest');
     const radioUrl = radio ? `/${radio.url}` : '#';
-    const name = _.get(user, 'profile.name');
+    const name = _get(user, 'profile.name');
 
     const menuItems = {
       newRadio: <li><a href="#" data-target="new-radio" onClick={this._open}>New radio</a></li>,

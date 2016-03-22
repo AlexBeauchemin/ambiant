@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createRadio } from '../../actions/radio-actions';
 import { closeModal } from '../../actions/modal-actions';
-import _ from 'lodash';
+import { bindAll } from 'lodash';
 
 class CreateModal extends React.Component {
   constructor(props) {
     super(props);
 
     this._input = null;
-    _.bindAll(this, ['_addRadio', '_setInput']);
+    bindAll(this, ['_addRadio', '_setInput']);
   }
 
   _addRadio(e) {

@@ -1,12 +1,12 @@
 import React from 'react';
-import _ from 'lodash';
+import { get as _get } from 'lodash';
 import { getSongImage } from '../../../lib/utils/radio';
 
 class Radio extends React.Component {
   render() {
     const { name, url, playlist, twitchChannel } = this.props;
     const playlistFirstItem = playlist[0];
-    const title = _.get(playlistFirstItem, 'data.title') || 'Unnamed song';
+    const title = _get(playlistFirstItem, 'data.title') || 'Unnamed song';
     const twitchUrl = `http://www.twitch.tv/${twitchChannel}`;
 
     let twitchTag;

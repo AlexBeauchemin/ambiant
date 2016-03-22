@@ -1,38 +1,36 @@
 import * as types from '../constants/action-types';
 
-const createRadio = (name, callback) => {
+export function createRadio(name, callback) {
   return () => {
     Meteor.call('radio.create', name, (error, res) => {
       if (error) Materialize.toast(error.reason, 5000);
       else if (callback) callback(res);
     });
   };
-};
+}
 
-const removeRadio = (id) => {
+export function removeRadio(id) {
   return () => {
     Meteor.call('radio.remove', id);
   };
-};
+}
 
-const setOwnRadio = (radio) => {
+export function setOwnRadio(radio) {
   return {
     radio,
     type: types.SET_OWN_RADIO
   };
-};
+}
 
-const setRadio = (radio) => {
+export function setRadio(radio) {
   return {
     radio,
     type: types.SET_RADIO
   };
-};
+}
 
-const toggleShowMore = () => {
+export function toggleShowMore() {
   return {
     type: types.TOGGLE_SHOW_MORE
   };
-};
-
-export { createRadio, removeRadio, setOwnRadio, setRadio, toggleShowMore };
+}

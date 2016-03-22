@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import { get as _get } from 'lodash';
 
-const twitchClientId = _.get(Meteor.settings, 'private.twitchClientId');
-const twitchSecret = _.get(Meteor.settings, 'private.twitchSecret');
-const googleClientId = _.get(Meteor.settings, 'private.googleClientId');
-const googleSecret = _.get(Meteor.settings, 'private.googleSecret');
-const facebookAppId = _.get(Meteor.settings, 'private.facebookAppId');
-const facebookSecret = _.get(Meteor.settings, 'private.facebookSecret');
+const twitchClientId = _get(Meteor.settings, 'private.twitchClientId');
+const twitchSecret = _get(Meteor.settings, 'private.twitchSecret');
+const googleClientId = _get(Meteor.settings, 'private.googleClientId');
+const googleSecret = _get(Meteor.settings, 'private.googleSecret');
+const facebookAppId = _get(Meteor.settings, 'private.facebookAppId');
+const facebookSecret = _get(Meteor.settings, 'private.facebookSecret');
 
 if (!twitchClientId || !twitchSecret) {
   console.warn('Please provide a twitch client id and secret in settings.json or start meteor with "meteor --settings settings.json"');

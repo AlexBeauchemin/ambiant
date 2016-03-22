@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setDomain } from '../../../actions/search-actions';
+import { bindAll } from 'lodash';
 import SearchResults from './search-results.jsx';
 import Loader from '../../shared/loader.jsx';
 
@@ -9,24 +12,30 @@ class SearchBar extends React.Component {
     this.state = { loading: false };
 
     this.input = { value: '' };
-    _.bindAll(this, ['addSong', 'setInput']);
+    bindAll(this, ['addSong', 'setInput', 'toggleDomain']);
   }
 
   addSong(e) {
     const val = this.input.value.trim();
 
     e.preventDefault();
-    
     if (!val) return;
-    
     this.setState({ loading: true });
   }
 
   setInput(node) {
     this.input = node;
   }
-  
+
+  toggleDomain(e) {
+    const { dispatch } = this.props;
+    const domain = e.target.value;
+
+    dispatch(setDomain(domain));
+  }
+
   render() {
+    const { searchDomain } = this.props;
     const isLoading = this.state.loading;
     const domainClass = isLoading ? 'hidden' : '';
     
@@ -41,9 +50,9 @@ class SearchBar extends React.Component {
             <SearchResults />
           </div>
           <div className={`input-field search-domain ${domainClass}`}>
-            <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" checked />
+            <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" onClick={this.toggleDomain} checked={searchDomain === 'youtube'} />
             <label htmlFor="search-domain-youtube"><img src="/youtube.png" alt="Youtube" /></label>
-            <input name="search-domain" type="radio" id="search-domain-soundcloud" value="soundcloud" />
+            <input name="search-domain" type="radio" id="search-domain-soundcloud" value="soundcloud" onClick={this.toggleDomain} checked={searchDomain === 'soundcloud'} />
             <label htmlFor="search-domain-soundcloud"><img src="/soundcloud.png" alt="Soundcloud" /></label>
           </div>
         </div>
@@ -55,4 +64,15 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+SearchBar.propTypes = {
+  dispatch: React.PropTypes.func,
+  searchDomain: React.PropTypes.string
+};
+
+const mapStateToProps = (state) => {
+  return {
+    searchDomain: state.searchDomain
+  };
+};
+
+export default connect(mapStateToProps)(SearchBar);

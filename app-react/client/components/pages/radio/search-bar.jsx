@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setDomain } from '../../../actions/search-actions';
+import { setDomain, setIsSearching, setSearchResults } from '../../../actions/search-actions';
 import { bindAll } from 'lodash';
 import SearchResults from './search-results.jsx';
 import Loader from '../../shared/loader.jsx';
@@ -12,15 +12,29 @@ class SearchBar extends React.Component {
     this.state = { loading: false };
 
     this.input = { value: '' };
-    bindAll(this, ['addSong', 'setInput', 'toggleDomain']);
+    bindAll(this, ['addSong', 'onKeyUp', 'setInput', 'toggleDomain']);
   }
 
   addSong(e) {
+    const { dispatch } = this.props;
     const val = this.input.value.trim();
 
-    e.preventDefault();
+    if (e) e.preventDefault();
     if (!val) return;
-    this.setState({ loading: true });
+    
+    dispatch(setIsSearching(true));
+  }
+  
+  onKeyUp(e) {
+    if (e.charCode === 12) return this.addSong();
+    this.search();
+  }
+  
+  search() {
+    const { dispatch } = this.props;
+    
+    dispatch(setIsSearching(true));
+    dispatch(setSearchResults([]));
   }
 
   setInput(node) {
@@ -35,24 +49,23 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { searchDomain } = this.props;
-    const isLoading = this.state.loading;
-    const domainClass = isLoading ? 'hidden' : '';
+    const { search = {} } = this.props;
+    const domainClass = search.isSearching ? 'hidden' : '';
     
     return (
       <form className="row control-add" onSubmit={ this.addSong }>
         <div className="col s12 m8 search">
           <div className="input-field">
-            <input type="text" name="add-song" id="add-song" autoComplete="off" ref={ this.setInput } data-action="search" />
+            <input type="text" name="add-song" id="add-song" autoComplete="off" ref={ this.setInput } onKeyUp={ this.onKeyUp } />
             <label htmlFor="add-song">Search song or enter url</label>
             <i className="material-icons">search</i>
-            <Loader visible={ isLoading } />
+            <Loader visible={ search.isSearching } />
             <SearchResults />
           </div>
           <div className={`input-field search-domain ${domainClass}`}>
-            <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" onClick={this.toggleDomain} checked={searchDomain === 'youtube'} />
+            <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" onClick={this.toggleDomain} checked={search.domain === 'youtube'} />
             <label htmlFor="search-domain-youtube"><img src="/youtube.png" alt="Youtube" /></label>
-            <input name="search-domain" type="radio" id="search-domain-soundcloud" value="soundcloud" onClick={this.toggleDomain} checked={searchDomain === 'soundcloud'} />
+            <input name="search-domain" type="radio" id="search-domain-soundcloud" value="soundcloud" onClick={this.toggleDomain} checked={search.domain === 'soundcloud'} />
             <label htmlFor="search-domain-soundcloud"><img src="/soundcloud.png" alt="Soundcloud" /></label>
           </div>
         </div>
@@ -66,12 +79,12 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   dispatch: React.PropTypes.func,
-  searchDomain: React.PropTypes.string
+  search: React.PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
-    searchDomain: state.searchDomain
+    search: state.search
   };
 };
 

@@ -26,7 +26,16 @@ class SearchBar extends React.Component {
   }
   
   onKeyUp(e) {
-    if (e.charCode === 12) return this.addSong();
+    const { dispatch } = this.props;
+
+    dispatch(setIsSearching(false));
+
+    if (e.charCode === 12) {
+      e.preventDefault();
+      // TODO: If not a song, trigger a search instead
+      return this.addSong();
+    }
+    
     this.search();
   }
   

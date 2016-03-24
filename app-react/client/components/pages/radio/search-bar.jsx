@@ -5,6 +5,8 @@ import { bindAll } from 'lodash';
 import SearchResults from './search-results.jsx';
 import Loader from '../../shared/loader.jsx';
 
+let searchTimeout = null;
+
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -21,33 +23,77 @@ class SearchBar extends React.Component {
 
     if (e) e.preventDefault();
     if (!val) return;
-    
+
     dispatch(setIsSearching(true));
   }
-  
+
+  handleUpKey() {
+
+  }
+
+  handleDownKey() {
+
+  }
+
   onKeyUp(e) {
     const { dispatch } = this.props;
 
     dispatch(setIsSearching(false));
 
-    if (e.charCode === 12) {
+    if (e.charCode === 13) {
       e.preventDefault();
       // TODO: If not a song, trigger a search instead
       return this.addSong();
     }
-    
-    this.search();
+
+    this.search(e.keyCode);
   }
-  
-  search() {
+
+  search(key) {
     const { dispatch } = this.props;
-    
-    dispatch(setIsSearching(true));
-    dispatch(setSearchResults([]));
+
+    if (searchTimeout) clearTimeout(searchTimeout);
+
+    switch (key) {
+      case 40:
+        return this.handleDownKey();
+      case 38:
+        return this.handleUpKey();
+    }
+
+    this.startSearch();
   }
 
   setInput(node) {
     this.input = node;
+  }
+
+  startSearch() {
+    const { dispatch } = this.props;
+    const q = this.input.value;
+
+    dispatch(setSearchResults([]));
+
+    if (q.length < 3 ||
+      q.indexOf('http://') === 0 ||
+      q.indexOf('https://') === 0 ||
+      q.indexOf('www.') === 0 ||
+      q.indexOf('soundcloud.') === 0 ||
+      q.indexOf('youtube.') === 0 ||
+      q.indexOf('youtu.be/') === 0) {
+      return;
+    }
+
+    dispatch(setIsSearching(true));
+
+    searchTimeout = setTimeout(() => {
+      console.log('search');
+      dispatch(setIsSearching(false));
+      // App[domain].search(q, (res) => {
+      //   Session.set('isSearching', false);
+      //   if (!_.isEmpty(res)) Session.set('search-result', res);
+      // });
+    }, 1000);
   }
 
   toggleDomain(e) {
@@ -60,7 +106,7 @@ class SearchBar extends React.Component {
   render() {
     const { search = {} } = this.props;
     const domainClass = search.isSearching ? 'hidden' : '';
-    
+
     return (
       <form className="row control-add" onSubmit={ this.addSong }>
         <div className="col s12 m8 search">

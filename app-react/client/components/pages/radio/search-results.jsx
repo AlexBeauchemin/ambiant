@@ -4,12 +4,12 @@ import { map } from 'lodash';
 class SearchResults extends React.Component {
   render() {
     const { data } = this.props;
-
+    
     return (
       <div id="search-result" className="collection">
         { map(data, (item) => {
           return (
-            <a href="#" className="collection-item active" data-action="select">
+            <a key={item.id} href="#" className="collection-item active" data-action="select">
               {item.title}
               <span className="btn btn-flat" data-action="add">+</span>
             </a>

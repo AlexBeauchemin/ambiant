@@ -18,9 +18,12 @@
   "globals": {
     "__DEV__": true,
     "Deps": true,
+    "gapi": true,
     "Materialize": true,
     "Radios": true,
+    "SC": true,
     "ServiceConfiguration": true,
-    "WebFont": true
+    "WebFont": true,
+    "YT": true
   }
 }

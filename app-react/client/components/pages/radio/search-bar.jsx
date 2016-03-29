@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setDomain, setIsSearching, setSearchResults } from '../../../actions/search-actions';
 import { bindAll } from 'lodash';
+import MusicProvider from '../../../lib/utils/music-provider';
 import SearchResults from './search-results.jsx';
 import Loader from '../../shared/loader.jsx';
 
@@ -14,7 +15,7 @@ class SearchBar extends React.Component {
     this.state = { loading: false };
 
     this.input = { value: '' };
-    bindAll(this, ['addSong', 'onKeyUp', 'setInput', 'toggleDomain']);
+    bindAll(this, ['addSong', 'onChange', 'onKeyUp', 'setInput', 'toggleDomain']);
   }
 
   addSong(e) {
@@ -35,33 +36,27 @@ class SearchBar extends React.Component {
 
   }
 
-  onKeyUp(e) {
+  onChange() {
     const { dispatch } = this.props;
 
     dispatch(setIsSearching(false));
-
-    if (e.charCode === 13) {
-      e.preventDefault();
-      // TODO: If not a song, trigger a search instead
-      return this.addSong();
-    }
-
-    this.search(e.keyCode);
-  }
-
-  search(key) {
-    const { dispatch } = this.props;
+    dispatch(setSearchResults([]));
 
     if (searchTimeout) clearTimeout(searchTimeout);
+
+    this.startSearch();
+  }
+
+  onKeyUp(e) {
+    const key = e.keyCode || e.charCode || 0;
 
     switch (key) {
       case 40:
         return this.handleDownKey();
       case 38:
         return this.handleUpKey();
+      default: return;
     }
-
-    this.startSearch();
   }
 
   setInput(node) {
@@ -71,8 +66,6 @@ class SearchBar extends React.Component {
   startSearch() {
     const { dispatch } = this.props;
     const q = this.input.value;
-
-    dispatch(setSearchResults([]));
 
     if (q.length < 3 ||
       q.indexOf('http://') === 0 ||
@@ -87,12 +80,10 @@ class SearchBar extends React.Component {
     dispatch(setIsSearching(true));
 
     searchTimeout = setTimeout(() => {
-      console.log('search');
-      dispatch(setIsSearching(false));
-      // App[domain].search(q, (res) => {
-      //   Session.set('isSearching', false);
-      //   if (!_.isEmpty(res)) Session.set('search-result', res);
-      // });
+      MusicProvider.current.search(q, (res) => {
+        dispatch(setIsSearching(false));
+        dispatch(setSearchResults(res));
+      });
     }, 1000);
   }
 
@@ -100,6 +91,7 @@ class SearchBar extends React.Component {
     const { dispatch } = this.props;
     const domain = e.target.value;
 
+    MusicProvider.setCurrent(domain);
     dispatch(setDomain(domain));
   }
 
@@ -111,11 +103,11 @@ class SearchBar extends React.Component {
       <form className="row control-add" onSubmit={ this.addSong }>
         <div className="col s12 m8 search">
           <div className="input-field">
-            <input type="text" name="add-song" id="add-song" autoComplete="off" ref={ this.setInput } onKeyUp={ this.onKeyUp } />
+            <input type="text" name="add-song" id="add-song" autoComplete="off" ref={ this.setInput } onChange={ this.onChange } onKeyUp={ this.onKeyUp } />
             <label htmlFor="add-song">Search song or enter url</label>
             <i className="material-icons">search</i>
             <Loader visible={ search.isSearching } />
-            <SearchResults />
+            <SearchResults data={ search.results } />
           </div>
           <div className={`input-field search-domain ${domainClass}`}>
             <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" onClick={this.toggleDomain} checked={search.domain === 'youtube'} />

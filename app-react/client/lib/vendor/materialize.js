@@ -256,11 +256,7 @@ m.isFunction(t)&&t(null,!0)}),f.queue(a,m.isString(v)?v:"",[])),"stop"===y?(i(a)
 }));
 ;// Required for Meteor package, the use of window prevents export by Meteor
 (function(window){
-  if(window.Package){
-    Materialize = {};
-  } else {
     window.Materialize = {};
-  }
 })(window);
 
 

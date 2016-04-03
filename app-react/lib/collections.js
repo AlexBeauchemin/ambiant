@@ -1,1 +1,1 @@
-Radios = new Mongo.Collection('radios');
+global.Radios = new Mongo.Collection('radios');

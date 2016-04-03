@@ -52,7 +52,7 @@ ServiceConfiguration.configurations.insert({
 
 Meteor.publish(
   'user-data',
-  Meteor.users.find({ _id: this.userId }, { fields: { services: 1 } })
+  function publishUserData() { return Meteor.users.find({ _id: this.userId }, { fields: { services: 1 } }); }
 );
 
 Meteor.users.deny({

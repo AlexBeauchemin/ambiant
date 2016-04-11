@@ -39,9 +39,6 @@ class SearchBar extends React.Component {
   onChange() {
     const { dispatch } = this.props;
 
-    dispatch(setIsSearching(false));
-    dispatch(setSearchResults([]));
-
     if (searchTimeout) clearTimeout(searchTimeout);
 
     this.startSearch();
@@ -67,24 +64,26 @@ class SearchBar extends React.Component {
     const { dispatch } = this.props;
     const q = this.input.value;
 
-    if (q.length < 3 ||
-      q.indexOf('http://') === 0 ||
-      q.indexOf('https://') === 0 ||
-      q.indexOf('www.') === 0 ||
-      q.indexOf('soundcloud.') === 0 ||
-      q.indexOf('youtube.') === 0 ||
-      q.indexOf('youtu.be/') === 0) {
-      return;
-    }
-
-    dispatch(setIsSearching(true));
-
     searchTimeout = setTimeout(() => {
+      if (q.length < 3 ||
+          q.indexOf('http://') === 0 ||
+          q.indexOf('https://') === 0 ||
+          q.indexOf('www.') === 0 ||
+          q.indexOf('soundcloud.') === 0 ||
+          q.indexOf('youtube.') === 0 ||
+          q.indexOf('youtu.be/') === 0) {
+        dispatch(setIsSearching(false));
+        dispatch(setSearchResults([]));
+        return;
+      }
+
+      dispatch(setIsSearching(true));
+
       MusicProvider.current.search(q, (res) => {
         dispatch(setIsSearching(false));
         dispatch(setSearchResults(res));
       });
-    }, 1000);
+    }, 500);
   }
 
   toggleDomain(e) {

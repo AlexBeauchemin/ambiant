@@ -16,17 +16,16 @@
     "jquery": "^2.2.2",
     "lodash": "^4.5.0",
     "pickadate": "^3.5.6",
-    "react": "^0.14.8",
-    "react-addons-pure-render-mixin": "^0.14.8",
-    "react-dom": "^0.14.7",
-    "react-komposer": "^1.7.1",
-    "react-mounter": "^1.0.0",
-    "react-paginate": "^0.5.4",
     "react-redux": "^4.4.0",
     "react-transform-hmr": "^1.0.4",
     "redux": "^3.3.1",
     "redux-logger": "^2.5.2",
-    "redux-thunk": "^1.0.3"
+    "redux-thunk": "^1.0.3",
+    "react": "~15.0.1",
+    "react-dom": "~15.0.1",
+    "react-mounter": "~1.2.0",
+    "react-komposer": "~1.8.0",
+    "react-addons-pure-render-mixin": "~15.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.4",
@@ -42,6 +41,9 @@
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.4",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "eslint-config-airbnb": "~6.2.0",
+    "eslint-plugin-react": "~4.3.0",
+    "eslint": "~2.7.0"
   }
 }

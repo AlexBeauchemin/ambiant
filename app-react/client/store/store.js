@@ -17,4 +17,16 @@ if (__DEV__) {
   );
 }
 
-export default (initialState) => createStore(rootReducer, initialState, enhancer);
+export default (initialState) => {
+  const store = createStore(rootReducer, initialState, enhancer);
+
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('../reducers', () => {
+      const nextRootReducer = require('../reducers/root-reducer');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
+};

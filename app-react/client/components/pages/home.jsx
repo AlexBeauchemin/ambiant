@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindAll } from 'lodash';
+import { openModal } from '../../actions/modal-actions.js';
 import RadiosContainer from '../../containers/radios-container.jsx';
 
-class Home extends React.Component {
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    bindAll(this, ['openCreateModal']);
+  }
+
+  openCreateModal(e) {
+    const { dispatch } = this.props;
+    e.preventDefault();
+    dispatch(openModal('new-radio'));
+  }
+
   render() {
     const { radio } = this.props;
-    let btn = <a href="#modal-create-radio" className="btn btn-large waves-effect waves-light">Create your radio</a>;
+    let btn = <a href="#modal-create-radio" onClick={this.openCreateModal} className="btn btn-large waves-effect waves-light">Create your radio</a>;
 
-    if (radio) btn = <a href="#modal-create-radio" className="btn btn-large waves-effect waves-light">Create your radio</a>;
+    if (radio) btn = <a href={`/${radio.url}`} className="btn btn-large waves-effect waves-light">My Radio</a>;
 
     return (
       <div className="container">
@@ -41,7 +55,8 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  radio: React.PropTypes.object
+  dispatch: PropTypes.func,
+  radio: PropTypes.object
 };
 
-export default Home;
+export default connect()(Home);

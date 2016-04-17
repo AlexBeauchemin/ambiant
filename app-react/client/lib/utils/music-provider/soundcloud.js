@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import { Promise } from 'es6-promise';
 import { get as _get } from 'lodash';
 import Provider from './base';
 
@@ -8,6 +8,7 @@ const IFRAME_API_URL = 'https://w.soundcloud.com/player/api.js';
 export default class SoundCloud extends Provider {
   constructor() {
     super(API_URL, IFRAME_API_URL);
+    this.name = 'soundcloud';
   }
 
   stop() {
@@ -17,30 +18,29 @@ export default class SoundCloud extends Provider {
 
   _initAPI() {
     const apiKey = this._config.apiKey;
-    const p = $.Deferred();
-    const interval = setInterval(() => {
-      if (SC && SC.initialize) {
-        clearInterval(interval);
-        SC.initialize({
-          client_id: apiKey
-        });
-        p.resolve();
-      }
-    }, 100);
 
-    return p.promise();
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (SC && SC.initialize) {
+          clearInterval(interval);
+          SC.initialize({
+            client_id: apiKey
+          });
+          resolve();
+        }
+      }, 100);
+    });
   }
 
   _initIframeAPI() {
-    const p = $.Deferred();
-    const interval = setInterval(() => {
-      if (SC && SC.Widget) {
-        clearInterval(interval);
-        p.resolve();
-      }
-    }, 100);
-
-    return p.promise();
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (SC && SC.Widget) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 100);
+    });
   }
 
   _loadPlayer() {

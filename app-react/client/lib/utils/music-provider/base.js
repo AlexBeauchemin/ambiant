@@ -1,11 +1,11 @@
-import $ from 'jquery';
+import { Promise } from 'es6-promise';
 import { merge } from 'lodash';
 
 export default class Provider {
   constructor(API_URL, IFRAME_API_URL) {
     this.API_URL = API_URL;
     this.IFRAME_API_URL = IFRAME_API_URL;
-    
+
     this.player = null;
     this._playerState = 'loading'; // stop, play, pause, loading
     this._config = {
@@ -18,7 +18,7 @@ export default class Provider {
       onStateChange: null
     };
   }
-  
+
   init(config) {
     this._config = merge(this._config, config);
 
@@ -29,7 +29,7 @@ export default class Provider {
 
     this._loadAPI()
       .then(this._initAPI.bind(this))
-      .then(this._getMusicCategoryId);
+      .then(this._getMusicCategoryId.bind(this));
 
     this._loadIframeAPI()
       .then(this._initIframeAPI)
@@ -38,34 +38,49 @@ export default class Provider {
         this.stop();
         if (this._config.onReady) this._config.onReady();
       });
-    
+
     return this;
   }
 
+  // TODO: Duplicate from server/lib/youtube.js
+  _formatTime(time) {
+    const formattedTime = parseInt(time, 10);
+    if (formattedTime < 10) return `0${formattedTime}`;
+    return formattedTime;
+  }
+
   _getMusicCategoryId() {}
-  
+
+  _getScript(source) {
+    let script = document.createElement('script');
+    const prior = document.getElementsByTagName('script')[0];
+    script.async = 1;
+    prior.parentNode.insertBefore(script, prior);
+
+    return new Promise((resolve) => {
+      script.onload = script.onreadystatechange = (_, isAbort) => {
+        if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState) ) {
+          script.onload = script.onreadystatechange = null;
+          script = undefined;
+
+          if (!isAbort) resolve();
+        }
+      };
+
+      script.src = source;
+    });
+  }
+
   _initAPI() {
     console.warn(`The _initAPI function should be defined for the provider '${this._config.element}'`);
   }
 
   _loadAPI() {
-    const p = $.Deferred();
-
-    $.getScript(this.API_URL, () => {
-      p.resolve();
-    });
-
-    return p.promise();
+    return this._getScript(this.API_URL);
   }
 
   _loadIframeAPI() {
-    const p = $.Deferred();
-
-    $.getScript(this.IFRAME_API_URL, () => {
-      p.resolve();
-    });
-
-    return p.promise();
+    return this._getScript(this.IFRAME_API_URL);
   }
 
   _setState(state) {

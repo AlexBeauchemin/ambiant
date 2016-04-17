@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import Menu from './header/menu.jsx';
 import MenuMobile from './header/menu-mobile.jsx';
 import StaticAlerts from './header/static-alerts.jsx';
 
-class Header extends React.Component {
+class Header extends Component {
   render() {
-    const { radio, user } = this.props;
+    const { radio, user, page } = this.props;
 
     return (
       <header className="navbar-fixed">
@@ -15,8 +15,8 @@ class Header extends React.Component {
             <a href="#" data-activates="mobile-menu" className="button-collapse">
               <i className="material-icons">menu</i>
             </a>
-            <Menu radio={radio} user={user} />
-            <MenuMobile radio={radio} user={user} />
+            <Menu radio={radio} user={user} page={page} />
+            <MenuMobile radio={radio} user={user} page={page} />
           </div>
           <StaticAlerts />
         </nav>
@@ -26,8 +26,9 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  radio: React.PropTypes.object,
-  user: React.PropTypes.object
+  page: PropTypes.string,
+  radio: PropTypes.object,
+  user: PropTypes.object
 };
 
 export default Header;

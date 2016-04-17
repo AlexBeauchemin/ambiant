@@ -24,7 +24,8 @@ class Radio extends React.Component {
 
   render() {
     const { radio } = this.props;
-    const isAdmin = _get(radio, 'own._id') === _get(radio, 'data._id');
+    const radioId = _get(radio, 'data._id');
+    const isAdmin = _get(radio, 'own._id') === radioId;
     let settings = <Settings />;
 
     if (!isAdmin) settings = null;
@@ -42,7 +43,7 @@ class Radio extends React.Component {
         <RadioHeader isAdmin={isAdmin} radio={radio.data} />
         <div className="row">
           <div className={ isAdmin ? 'col s12 m7' : 'col s12' }>
-            <SearchBar />
+            <SearchBar radioId={radioId} />
             <Player />
           </div>
           <div className={ isAdmin ? 'col s12 m5' : 'col s12' }>

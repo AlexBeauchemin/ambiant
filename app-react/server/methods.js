@@ -1,6 +1,40 @@
-import { get as _get } from 'lodash';
+import uuid from 'node-uuid';
+import { clone, get as _get } from 'lodash';
+import Helpers from './lib/helpers.js';
+
+const PLAYLIST_SONG_LIMIT = 300;
 
 Meteor.methods({
+  'radio.add-song-to-playlist'(song, radioId) {
+    const radio = Radios.findOne(radioId);
+    const res = clone(song);
+    let isGuest = false;
+
+    if (!radioId) throw new Meteor.Error(500, 'Cannot access this radio');
+    if (!radio) throw new Meteor.Error(500, 'Cannot access this radio');
+    if (!song || !song.id || !song.data) throw new Meteor.Error(500, 'Song invalid');
+
+    res.user = Helpers.getUser();
+    res.dateAdded = new Date();
+    res.downvotes = [];
+    res.upvotes = [];
+    res.uuid = uuid.v4();
+
+    if (Meteor.user() && Meteor.user().profile) isGuest = Meteor.user().profile.guest;
+    if (!isGuest) res.upvotes.push(Meteor.user()._id);
+
+    if (Helpers.isSongBlocked(radioId, res.id)) throw new Meteor.Error(500, 'This song is blocked');
+    if (Helpers.isUserBlocked(radioId, res.user)) throw new Meteor.Error(500, 'Sorry, you cannot add songs to this radio');
+
+    if (radio.playlist.length >= PLAYLIST_SONG_LIMIT) throw new Meteor.Error(500, 'Sorry, the playlist is full');
+
+    if (!Helpers.isOwner(radioId)) {
+      if (Helpers.hasUserReachedLimit(radio)) throw new Meteor.Error(500, 'You have reached your limit for this radio. Please try again later');
+    }
+
+    if (Helpers.isOwner(radioId) || Helpers.canAdd(radioId)) Radios.update({ _id: radioId }, { $push: { playlist: song } });
+  },
+  
   ['radio.create'](name) {
     const user = Meteor.user() || {};
     const userId = user._id;
@@ -47,6 +81,7 @@ Meteor.methods({
       })
     };
   },
+  
   ['radio.remove'](_id) {
     return Radios.remove({ _id });
   }

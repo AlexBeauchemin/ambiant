@@ -95,7 +95,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { search = {} } = this.props;
+    const { search = {}, radioId }  = this.props;
     const domainClass = search.isSearching ? 'hidden' : '';
 
     return (
@@ -106,7 +106,7 @@ class SearchBar extends React.Component {
             <label htmlFor="add-song">Search song or enter url</label>
             <i className="material-icons">search</i>
             <Loader visible={ search.isSearching } />
-            <SearchResults data={ search.results } />
+            <SearchResults data={ search.results } radioId={this.props.radioId} />
           </div>
           <div className={`input-field search-domain ${domainClass}`}>
             <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" onClick={this.toggleDomain} checked={search.domain === 'youtube'} />
@@ -125,6 +125,7 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   dispatch: React.PropTypes.func,
+  radioId: React.PropTypes.string,
   search: React.PropTypes.object
 };
 

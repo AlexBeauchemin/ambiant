@@ -22,9 +22,9 @@ class Layout extends React.Component {
     const routeName = FlowRouter.current().route.name;
 
     return (
-      <Provider store={ store(initialState) }>
-        <div data-route={ routeName }>
-          <HeaderContainer />
+      <Provider store={store(initialState)}>
+        <div data-route={routeName}>
+          <HeaderContainer page={routeName} />
           <main>{content}</main>
           <ModalsContainer />
           <DevTools />

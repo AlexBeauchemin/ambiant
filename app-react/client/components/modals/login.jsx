@@ -35,8 +35,8 @@ class LoginModal extends React.Component {
         Materialize.toast(error.reason, 5000);
       } else {
         dispatch(closeModal());
-        this.inputEmail.value = '';
-        this.inputPassword.value = '';
+        if (this.inputEmail) this.inputEmail.value = '';
+        if (this.inputPassword) this.inputPassword.value = '';
       }
     });
   }

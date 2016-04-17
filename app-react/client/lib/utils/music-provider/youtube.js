@@ -1,5 +1,7 @@
-import $ from 'jquery';
-import { map, get as _get } from 'lodash';
+import moment from 'moment';
+import { Promise } from 'es6-promise';
+import { extend, isEmpty, map, pick, get as _get } from 'lodash';
+
 import Provider from './base';
 
 const API_URL = 'https://apis.google.com/js/client.js';
@@ -8,7 +10,30 @@ const IFRAME_API_URL = 'https://www.youtube.com/iframe_api';
 export default class Youtube extends Provider {
   constructor() {
     super(API_URL, IFRAME_API_URL);
+    this.name = 'youtube';
     this._musicCategoryId = null;
+  }
+
+  getSongInfo(id) {
+    return new Promise((resolve, reject) => {
+      if (!_get(window, 'gapi.client.youtube')) return reject('Youtube API is not accessible');
+
+      const requestSettings = {
+        id,
+        part: 'snippet,contentDetails',
+        type: 'video',
+        maxResults: 1
+      };
+      const request = gapi.client.youtube.videos.list(requestSettings);
+
+      request.execute((response) => {
+        if (!response || isEmpty(response.items)) {
+          return reject('Cannot retrieve song information');
+        }
+
+        resolve([this._getSongDetails(response.items[0])]);
+      });
+    });
   }
 
   search(q, callback) {
@@ -45,55 +70,67 @@ export default class Youtube extends Provider {
   }
 
   _getMusicCategoryId() {
-    const p = $.Deferred();
     const request = gapi.client.youtube.videoCategories.list({
       regionCode: 'us',
       part: 'snippet'
     });
 
-    request.execute((response) => {
-      if (response.error) return;
+    return new Promise((resolve, reject) => {
+      request.execute((response) => {
+        if (response.error) reject();
 
-      const categories = response.result.items;
+        const categories = response.result.items;
 
-      for (let i = 0; i < categories.length; i++) {
-        if (categories[i].snippet.title.toLowerCase().indexOf('music') > -1) {
-          this._musicCategoryId = categories[i].id;
-          p.resolve();
-          break;
+        for (let i = 0; i < categories.length; i++) {
+          if (categories[i].snippet.title.toLowerCase().indexOf('music') > -1) {
+            this._musicCategoryId = categories[i].id;
+            resolve();
+            break;
+          }
         }
-      }
+      });
     });
+  }
 
-    return p.promise();
+  // TODO: Duplicate from server/lib/youtube.js
+  _getSongDetails(data) {
+    const info = extend(data.snippet, data.contentDetails);
+    const duration = info.duration ? moment.duration(info.duration) : null;
+    const minutes = duration ? Math.floor(duration.asMinutes()) : '00';
+    const seconds = duration ? this._formatTime(duration.seconds()) : '00';
+
+    info.duration = `${minutes}:${seconds}`;
+
+    if (_get(info, 'thumbnails.default')) info.thumbnails = pick(info.thumbnails, ['default', 'high']);
+
+    return pick(info, ['title', 'thumbnails', 'duration', 'licensedContent', 'regionRestriction']);
   }
 
   _initAPI() {
     const apiKey = this._config.apiKey;
-    const p = $.Deferred();
-    const interval = setInterval(() => {
-      if (gapi && gapi.client) {
-        clearInterval(interval);
-        gapi.client.setApiKey(apiKey);
-        gapi.client.load('youtube', 'v3', () => {
-          p.resolve();
-        });
-      }
-    }, 100);
 
-    return p.promise();
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (gapi && gapi.client) {
+          clearInterval(interval);
+          gapi.client.setApiKey(apiKey);
+          gapi.client.load('youtube', 'v3', () => {
+            resolve();
+          });
+        }
+      }, 100);
+    });
   }
 
   _initIframeAPI() {
-    const p = $.Deferred();
-    const interval = setInterval(() => {
-      if (YT && YT.Player) {
-        clearInterval(interval);
-        p.resolve();
-      }
-    }, 100);
-
-    return p.promise();
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (YT && YT.Player) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 100);
+    });
   }
 
   _loadPlayer() {

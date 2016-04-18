@@ -12,12 +12,12 @@ class SearchResults extends React.Component {
   addSong(e) {
     e.preventDefault();
 
+    const { actions, radioId } = this.props;
     const songId = e.target.dataset.id;
-    const radioId = this.props.radioId;
 
     MusicProvider.current.getSongInfo(songId)
       .then((tracks) => {
-        forEach(tracks, (track, index) => {
+        forEach(tracks, (track) => {
           const id = track.id || songId;
           const domain = MusicProvider.name;
           const trackInfo = {
@@ -28,15 +28,11 @@ class SearchResults extends React.Component {
           };
 
           // TODO: Bundle servers call in a single add-songs call
-          Meteor.call('radio.add-song-to-playlist', trackInfo, radioId, (error, res) => {
+          Meteor.call('radio.add-song-to-playlist', trackInfo, radioId, (error) => {
             if (error) Materialize.toast(error.reason, 5000);
             else Materialize.toast(`Song "${track.title}" added!`, 3000, 'normal');
 
-            /* if (index === tracks.length - 1) {
-              Session.set('isAddingSong', false);
-              this.resetValues();
-              $(this.selector).focus();
-            } */
+            actions.clearResults();
           });
         });
       })
@@ -63,6 +59,7 @@ class SearchResults extends React.Component {
 }
 
 SearchResults.propTypes = {
+  actions: React.PropTypes.object,
   data: React.PropTypes.array,
   radioId: React.PropTypes.string
 };

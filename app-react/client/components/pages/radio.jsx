@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setRadio } from '../../actions/radio-actions';
+import { setPlaylist, setRadio } from '../../actions/radio-actions';
 import Loader from '../shared/loader.jsx';
 import RadioHeader from './radio/header.jsx';
 import Player from './radio/player.jsx';
@@ -9,15 +9,17 @@ import Settings from './radio/settings.jsx';
 import SearchBar from './radio/search-bar.jsx';
 import { get as _get } from 'lodash';
 
-class Radio extends React.Component {
+class Radio extends Component {
   componentWillMount() {
     const { dispatch, subRadio } = this.props;
+    dispatch(setPlaylist(subRadio.playlist, subRadio.playlistEnded));
     dispatch(setRadio(subRadio));
   }
 
   componentWillReceiveProps(props) {
     const { dispatch, subRadio } = this.props;
     if (subRadio._id !== props.subRadio._id) {
+      dispatch(setPlaylist(subRadio.playlist, subRadio.playlistEnded));
       dispatch(setRadio(props.subRadio));
     }
   }
@@ -27,7 +29,7 @@ class Radio extends React.Component {
     const radioId = _get(radio, 'data._id');
     const isAdmin = _get(radio, 'own._id') === radioId;
     let settings = <Settings />;
-
+    
     if (!isAdmin) settings = null;
     if (radio.data === null) return <Loader />;
     if (radio.data === undefined) {
@@ -37,7 +39,7 @@ class Radio extends React.Component {
         </div>
       );
     }
-
+    
     return (
       <div className="container">
         <RadioHeader isAdmin={isAdmin} radio={radio.data} />
@@ -48,7 +50,7 @@ class Radio extends React.Component {
           </div>
           <div className={ isAdmin ? 'col s12 m5' : 'col s12' }>
             {settings}
-            <Playlist />
+            <Playlist playlist={radio.data.playlist} ended={radio.data.playlistEnded} />
           </div>
         </div>
       </div>
@@ -57,13 +59,17 @@ class Radio extends React.Component {
 }
 
 Radio.propTypes = {
-  dispatch: React.PropTypes.func,
-  radio: React.PropTypes.object,
-  subRadio: React.PropTypes.object
+  dispatch: PropTypes.func,
+  playlist: PropTypes.array,
+  playlistEnded: PropTypes.array,
+  radio: PropTypes.object,
+  subRadio: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
+    playlist: state.playlist,
+    playlistEnded: state.playlistEnded,
     radio: state.radio
   };
 };

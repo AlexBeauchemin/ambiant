@@ -15,7 +15,7 @@ class SearchBar extends React.Component {
     this.state = { loading: false };
 
     this.input = { value: '' };
-    bindAll(this, ['addSong', 'onChange', 'onKeyUp', 'setInput', 'toggleDomain']);
+    bindAll(this, ['addSong', 'clearResults', 'onChange', 'onKeyUp', 'setInput', 'toggleDomain']);
   }
 
   addSong(e) {
@@ -27,6 +27,12 @@ class SearchBar extends React.Component {
 
     dispatch(setIsSearching(true));
   }
+  
+  clearResults() {
+    const { dispatch } = this.props;
+    this.input.value = '';
+    dispatch(setSearchResults([]));
+  }
 
   handleUpKey() {
 
@@ -37,8 +43,6 @@ class SearchBar extends React.Component {
   }
 
   onChange() {
-    const { dispatch } = this.props;
-
     if (searchTimeout) clearTimeout(searchTimeout);
 
     this.startSearch();
@@ -95,18 +99,22 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { search = {}, radioId }  = this.props;
+    const { search = {}, radioId } = this.props;
     const domainClass = search.isSearching ? 'hidden' : '';
 
     return (
-      <form className="row control-add" onSubmit={ this.addSong }>
+      <form className="row control-add" onSubmit={this.addSong}>
         <div className="col s12 m8 search">
           <div className="input-field">
-            <input type="text" name="add-song" id="add-song" autoComplete="off" ref={ this.setInput } onChange={ this.onChange } onKeyUp={ this.onKeyUp } />
+            <input type="text" name="add-song" id="add-song" autoComplete="off" ref={this.setInput} onChange={this.onChange} onKeyUp={this.onKeyUp} />
             <label htmlFor="add-song">Search song or enter url</label>
             <i className="material-icons">search</i>
-            <Loader visible={ search.isSearching } />
-            <SearchResults data={ search.results } radioId={this.props.radioId} />
+            <Loader visible={search.isSearching} />
+            <SearchResults 
+              actions={{ clearResults: this.clearResults }}
+              data={search.results}
+              radioId={radioId}
+            />
           </div>
           <div className={`input-field search-domain ${domainClass}`}>
             <input name="search-domain" type="radio" id="search-domain-youtube" value="youtube" onClick={this.toggleDomain} checked={search.domain === 'youtube'} />

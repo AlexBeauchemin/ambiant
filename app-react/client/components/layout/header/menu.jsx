@@ -6,7 +6,6 @@ import { bindAll, get as _get } from 'lodash';
 class Menu extends Component {
   constructor(props) {
     super(props);
-
     bindAll(this, ['open', 'logout']);
   }
 
@@ -27,12 +26,12 @@ class Menu extends Component {
   }
 
   render() {
-    const { radio, user, page } = this.props;
+    const { radio, isOwnRadio, user, page } = this.props;
     const activeMenuItems = [];
     const isGuest = _get(user, 'profile.guest');
     const radioUrl = radio ? `/${radio.url}` : '#';
     const name = _get(user, 'profile.name');
-
+    
     const menuItems = {
       newRadio: <li><a href="#" data-target="new-radio" onClick={this.open}>New radio</a></li>,
       myRadio: <li><a href={radioUrl}>My radio</a></li>,
@@ -42,7 +41,7 @@ class Menu extends Component {
       profile: <li className="username">({name})</li>
     };
     
-    if (radio && page !== 'radio') activeMenuItems.push(menuItems.myRadio);
+    if (radio && (page !== 'radio' || !isOwnRadio)) activeMenuItems.push(menuItems.myRadio);
     if (!radio) activeMenuItems.push(menuItems.newRadio);
 
     if (isGuest) {
@@ -54,8 +53,6 @@ class Menu extends Component {
       activeMenuItems.push(menuItems.profile);
     }
     
-    console.log(activeMenuItems);
-
     return (
       <ul className="right hide-on-med-and-down">
         {activeMenuItems}
@@ -66,6 +63,7 @@ class Menu extends Component {
 
 Menu.propTypes = {
   dispatch: PropTypes.func,
+  isOwnRadio: PropTypes.bool,
   page: PropTypes.string,
   radio: PropTypes.object,
   user: PropTypes.object

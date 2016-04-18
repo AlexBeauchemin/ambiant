@@ -22,6 +22,13 @@ export function setOwnRadio(radio) {
   };
 }
 
+export function setPlaylist(playlist) {
+  return {
+    playlist,
+    type: types.SET_PLAYLIST
+  };
+}
+
 export function setRadio(radio) {
   return {
     radio,

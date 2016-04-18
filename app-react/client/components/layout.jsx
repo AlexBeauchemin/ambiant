@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactRedux from 'react-redux';
+import { get } from 'lodash';
 import store from '../store/store';
 import DevTools from '../containers/dev-tools.jsx';
 import HeaderContainer from '../containers/header-container.jsx';
@@ -19,12 +20,13 @@ class Layout extends React.Component {
   
   render() {
     const { content } = this.props;
-    const routeName = FlowRouter.current().route.name;
+    const routeName = get(FlowRouter.current(), 'route.name');
+    const slug = get(FlowRouter.current(), 'params.slug');
 
     return (
       <Provider store={store(initialState)}>
         <div data-route={routeName}>
-          <HeaderContainer page={routeName} />
+          <HeaderContainer page={routeName} slug={slug} />
           <main>{content}</main>
           <ModalsContainer />
           <DevTools />

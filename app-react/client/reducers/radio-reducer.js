@@ -6,6 +6,7 @@ const defaultState = {
   domain: 'youtube',
   own: null,
   playlist: [],
+  playlistEnded: [],
   showMore: false,
   song: null,
   state: 'stop'
@@ -14,7 +15,8 @@ const defaultState = {
 export default (state = defaultState, action = {}) => {
   switch (action.type) {
     case types.SET_PLAYLIST:
-      return Object.assign({}, state, { data: action.playlist });
+      const { playlist, playlistEnded } = action;
+      return Object.assign({}, state, { playlist, playlistEnded });
     case types.SET_OWN_RADIO: {
       const own = pick(action.radio, ['_id', 'name', 'url']);
       return Object.assign({}, state, { own });

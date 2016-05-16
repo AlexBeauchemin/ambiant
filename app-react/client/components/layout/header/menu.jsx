@@ -33,12 +33,12 @@ class Menu extends Component {
     const name = _get(user, 'profile.name');
     
     const menuItems = {
-      newRadio: <li><a href="#" data-target="new-radio" onClick={this.open}>New radio</a></li>,
-      myRadio: <li><a href={radioUrl}>My radio</a></li>,
-      login: <li><a href="#" data-target="login" onClick={this.open}>Log In</a></li>,
-      register: <li><a href="#" data-target="register" onClick={this.open}>Register</a></li>,
-      logout: <li><a href="#" onClick={this.logout}>Log out</a></li>,
-      profile: <li className="username">({name})</li>
+      newRadio: <li key="new"><a href="#" data-target="new-radio" onClick={this.open}>New radio</a></li>,
+      myRadio: <li key="own"><a href={radioUrl}>My radio</a></li>,
+      login: <li key="login"><a href="#" data-target="login" onClick={this.open}>Log In</a></li>,
+      register: <li key="register"><a href="#" data-target="register" onClick={this.open}>Register</a></li>,
+      logout: <li key="logout"><a href="#" onClick={this.logout}>Log out</a></li>,
+      profile: <li key="profile" className="username">({name})</li>
     };
     
     if (radio && (page !== 'radio' || !isOwnRadio)) activeMenuItems.push(menuItems.myRadio);

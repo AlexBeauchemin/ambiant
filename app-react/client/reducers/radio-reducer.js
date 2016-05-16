@@ -3,20 +3,12 @@ import { omit, pick } from 'lodash';
 
 const defaultState = {
   data: null,
-  domain: 'youtube',
   own: null,
-  playlist: [],
-  playlistEnded: [],
-  showMore: false,
-  song: null,
   state: 'stop'
 };
 
 export default (state = defaultState, action = {}) => {
   switch (action.type) {
-    case types.SET_PLAYLIST:
-      const { playlist, playlistEnded } = action;
-      return Object.assign({}, state, { playlist, playlistEnded });
     case types.SET_OWN_RADIO: {
       const own = pick(action.radio, ['_id', 'name', 'url']);
       return Object.assign({}, state, { own });
@@ -25,10 +17,6 @@ export default (state = defaultState, action = {}) => {
       const data = omit(action.radio, ['playlist', 'playlistEnded']);
       return Object.assign({}, state, { data });
     }
-    case types.SET_SONG:
-      return Object.assign({}, state, { song: action.song, domain: action.song.domain });
-    case types.TOGGLE_SHOW_MORE:
-      return Object.assign({}, state, { showMore: !state.showMore });
     default:
       return state;
   }

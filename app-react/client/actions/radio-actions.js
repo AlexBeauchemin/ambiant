@@ -22,22 +22,9 @@ export function setOwnRadio(radio) {
   };
 }
 
-export function setPlaylist(playlist) {
-  return {
-    playlist,
-    type: types.SET_PLAYLIST
-  };
-}
-
 export function setRadio(radio) {
   return {
     radio,
     type: types.SET_RADIO
-  };
-}
-
-export function toggleShowMore() {
-  return {
-    type: types.TOGGLE_SHOW_MORE
   };
 }

@@ -32,7 +32,7 @@ Meteor.methods({
       if (Helpers.hasUserReachedLimit(radio)) throw new Meteor.Error(500, 'You have reached your limit for this radio. Please try again later');
     }
 
-    if (Helpers.isOwner(radioId) || Helpers.canAdd(radioId)) Radios.update({ _id: radioId }, { $push: { playlist: song } });
+    if (Helpers.isOwner(radioId) || Helpers.canAdd(radioId)) Radios.update({ _id: radioId }, { $push: { playlist: res } });
   },
   
   ['radio.create'](name) {

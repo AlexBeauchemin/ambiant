@@ -4,8 +4,8 @@ import MenuMobile from './header/menu-mobile.jsx';
 import StaticAlerts from './header/static-alerts.jsx';
 
 const Header = (props) => {
-  const { radio, user, page, slug } = props;
-  const isOwnRadio = slug === radio.url;
+  const { radio = {}, user, page, slug } = props;
+  const isOwnRadio = radio ? slug === radio.url : false;
   
   return (
     <header className="navbar-fixed">

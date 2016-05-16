@@ -1,79 +1,47 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { setRadio } from '../../actions/radio-actions';
-import { setPlaylist } from '../../actions/playlist-actions';
 import Loader from '../shared/loader.jsx';
 import RadioHeader from './radio/header.jsx';
 import Player from './radio/player.jsx';
 import Playlist from './radio/playlist.jsx';
 import Settings from './radio/settings.jsx';
 import SearchBar from './radio/search-bar.jsx';
-import { get as _get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
-class Radio extends Component {
-  componentWillMount() {
-    const { dispatch, radio } = this.props;
-    //dispatch(setPlaylist(radio.playlist, radio.playlistEnded));
-    //dispatch(setRadio(radio));
-  }
+const Radio = ({ radio }) => {
+  if (radio === null) return <Loader />;
 
-  componentWillReceiveProps(props) {
-    const { dispatch, radio } = this.props;
-    
-    if (radio._id !== props.radio._id) {
-      //dispatch(setRadio(props.radio));
-    }
+  const isAdmin = radio ? !!radio.users : false;
+  let settings = null;
 
-    //dispatch(setPlaylist(props.radio.playlist, props.radio.playlistEnded));
-  }
-
-  render() {
-    const { radio } = this.props;
-    const radioId = _get(radio, 'data._id');
-    const isAdmin = _get(radio, 'own._id') === radioId;
-    let settings = <Settings />;
-
-    if (!isAdmin) settings = null;
-    if (radio.data === null) return <Loader />;
-    if (radio.data === undefined) {
-      return (
-        <div className="row">
-          <h2 className="center-align space-top">Radio not found</h2>
-        </div>
-      );
-    }
-
+  if (isEmpty(radio)) {
     return (
-      <div className="container">
-        <RadioHeader isAdmin={isAdmin} radio={radio.data} />
-        <div className="row">
-          <div className={ isAdmin ? 'col s12 m7' : 'col s12' }>
-            <SearchBar radioId={radioId} />
-            <Player />
-          </div>
-          <div className={ isAdmin ? 'col s12 m5' : 'col s12' }>
-            {settings}
-            <Playlist playlist={radio.data.playlist} ended={radio.data.playlistEnded} />
-          </div>
-        </div>
+      <div className="row">
+        <h2 className="center-align space-top">Radio not found</h2>
       </div>
     );
   }
-}
+
+  if (isAdmin) settings = <Settings />;
+
+  return (
+    <div className="container">
+      <RadioHeader isAdmin={isAdmin} radio={radio} />
+      <div className="row">
+        <div className={ isAdmin ? 'col s12 m7' : 'col s12' }>
+          <SearchBar radioId={radio._id} />
+          <Player />
+        </div>
+        <div className={ isAdmin ? 'col s12 m5' : 'col s12' }>
+          {settings}
+          <Playlist playlist={radio.playlist} ended={radio.playlistEnded} />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 Radio.propTypes = {
-  dispatch: PropTypes.func,
-  playlist: PropTypes.array,
-  playlistEnded: PropTypes.array,
   radio: PropTypes.object
 };
 
-const mapStateToProps = (state) => {
-  return {
-    playlist: state.playlist,
-    playlistEnded: state.playlistEnded,
-    radio: state.radio
-  };
-};
-
-export default connect(mapStateToProps)(Radio);
+export default Radio;
